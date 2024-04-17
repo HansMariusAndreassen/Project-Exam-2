@@ -4,8 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+:root {
   font-family: "Roboto Flex", sans-serif;
+  background-color: theme("colors.background");
 }
 
 h1,
@@ -15,4 +16,20 @@ h4,
 h5,
 h6 {
   font-family: "Archivo Black", sans-serif;
+}
+
+.btn {
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  border: 1px solid theme("colors.orange");
+  background-color: theme("colors.orange");
+  color: theme("colors.background");
+  cursor: pointer;
+  transition: ease 0.3s;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.6);
+
+  &:hover {
+    background-color: theme("colors.background");
+    color: theme("colors.orange");
+  }
 }
