@@ -2,6 +2,10 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      text: ["Roboto Flex", "sans-serif"],
+      heading: ["Archivo Black", "sans-serif"],
+    },
     colors: {
       transparent: "transparent",
       current: "currentColor",
