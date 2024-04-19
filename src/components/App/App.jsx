@@ -1,13 +1,9 @@
 import React from "react";
 import "./App.css";
-import Header from "../layout/Header";
+import Router from "../Router";
 
 function App() {
-  return (
-    <>
-      <Header />
-    </>
-  );
+  return <Router />;
 }
 
 export default App;
