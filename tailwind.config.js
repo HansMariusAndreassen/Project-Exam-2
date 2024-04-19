@@ -2,6 +2,9 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    borderRadius: {
+      25: "25px",
+    },
     fontFamily: {
       text: ["Roboto Flex", "sans-serif"],
       heading: ["Archivo Black", "sans-serif"],
