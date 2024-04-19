@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Register = (method, body = null) => {
+const Register = (method, url, body = null) => {
   const baseUrl = "https://v2.api.noroff.dev/";
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ const Register = (method, body = null) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(baseUrl, {
+        const response = await fetch(baseUrl + url, {
           method: method,
           headers: {
             "Content-Type": "application/json",
@@ -24,7 +24,7 @@ const Register = (method, body = null) => {
       setLoading(false);
     }
     fetchData();
-  }, [method, body]);
+  }, [method, url, body]);
   return { loading, error, data };
 };
 
