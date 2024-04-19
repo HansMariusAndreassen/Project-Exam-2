@@ -1,6 +1,6 @@
 export const baseUrl = "https://v2.api.noroff.dev/";
-export const registerEndpoint = "holidaze/auth/register";
-export const loginEndpoint = "holidaze/auth/login";
+export const registerEndpoint = "auth/register";
+export const loginEndpoint = "auth/login";
 export const venuesEndpoint = "holidaze/venues";
 export const bookingsEndpoint = "holidaze/bookings";
 
