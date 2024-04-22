@@ -12,13 +12,13 @@ export default {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      background: "#FDF2DC",
+      background: "#E5D1B8", //off-white
       black: "#000",
       white: "#fff",
-      orange: "#AD4000",
-      yellow: "#F2AF5C",
-      brown: "#8C4F2B",
-      teal: "#8697A6",
+      primary: "#DE8E59", // Very dark gray
+      secondary: "#2B2129", // Orange
+      accent: "#708A81", // Teal
+      accentTwo: "#C2956E", //Tan
     },
     extend: {},
   },
