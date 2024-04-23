@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Register = (method, url, body = null) => {
+const useRegister = (method, url, body = null) => {
   const baseUrl = "https://v2.api.noroff.dev/";
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,4 +28,4 @@ const Register = (method, url, body = null) => {
   return { loading, error, data };
 };
 
-export default Register;
+export default useRegister;

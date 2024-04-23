@@ -3,8 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const Main = () => {
   return (
-    <main>
-      <h1>Hello world</h1>
+    <main className="mt-40 min-h-screen">
       <Outlet />
     </main>
   );

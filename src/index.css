@@ -11,6 +11,9 @@
   background-color: theme("colors.background");
 }
 
+main {
+  margin-bottom: 10rem;
+}
 h1,
 h2,
 h3,
@@ -23,35 +26,39 @@ h6 {
 .btn {
   padding: 0.15rem 1rem;
   border-radius: 25px;
-  border: 1px solid theme("colors.orange");
-  background-color: theme("colors.orange");
+  border: 1px solid theme("colors.primary");
+  background-color: theme("colors.secondary");
   color: theme("colors.background");
   cursor: pointer;
   transition: ease 0.3s;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.6);
 
   &:hover {
-    background-color: theme("colors.background");
-    color: theme("colors.orange");
+    background-color: theme("colors.primary");
+    color: theme("colors.secondary");
   }
 }
 
 .btn-revert {
   padding: 0.15rem 1rem;
   border-radius: 25px;
-  border: 1px solid theme("colors.background");
-  background-color: theme("colors.background");
-  color: theme("colors.orange");
+  border: 1px solid theme("colors.primary");
+  background-color: theme("colors.secondary");
+  color: theme("colors.background");
   cursor: pointer;
   transition: ease 0.3s;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.6);
 
   &:hover {
-    background-color: theme("colors.orange");
-    color: theme("colors.background");
+    background-color: theme("colors.primary");
+    color: theme("colors.secondary");
   }
 }
 
 .text-shadow {
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+}
+
+input {
+  text-indent: 0.5rem;
 }

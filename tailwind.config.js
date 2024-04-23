@@ -12,11 +12,11 @@ export default {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      background: "#E5D1B8", //off-white
+      background: "#2B2129", //off-white
       black: "#000",
       white: "#fff",
       primary: "#DE8E59", // Very dark gray
-      secondary: "#2B2129", // Orange
+      secondary: "#E5D1B8", // Orange
       accent: "#708A81", // Teal
       accentTwo: "#C2956E", //Tan
     },
