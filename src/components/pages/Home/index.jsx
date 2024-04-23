@@ -1,9 +1,11 @@
 import React from "react";
+import SearchBar from "../../SearchBar";
 
 const Home = () => {
   return (
-    <div className="mt-20">
+    <div>
       <h1>Home</h1>
+      <SearchBar />
     </div>
   );
 };
