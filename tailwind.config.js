@@ -4,6 +4,7 @@ export default {
   theme: {
     borderRadius: {
       25: "25px",
+      50: "50px",
     },
     fontFamily: {
       text: ["Roboto Flex", "sans-serif"],

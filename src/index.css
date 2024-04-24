@@ -62,3 +62,25 @@ h6 {
 input {
   text-indent: 0.5rem;
 }
+
+.mapStyle {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.mapStyle path {
+  fill: theme("colors.accentTwo");
+  transition: ease 0.3s;
+}
+
+#africa:hover path,
+#europe:hover path,
+#asia:hover path,
+#NA:hover path,
+#SA:hover path,
+#australia:hover path {
+  fill: theme("colors.accent");
+  transition: ease 0.3s;
+  scale: 1.01;
+  cursor: pointer;
+}
