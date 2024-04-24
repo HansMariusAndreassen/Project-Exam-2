@@ -4,6 +4,7 @@ export default {
   theme: {
     borderRadius: {
       25: "25px",
+      50: "50px",
     },
     fontFamily: {
       text: ["Roboto Flex", "sans-serif"],
@@ -12,13 +13,13 @@ export default {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      background: "#FDF2DC",
+      background: "#2B2129", //off-white
       black: "#000",
       white: "#fff",
-      orange: "#AD4000",
-      yellow: "#F2AF5C",
-      brown: "#8C4F2B",
-      teal: "#8697A6",
+      primary: "#DE8E59", // Very dark gray
+      secondary: "#E5D1B8", // Orange
+      accent: "#708A81", // Teal
+      accentTwo: "#C2956E", //Tan
     },
     extend: {},
   },
