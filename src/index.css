@@ -82,4 +82,5 @@ input {
   fill: theme("colors.accent");
   transition: ease 0.3s;
   scale: 1.01;
+  cursor: pointer;
 }

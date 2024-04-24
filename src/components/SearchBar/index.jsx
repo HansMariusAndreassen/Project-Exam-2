@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IoSearchSharp } from "react-icons/io5";
+import { IoClose, IoSearchSharp } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import ContinentMap from "../ContinentMap";
 
@@ -12,15 +12,14 @@ const SearchBar = () => {
 
   return (
     <div className="m-auto">
-      <h1>SearchBar</h1>
-      <div
-        onClick={() => toggleExpanded()}
-        className="flex justify-center :hover cursor-pointer"
-      >
+      <div className="flex justify-center">
         <div
           className={`bg-white gap-5 p-5 rounded-50 border-primary border-2 ${isExpanded ? "flex-col" : "justify-center items-center"}`}
         >
-          <div className="flex justify-center items-center gap-10 px-10">
+          <div
+            className="flex justify-center items-center gap-10 px-10 :hover cursor-pointer"
+            onClick={() => toggleExpanded()}
+          >
             <IoSearchSharp size={32} />
             <h2>You can go anywhere</h2>
             <RxHamburgerMenu size={32} />
@@ -29,7 +28,7 @@ const SearchBar = () => {
             {isExpanded && (
               <div className="w-full mt-10">
                 <input
-                  type="text"
+                  type="date"
                   placeholder="Search for dates"
                   className="mt-3 p-2 border rounded-50 w-full"
                   aria-label="Search for dates"
@@ -42,6 +41,13 @@ const SearchBar = () => {
                 />
                 <div className="mt-10">
                   <ContinentMap />
+                </div>
+                <div className="flex justify-end">
+                  <IoClose
+                    size={24}
+                    className=":hover cursor-pointer"
+                    onClick={() => toggleExpanded()}
+                  />
                 </div>
               </div>
             )}
