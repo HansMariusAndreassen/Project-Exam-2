@@ -5,11 +5,11 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="fixed px-10 min-w-full">
-      <nav className="flex max-w-7xl bg-primary p-5 m-0 rounded-b-25 gap-2 items-center justify-between">
+    <header className="fixed min-w-full z-50">
+      <nav className="flex max-w-7xl bg-secondary p-5 m-auto rounded-b-25 gap-2 items-center justify-between">
         <h1
           onClick={() => navigate("/")}
-          className="text-background uppercase text-2xl :hover: cursor-pointer"
+          className="text-primary uppercase text-2xl :hover: cursor-pointer"
         >
           Havens
         </h1>

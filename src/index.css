@@ -27,8 +27,8 @@ h6 {
   padding: 0.15rem 1rem;
   border-radius: 25px;
   border: 1px solid theme("colors.primary");
-  background-color: theme("colors.secondary");
-  color: theme("colors.background");
+  background-color: theme("colors.background");
+  color: theme("colors.secondary");
   cursor: pointer;
   transition: ease 0.3s;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.6);
@@ -69,7 +69,7 @@ input {
 }
 
 .mapStyle path {
-  fill: theme("colors.accentTwo");
+  fill: theme("colors.secondary");
   transition: ease 0.3s;
 }
 
@@ -79,8 +79,83 @@ input {
 #NA:hover path,
 #SA:hover path,
 #australia:hover path {
-  fill: theme("colors.accent");
+  fill: theme("colors.primary");
   transition: ease 0.3s;
   scale: 1.01;
   cursor: pointer;
+}
+
+.cards {
+  width: 350px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: theme("colors.background");
+  color: theme("colors.secondary");
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel-item {
+  flex: none;
+  width: 100%;
+  scroll-snap-align: start;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+.loader {
+  position: relative;
+  border: 24px solid;
+  border-color: #fff transparent #fff transparent;
+  animation: rotate 2s linear infinite;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  display: block;
+  border: 24px solid transparent;
+  border-left-color: #fff;
+  position: absolute;
+  left: -24px;
+  top: -24px;
+  animation: mvx 1s infinite linear;
+}
+.loader:before {
+  border-color: transparent #fff transparent transparent;
+  animation-name: mvrx;
+  animation-delay: 0.5s;
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes mvx {
+  20%,
+  80% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-50%);
+  }
+}
+@keyframes mvrx {
+  20%,
+  80% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(50%);
+  }
 }
