@@ -5,8 +5,8 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="fixed min-w-full z-50">
-      <nav className="flex max-w-7xl bg-secondary p-5 m-auto rounded-b-25 gap-2 items-center justify-between">
+    <header className="bg-secondary fixed w-full z-50">
+      <nav className=" flex justify-between m-auto p-5 max-w-[1440px]">
         <h1
           onClick={() => navigate("/")}
           className="text-primary uppercase text-2xl :hover: cursor-pointer"
@@ -14,7 +14,9 @@ const Header = () => {
           Havens
         </h1>
         <div className="flex gap-2">
-          <button className="btn">Register</button>
+          <button onClick={() => navigate("/registration")} className="btn">
+            Register
+          </button>
           <button className="btn">Login</button>
         </div>
       </nav>

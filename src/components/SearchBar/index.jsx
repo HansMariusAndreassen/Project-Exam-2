@@ -6,18 +6,23 @@ import ContinentMap from "../ContinentMap";
 const SearchBar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const handleContinentSelect = () => {
+    setIsExpanded(false);
+  };
+
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
   };
 
   return (
-    <div className="m-auto">
+    <div className="fixed top-10 w-full m-auto z-[60]">
       <div className="flex justify-center">
         <div
+          id="search-bar"
           className={`bg-white gap-5 p-5 rounded-50 border-primary border-2 ${isExpanded ? "flex-col" : "justify-center items-center"}`}
         >
           <div
-            className="flex justify-center items-center gap-10 px-10 :hover cursor-pointer"
+            className="flex justify-center items-center gap-10  :hover cursor-pointer"
             onClick={() => toggleExpanded()}
           >
             <IoSearchSharp size={32} />
@@ -26,7 +31,7 @@ const SearchBar = () => {
           </div>
           <div className="flex">
             {isExpanded && (
-              <div className="w-full mt-10">
+              <div className="w-full">
                 <input
                   type="date"
                   placeholder="Search for dates"
@@ -40,7 +45,7 @@ const SearchBar = () => {
                   aria-label="Search locations"
                 />
                 <div className="mt-10">
-                  <ContinentMap />
+                  <ContinentMap onContinentSelect={handleContinentSelect} />
                 </div>
                 <div className="flex justify-end">
                   <IoClose
