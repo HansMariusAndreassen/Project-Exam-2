@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-const ImageCarousel = ({ images }) => {
+const ImageCarousel = ({ images, imageStyle }) => {
   const [current, setCurrent] = useState(0);
   const length = images.length;
 
@@ -17,8 +17,14 @@ const ImageCarousel = ({ images }) => {
     return null;
   }
 
+  const defaultImageStyle = {
+    height: "200px",
+    width: "350px",
+    ...imageStyle,
+  };
+
   return (
-    <div className="relative max-w-2xl mx-auto overflow-hidden rounded-t-25">
+    <div className="relative max-w-2xl mx-auto overflow-hidden">
       {images.map((image, index) => (
         <div
           key={index}
@@ -31,7 +37,7 @@ const ImageCarousel = ({ images }) => {
               alt={image.alt}
               loading="lazy"
               className="w-full object-cover bg-white"
-              style={{ height: "200px", width: "350px" }}
+              style={defaultImageStyle}
             />
           )}
         </div>
@@ -63,6 +69,7 @@ ImageCarousel.propTypes = {
       alt: PropTypes.string.isRequired,
     })
   ).isRequired,
+  imageStyle: PropTypes.object,
 };
 
 export default ImageCarousel;

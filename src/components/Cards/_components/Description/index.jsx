@@ -10,7 +10,7 @@ const Description = ({ description, isExpanded, toggleExpanded }) => {
   return (
     <div>
       <h3 className="w-full text-left">Description</h3>
-      <p className="w-full text-left text-wrap z-20">
+      <p className="w-full text-left text-wrap z-20 bg-background border-background">
         {longDescription ? displayedDescription : description}
         {longDescription && (
           <button
