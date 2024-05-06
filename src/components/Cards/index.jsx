@@ -13,7 +13,11 @@ const Cards = () => {
   const navigate = useNavigate();
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div>
+        <span className="loader">Loading</span>
+      </div>
+    );
   }
 
   if (error) {

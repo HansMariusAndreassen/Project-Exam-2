@@ -6,17 +6,18 @@ import {
   PiTextAUnderline,
   PiUser,
 } from "react-icons/pi";
-import useRegister from "../../API/auth/Register";
 import { registerUrl } from "../../../utils/constants";
+import useFetch from "../../API/auth/FetchHook";
 
 const RegistrationForm = () => {
+  const { performFetch, data, error, loading } = useFetch(registerUrl);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     avatar: {
       url: "",
-      alt: "",
+      alt: "Profile Avatar",
     },
     venueManager: false,
   });
@@ -48,12 +49,18 @@ const RegistrationForm = () => {
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    useRegister("POST", registerUrl, formData);
+    performFetch({
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
   };
 
   return (
     <div className="flex justify-center bg-secondary">
-      <form className="flex-col align-middle bg-accentTwo p-4 rounded-25">
+      <form
+        onSubmit={handleSubmit}
+        className="flex-col align-middle bg-accentTwo p-4 rounded-25"
+      >
         <div className="border-b pb-12">
           <h2 className="leading-7 text-gray-900">Register your Profile</h2>
           <p className="mt-1 text-sm text-wrap leading-6 text-gray-600">
@@ -146,7 +153,8 @@ const RegistrationForm = () => {
                 <input
                   onChange={handleAvatarChange}
                   type="text"
-                  name="avatarUrl"
+                  name="url"
+                  value={formData.avatar.url}
                   id="avatarUrl"
                   className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="https://img.service.com/avatar.jpg"
@@ -202,13 +210,13 @@ const RegistrationForm = () => {
           >
             Cancel
           </button>
-          <button
-            onClick={() => handleSubmit()}
-            type="submit"
-            className="btn rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
+          <button type="submit" className="btn">
             Send
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error}</p>}
+            {data && <p>Success! Data received.</p>}
           </button>
+          <div></div>
         </div>
       </form>
     </div>
