@@ -16,10 +16,10 @@ const SearchBar = () => {
 
   return (
     <div className="fixed top-10 w-full m-auto z-[60]">
-      <div className="flex justify-center">
+      <div className="flex justify-center ">
         <div
           id="search-bar"
-          className={`bg-white gap-5 p-5 rounded-50 border-primary border-2 ${isExpanded ? "flex-col" : "justify-center items-center"}`}
+          className="bg-white gap-5 p-5 rounded-50 border-primary border-2"
         >
           <div
             className="flex justify-center items-center gap-10  :hover cursor-pointer"

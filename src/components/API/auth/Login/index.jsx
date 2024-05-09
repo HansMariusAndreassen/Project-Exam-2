@@ -19,9 +19,10 @@ const useLogin = (url) => {
   );
 
   useEffect(() => {
-    if (data && data.accessToken) {
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
+    console.log(data);
+    if (data && data.data.accessToken) {
+      localStorage.setItem("accessToken", data.data.accessToken);
+      localStorage.setItem("user", JSON.stringify(data.data));
       setLoggedIn(true);
     }
   }, [data]);

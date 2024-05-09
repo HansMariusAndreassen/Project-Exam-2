@@ -1,24 +1,27 @@
 import { useState, useCallback } from "react";
-import heavens_API_Key from "../../../utils/constants";
+// import heavens_API_Key from "../../../utils/constants";
 
 const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   const performFetch = useCallback(
     async (options = {}) => {
       setLoading(true);
+      const token = localStorage.getItem("accessToken");
       try {
         const headers = new Headers({
           "Content-Type": "application/json",
           ...options.headers,
         });
 
-        const token = localStorage.getItem("accessToken");
         if (token) {
+          console.log("Using Token:", token);
+          console.log("Using API Key:", apiKey);
           headers.append("Authorization", `Bearer ${token}`);
-          headers.append("X-Noroff-API-Key", heavens_API_Key);
+          headers.append("X-Noroff-API-Key", apiKey);
         }
 
         const response = await fetch(url, {
@@ -38,7 +41,7 @@ const useFetch = (url) => {
         setLoading(false);
       }
     },
-    [url]
+    [url, apiKey]
   );
 
   return { data, loading, error, performFetch };

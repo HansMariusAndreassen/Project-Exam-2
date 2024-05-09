@@ -13,3 +13,5 @@ export const registerUrl = baseUrl + registerEndpoint;
 export const loginUrl = baseUrl + loginEndpoint;
 export const venuesUrl = baseUrl + venuesEndpoint;
 export const bookingsUrl = baseUrl + bookingsEndpoint;
+
+// export const havens_API_Key = "3b5ee6ba-7b8e-4b32-a547-b264007658ff";
