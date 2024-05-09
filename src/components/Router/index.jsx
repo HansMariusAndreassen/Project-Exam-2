@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import RegistrationForm from "../forms/RegisterForm";
 import Booking from "../pages/Booking";
+import LoginForm from "../forms/LoginForm";
 
 const Router = () => {
   return (
@@ -14,6 +15,7 @@ const Router = () => {
         <Route path="/booking/:id" element={<Booking />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/registration" element={<RegistrationForm />} />
+        <Route path="/login" element={<LoginForm />} />
       </Route>
     </Routes>
   );

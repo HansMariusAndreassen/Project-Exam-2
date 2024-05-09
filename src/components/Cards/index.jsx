@@ -13,7 +13,11 @@ const Cards = () => {
   const navigate = useNavigate();
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div>
+        <span className="loader">Loading</span>
+      </div>
+    );
   }
 
   if (error) {
@@ -26,18 +30,18 @@ const Cards = () => {
 
   return (
     <div className="flex gap-10 justify-center flex-wrap m-auto mt-5 text-white">
-      {venues.data.map((venue) => (
+      {venues?.map((venue) => (
         <div key={venue.id} className="cards">
           <ImageCarousel images={venue.media} />
           {expandedCard !== venue.id && (
             <Country country={venue.location.country} />
           )}
-          <h2 className="w-full text-left text-wrap p-3 text-xl flex justify-between items-center">
+          <h2 className="w-full text-left text-wrap p-3 text-xl flex justify-between items-center overflow-hidden">
             {venue.name}{" "}
-            <span>
-              <Rating rating={venue.rating} />
-            </span>
           </h2>
+          <span className="px-3">
+            <Rating rating={venue.rating} />
+          </span>
           <div className="w-full px-3">
             <Description
               description={venue.description}

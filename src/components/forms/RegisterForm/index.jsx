@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   PiAt,
   PiImage,
@@ -6,20 +6,42 @@ import {
   PiTextAUnderline,
   PiUser,
 } from "react-icons/pi";
-import useRegister from "../../API/auth/Register";
-import { registerUrl } from "../../../utils/constants";
+import { registerUrl, loginUrl } from "../../../utils/constants";
+import useFetch from "../../API/auth/FetchHook";
+import useLogin from "../../API/auth/Login";
+import { useNavigate } from "react-router-dom";
+import Modal from "../../Modal";
 
 const RegistrationForm = () => {
+  const { performFetch, data, error, loading } = useFetch(registerUrl);
+  const { login, loggedIn } = useLogin(loginUrl);
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     avatar: {
-      url: "",
+      url: "https://img.freepik.com/premium-vector/vector-flat-illustration-black-line-avatar-user-profile-person-icon-gender-neutral-silhouette-profile-picture-suitable-social-media-profiles-icons-screensavers-as-templatex9xa_719432-802.jpg?w=1380",
       alt: "",
     },
     venueManager: false,
   });
+
+  useEffect(() => {
+    if (data && !error) {
+      login({ email: formData.email, password: formData.password });
+    }
+  }, [data, error, login, formData]);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const handleChange = (event) => {
     setFormData({
@@ -48,12 +70,29 @@ const RegistrationForm = () => {
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    useRegister("POST", registerUrl, formData);
+    performFetch({
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
   };
+
+  if (loggedIn) {
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  }
 
   return (
     <div className="flex justify-center bg-secondary">
-      <form className="flex-col align-middle bg-accentTwo p-4 rounded-25">
+      <Modal isOpen={showModal} onClose={closeModal}>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        {data && <p>Success! Data received.</p>}
+      </Modal>
+      <form
+        onSubmit={handleSubmit}
+        className="flex-col align-middle bg-accentTwo p-4 rounded-25"
+      >
         <div className="border-b pb-12">
           <h2 className="leading-7 text-gray-900">Register your Profile</h2>
           <p className="mt-1 text-sm text-wrap leading-6 text-gray-600">
@@ -146,10 +185,11 @@ const RegistrationForm = () => {
                 <input
                   onChange={handleAvatarChange}
                   type="text"
-                  name="avatarUrl"
+                  name="url"
+                  value={formData.avatar.url}
                   id="avatarUrl"
                   className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="https://img.service.com/avatar.jpg"
+                  placeholder="Valid image address goes here"
                 />
               </div>
             </div>
@@ -202,12 +242,11 @@ const RegistrationForm = () => {
           >
             Cancel
           </button>
-          <button
-            onClick={() => handleSubmit()}
-            type="submit"
-            className="btn rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Send
+          <button onClick={openModal} type="submit" className="btn">
+            {!showModal && <p>Send</p>}
+            {loading && <p>Loading...</p>}
+            {error && <p>Try again</p>}
+            {showModal && <p>Please wait</p>}
           </button>
         </div>
       </form>

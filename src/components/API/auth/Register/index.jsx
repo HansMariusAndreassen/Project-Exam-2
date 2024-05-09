@@ -16,8 +16,8 @@ const useRegister = (method, url, body = null) => {
           },
           body: JSON.stringify(body),
         });
-        const data = await response.json();
-        setData(data);
+        const responseData = await response.json();
+        setData(responseData);
       } catch (error) {
         setError(error);
       }

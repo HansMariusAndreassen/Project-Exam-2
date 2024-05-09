@@ -1,25 +1,18 @@
-import { useEffect, useState } from "react";
-import { venuesUrl } from "../../../../utils/constants.js";
+import { useEffect } from "react";
+import { venuesUrl } from "../../../../utils/constants";
+import useFetch from "../../auth/FetchHook";
 
 const FetchVenues = () => {
-  const [venues, setVenues] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data, loading, error, performFetch } = useFetch(
+    `${venuesUrl}?_owner=true`
+  );
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(venuesUrl + "?_owner=true");
-        const data = await response.json();
-        setVenues(data);
-      } catch (error) {
-        setError(error);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-  return { venues, loading, error };
+    console.log("Initiating venues fetch");
+    performFetch();
+  }, [performFetch]);
+
+  return { venues: data?.data || [], loading, error };
 };
 
 export default FetchVenues;
