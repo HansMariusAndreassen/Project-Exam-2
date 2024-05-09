@@ -18,8 +18,7 @@ const useFetch = (url) => {
         });
 
         if (token) {
-          console.log("Using Token:", token);
-          console.log("Using API Key:", apiKey);
+          console.log("Logged in. Using token and key");
           headers.append("Authorization", `Bearer ${token}`);
           headers.append("X-Noroff-API-Key", apiKey);
         }
