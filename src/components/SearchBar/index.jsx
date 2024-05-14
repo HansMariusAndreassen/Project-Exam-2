@@ -33,16 +33,10 @@ const SearchBar = () => {
             {isExpanded && (
               <div className="w-full">
                 <input
-                  type="date"
-                  placeholder="Search for dates"
-                  className="mt-3 p-2 border rounded-50 w-full"
-                  aria-label="Search for dates"
-                />
-                <input
                   type="text"
-                  placeholder="Search locations"
+                  placeholder="Search here..."
                   className="mt-3 p-2 border rounded-50 w-full"
-                  aria-label="Search locations"
+                  aria-label="..search"
                 />
                 <div className="mt-10">
                   <ContinentMap onContinentSelect={handleContinentSelect} />
