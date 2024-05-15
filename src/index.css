@@ -63,6 +63,13 @@ h6 {
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
 }
 
+.search-results {
+  max-width: 375px;
+  max-height: 22rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 input {
   text-indent: 0.5rem;
 }

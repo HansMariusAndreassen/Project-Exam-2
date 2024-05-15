@@ -1,12 +1,24 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const Main = () => {
+const ContinentContext = React.createContext();
+
+const Main = ({ selectedContinent, setSelectedContinent }) => {
   return (
-    <main className="mt-[9rem] min-h-screen">
-      <Outlet />
-    </main>
+    <ContinentContext.Provider
+      value={{ selectedContinent, setSelectedContinent }}
+    >
+      <main className="pt-[9rem] min-h-screen">
+        <Outlet />
+      </main>
+    </ContinentContext.Provider>
   );
 };
 
-export default Main;
+Main.propTypes = {
+  selectedContinent: PropTypes.string,
+  setSelectedContinent: PropTypes.func,
+};
+
+export { Main, ContinentContext };

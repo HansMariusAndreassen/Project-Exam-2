@@ -5,6 +5,7 @@ export default {
     borderRadius: {
       25: "25px",
       50: "50px",
+      full: "9999px",
     },
     fontFamily: {
       text: ["Roboto Flex", "sans-serif"],
