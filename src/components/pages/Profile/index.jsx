@@ -6,10 +6,7 @@ import { useNavigate } from "react-router-dom";
 import DropdownMenu from "../../Dropdown";
 
 const Profile = () => {
-  const [showInput, setShowInput] = useState({
-    url: "",
-    alt: "user profile avatar",
-  });
+  const [showInput, setShowInput] = useState(false);
   const [newAvatar, setNewAvatar] = useState({
     url: "",
     alt: "user profile avatar",

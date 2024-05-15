@@ -1,13 +1,19 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-// Validates props
-
-const ContinentMap = () => {
+const ContinentMap = ({ onContinentSelect }) => {
   const [isHovering, setIsHovering] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleMouseEnter = (continent) => {
     setIsHovering(continent);
     // Additional hover logic here
+  };
+
+  const handleMouseMove = (event) => {
+    if (isHovering) {
+      setMousePosition({ x: event.clientX, y: event.clientY });
+    }
   };
 
   const handleMouseLeave = () => {
@@ -17,17 +23,21 @@ const ContinentMap = () => {
 
   const handleClick = (continent) => {
     console.log(`Clicked on: ${continent}`);
-    // Navigation or other click-related logic here
+    onContinentSelect(continent);
   };
 
   return (
     <>
-      {" "}
       {isHovering && (
-        <div className="block text-accent m-auto">
-          <p className="absolute translate-y-48 mx-5 text-center">
-            {isHovering}
-          </p>
+        <div
+          className="z-10 block bg-white text-black rounded-25 shadow m-auto"
+          style={{
+            position: "absolute",
+            left: `${mousePosition.x + 10}px`, // 10px to the right of the cursor
+            top: `${mousePosition.y - 20}px`, // 20px above the cursor
+          }}
+        >
+          <p className="mx-5 text-left">{isHovering}</p>
         </div>
       )}
       <svg
@@ -40,6 +50,7 @@ const ContinentMap = () => {
           id="africa"
           onMouseEnter={() => handleMouseEnter("Africa")}
           onMouseLeave={() => handleMouseLeave("Africa")}
+          onMouseMove={handleMouseMove}
           onClick={() => handleClick("Africa")}
         >
           <path
@@ -55,6 +66,7 @@ const ContinentMap = () => {
           id="asia"
           onMouseEnter={() => handleMouseEnter("Asia")}
           onMouseLeave={() => handleMouseLeave("Asia")}
+          onMouseMove={handleMouseMove}
           onClick={() => handleClick("Asia")}
         >
           <path
@@ -138,6 +150,7 @@ const ContinentMap = () => {
           id="australia"
           onMouseEnter={() => handleMouseEnter("Australia")}
           onMouseLeave={() => handleMouseLeave("Australia")}
+          onMouseMove={handleMouseMove}
           onClick={() => handleClick("Australia")}
         >
           <path
@@ -153,6 +166,7 @@ const ContinentMap = () => {
           id="europe"
           onMouseEnter={() => handleMouseEnter("Europe")}
           onMouseLeave={() => handleMouseLeave("Europe")}
+          onMouseMove={handleMouseMove}
           onClick={() => handleClick("Europe")}
         >
           <path
@@ -204,6 +218,7 @@ const ContinentMap = () => {
           id="SA"
           onMouseEnter={() => handleMouseEnter("South America")}
           onMouseLeave={() => handleMouseLeave("South America")}
+          onMouseMove={handleMouseMove}
           onClick={() => handleClick("South America")}
         >
           <path
@@ -219,6 +234,7 @@ const ContinentMap = () => {
           id="NA"
           onMouseEnter={() => handleMouseEnter("North America")}
           onMouseLeave={() => handleMouseLeave("North America")}
+          onMouseMove={handleMouseMove}
           onClick={() => handleClick("North America")}
         >
           <path
@@ -261,6 +277,10 @@ const ContinentMap = () => {
       </svg>
     </>
   );
+};
+
+ContinentMap.propTypes = {
+  onContinentSelect: PropTypes.func.isRequired,
 };
 
 export default ContinentMap;

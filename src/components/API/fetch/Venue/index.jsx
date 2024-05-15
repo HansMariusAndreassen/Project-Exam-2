@@ -20,7 +20,7 @@ const FetchVenue = (id) => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [id]);
   return { venue, loading, error };
 };
 

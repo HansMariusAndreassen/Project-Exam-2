@@ -12,7 +12,7 @@ const FetchVenues = () => {
     performFetch();
   }, [performFetch]);
 
-  return { venues: data?.data || [], loading, error };
+  return { venues: data || [], loading, error };
 };
 
 export default FetchVenues;
