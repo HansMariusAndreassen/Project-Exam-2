@@ -99,7 +99,9 @@ const Cards = () => {
               <Country country={venue.location.country} />
             )}
             <h2 className="w-full text-left text-wrap p-3 text-xl flex justify-between items-center overflow-hidden">
-              {venue.name}{" "}
+              {venue.name.length > 18
+                ? `${venue.name.slice(0, 18)}..`
+                : venue.name}{" "}
             </h2>
             <span className="px-3">
               <Rating rating={venue.rating} />

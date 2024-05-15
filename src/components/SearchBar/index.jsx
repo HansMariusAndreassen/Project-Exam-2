@@ -6,6 +6,7 @@ import useFetch from "../API/auth/FetchHook";
 import { searchUrl } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import Rating from "../Cards/_components/Rating";
 
 const SearchBar = ({ onContinentSelect }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -107,10 +108,7 @@ const SearchBar = ({ onContinentSelect }) => {
                                   objectFit: "cover",
                                 }}
                                 src={result.media[0].url}
-                                alt={
-                                  result.media[0].alternativeText ||
-                                  "Venue image"
-                                }
+                                alt={result.media[0].alternativeText || ""}
                               />
                             </div>
                           ) : result.media ? (
@@ -126,7 +124,25 @@ const SearchBar = ({ onContinentSelect }) => {
                             </div>
                           ) : null}
                         </div>
-                        <h4>{result.name == "" ? "Title" : result.name}</h4>
+                        <div className="ml-3 w-full">
+                          <h4 className="text-sm">
+                            {result.name == ""
+                              ? "Title"
+                              : result.name.slice(0, 20)}
+                          </h4>
+                          <div className="flex mr-3 items-center justify-between">
+                            <div className="text-sm">
+                              {result.description == ""
+                                ? "Description"
+                                : result.description.slice(0, 20)}
+                            </div>
+                            {result.rating == 0 ? (
+                              "No Rating"
+                            ) : (
+                              <Rating rating={result.rating} />
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}

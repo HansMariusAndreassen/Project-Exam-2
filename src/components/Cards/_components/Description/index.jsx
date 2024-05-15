@@ -5,7 +5,7 @@ const Description = ({ description, isExpanded, toggleExpanded }) => {
   const longDescription = description.length > 100;
   const displayedDescription = isExpanded
     ? description
-    : `${description.substring(0, 100)}...`;
+    : `${description.substring(0, 60)}...`;
 
   return (
     <div>
