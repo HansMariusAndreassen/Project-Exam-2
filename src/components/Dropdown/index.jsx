@@ -21,11 +21,8 @@ const DropdownMenu = ({ onActivate, listItem }) => {
 
   return (
     <div ref={ref} style={{ position: "relative" }}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="rounded-full hover:text-primary"
-      >
-        <FaRegEdit size={16} />
+      <button onClick={() => setIsOpen(!isOpen)} className="hover:text-primary">
+        <FaRegEdit size={18} />
       </button>
       {isOpen && (
         <ul
@@ -35,10 +32,13 @@ const DropdownMenu = ({ onActivate, listItem }) => {
             backgroundColor: "#FFF",
             listStyle: "none",
             borderRadius: 5,
+            top: 25,
+            right: -15,
+            minWidth: 100,
           }}
         >
           <li
-            className="p-2 hover:underline hover:text-primary hover:cursor-pointer"
+            className="p-3 text-center hover:underline hover:text-primary hover:cursor-pointer"
             onClick={() => {
               onActivate();
               setIsOpen(false);

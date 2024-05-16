@@ -8,9 +8,9 @@ const Description = ({ description, isExpanded, toggleExpanded }) => {
     : `${description.substring(0, 60)}...`;
 
   return (
-    <div>
+    <div className="max-h-full">
       <h3 className="w-full text-left">Description</h3>
-      <p className="w-full text-left text-wrap z-20 bg-background border-background">
+      <p className="w-full text-left text-wrap z-30 bg-background border-background overflow-auto  max-h-[280px]">
         {longDescription ? displayedDescription : description}
         {longDescription && (
           <button
