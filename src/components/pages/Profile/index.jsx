@@ -78,13 +78,11 @@ const Profile = () => {
 
   const isValidHttpUrl = (string) => {
     let url;
-
     try {
       url = new URL(string);
     } catch (_) {
       return false; // Not a valid URL
     }
-
     return url.protocol === "http:" || url.protocol === "https:";
   };
 

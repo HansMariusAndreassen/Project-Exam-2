@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoClose, IoSearchSharp } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import ContinentMap from "../ContinentMap";
@@ -15,13 +15,23 @@ const SearchBar = ({ onContinentSelect }) => {
     `${searchUrl}${searchQuery}`
   );
   const [isExpanded, setIsExpanded] = useState(false);
-
   const navigate = useNavigate();
+  const searchBarRef = useRef(null);
 
-  // const handleContinentSelect = () => {
-  //   setIsExpanded(false);
-  //   onContinentSelect(onContinentSelect);
-  // };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        searchBarRef.current &&
+        !searchBarRef.current.contains(event.target)
+      ) {
+        setIsExpanded(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -56,6 +66,7 @@ const SearchBar = ({ onContinentSelect }) => {
         <div
           id="search-bar"
           className="bg-white gap-5 p-5 rounded-50 border-primary border-2"
+          ref={searchBarRef}
         >
           <div
             className="flex justify-center items-center gap-10 :hover cursor-pointer"
