@@ -180,10 +180,10 @@ img {
   pointer-events: none;
 }
 
-.react-daterange-picker__calendar {
+/* .react-daterange-picker__calendar {
   margin: auto !important;
   translate: -0.8rem;
-}
+} */
 
 .react-calendar__tile {
   border-radius: 25px;
@@ -212,7 +212,7 @@ img {
   color: theme("colors.white") !important;
 }
 
-.react-daterange-picker {
+/* .react-daterange-picker {
   background-color: theme("colors.secondary");
   padding: 0.5rem;
   border-radius: 25px;
@@ -221,6 +221,10 @@ img {
 .react-daterange-picker__wrapper {
   border: none;
   width: 100%;
+}
+
+.react-daterange-picker__wrapper button {
+  display: none;
 }
 
 .react-daterange-picker__clear-button__icon,
@@ -235,19 +239,23 @@ img {
 }
 
 .react-date-picker__inputGroup__divider {
-  content: "/";
+  content: "/" !important;
 }
 
 .react-daterange-picker__inputGroup {
   background-color: theme("colors.white");
-  border-radius: 25px;
-  border: 1px solid theme("colors.primary");
+  min-width: calc(4px + (4px * 3) + 0.54em * 8 + 0.217em * 2);
+  flex-grow: 1;
+  display: flex;
+  padding: 2px;
+  align-items: baseline;
 }
 
 .react-daterange-picker__inputGroup__day,
 .react-daterange-picker__inputGroup__month,
 .react-daterange-picker__inputGroup__year {
   width: fit-content !important;
+  max-width: 600px;
   color: theme("colors.secondary");
   text-align: center;
-}
+} */
