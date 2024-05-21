@@ -124,6 +124,10 @@ img {
   display: block;
 }
 
+textarea {
+  text-indent: 0.5rem;
+}
+
 .loader {
   font-size: 48px;
   font-weight: 600;

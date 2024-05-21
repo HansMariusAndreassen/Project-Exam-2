@@ -22,7 +22,7 @@ const useFetch = (url) => {
           headers.append("X-Noroff-API-Key", apiKey);
         }
 
-        const response = await fetch(url, {
+        const response = await fetch(url || options.url, {
           ...options,
           headers,
         });

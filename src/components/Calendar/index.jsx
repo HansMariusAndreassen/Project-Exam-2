@@ -23,7 +23,7 @@ const MyBookingCalendar = ({ bookings, venueId }) => {
   const navigate = useNavigate();
 
   const clearDates = () => {
-    setValue(null);
+    setValue(null); // FIX THIS BUG. CANNOT SET VALUE TO NULL
     setGuests(1);
   };
 
