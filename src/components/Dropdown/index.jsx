@@ -29,18 +29,17 @@ const DropdownMenu = ({ onActivate, listItems }) => {
           style={{
             position: "absolute",
             zIndex: 1,
-            backgroundColor: "#FFF",
             listStyle: "none",
             borderRadius: 5,
             top: 25,
             right: -15,
-            minWidth: 100,
+            minWidth: 120,
           }}
         >
           {listItems.map((item, index) => (
             <li
               key={index}
-              className="p-3 text-left hover:underline hover:text-primary hover:cursor-pointer"
+              className="p-3 mb-2 text-center btn text-sm hover:underline hover:cursor-pointer"
               onClick={() => {
                 onActivate(item.value);
                 setIsOpen(false);

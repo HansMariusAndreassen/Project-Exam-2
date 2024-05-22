@@ -122,17 +122,14 @@ const Profile = () => {
         handleEditProfile();
         break;
       case "edit_venue":
-        handleEditVenue(currentVenue); // Assuming currentVenue is set when editing
+        handleEditVenue(currentVenue);
         break;
       case "delete_booking":
-        // Handle delete booking action
         break;
       case "delete_venue":
-        // Handle delete venue action
         handleDeleteVenue(currentVenue.id);
         break;
       case "view_bookings":
-        // Handle view bookings action
         break;
       default:
         console.log("Unknown action:", value);
@@ -195,10 +192,7 @@ const Profile = () => {
                 <div className="mx-3">
                   <ul className="">
                     {userDetail.venues.map((venue) => (
-                      <li
-                        className="flex justify-between mx-1 font-bold "
-                        key={venue.id}
-                      >
+                      <li className="flex justify-between mx-1" key={venue.id}>
                         <VenueBanner venueId={venue.id} />{" "}
                         <DropdownMenu
                           className={"hover:cursor-pointer"}

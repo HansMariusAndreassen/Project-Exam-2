@@ -134,8 +134,12 @@ const MyBookingCalendar = ({ bookings, venueId }) => {
         <div className="flex gap-3 my-3"></div>
         <div className="flex-col">
           <div className="bg-primary flex mb-0">
-            <div className="w-full h-10 bg-primary text-white text-center p-2">
-              <button onClick={handleTodayClick}>Today</button>
+            <div
+              type="button"
+              className="w-full h-10 bg-primary text-white text-center p-2 hover:bg-secondary hover:text-primary transition-all duration-300 ease-in-out hover:cursor-pointer"
+              onClick={handleTodayClick}
+            >
+              Today
             </div>
             <div className="w-full h-10 bg-accentTwo text-center text-white p-2">
               Occupied
@@ -144,7 +148,7 @@ const MyBookingCalendar = ({ bookings, venueId }) => {
               Available
             </div>
             <div className="w-full h-10 bg-accent text-white text-center p-2">
-              Your selection
+              Selected
             </div>
           </div>
           <div>

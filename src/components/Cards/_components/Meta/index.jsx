@@ -13,6 +13,7 @@ const Meta = ({ object }) => {
 
   return (
     <div className="flex-col gap-2 text-right">
+      <h3>Amenities:</h3>
       {entries.map(([key, value]) => (
         <p
           key={key}
