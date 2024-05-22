@@ -67,7 +67,11 @@ const Booking = () => {
       </div>
       <div className="my-5">
         {console.log(data.id)}
-        <MyBookingCalendar bookings={data.bookings} venueId={data.id} />
+        <MyBookingCalendar
+          bookings={data.bookings}
+          venueId={data.id}
+          pricePerNight={data.price}
+        />
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import Modal from "../Modal";
 import useBookVenue from "../API/fetch/Booking";
 import { useNavigate } from "react-router-dom";
 
-const MyBookingCalendar = ({ bookings, venueId }) => {
+const MyBookingCalendar = ({ bookings, venueId, pricePerNight }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState([new Date(), new Date()]);
   const [viewDate, setViewDate] = useState(new Date());
@@ -16,14 +16,27 @@ const MyBookingCalendar = ({ bookings, venueId }) => {
     guests: 0,
     venueId: `${venueId}`,
   });
-  const [bookingSuccess, setBookingSuccess] = useState(false); // New state for booking success
-
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [totalCost, setTotalCost] = useState(0);
+  const [userEmail, setUserEmail] = useState("");
   const { submitBooking, loading, error } = useBookVenue();
-
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setUserEmail(user.email);
+    }
+  }, []);
+
+  const calculateTotalCost = (startDate, endDate, guests) => {
+    const oneDay = 24 * 60 * 60 * 1000;
+    const days = Math.round(Math.abs((endDate - startDate) / oneDay)) + 1;
+    return days * pricePerNight * guests;
+  };
+
   const clearDates = () => {
-    setValue(null); // FIX THIS BUG. CANNOT SET VALUE TO NULL
+    setValue([new Date(), new Date()]);
     setGuests(1);
   };
 
@@ -54,6 +67,8 @@ const MyBookingCalendar = ({ bookings, venueId }) => {
       const [startDate, endDate] = newRange;
       if (isRangeValid(startDate, endDate)) {
         setValue(newRange);
+        const cost = calculateTotalCost(startDate, endDate, guests);
+        setTotalCost(cost);
         setBooking({
           dateFrom: startDate.toISOString(),
           dateTo: endDate.toISOString(),
@@ -88,9 +103,12 @@ const MyBookingCalendar = ({ bookings, venueId }) => {
 
   const handleGuestsChange = (e) => {
     setGuests(e.target.value);
+    if (value && value.length === 2) {
+      const cost = calculateTotalCost(value[0], value[1], e.target.value);
+      setTotalCost(cost);
+    }
   };
 
-  // Sync viewDate with value
   useEffect(() => {
     if (value && value.length === 2) {
       setViewDate(value[0]);
@@ -105,8 +123,13 @@ const MyBookingCalendar = ({ bookings, venueId }) => {
           {error && <p>Error: {error.message}</p>}
           {bookingSuccess ? (
             <>
-              <h1 className="text-2xl mb-5">Booking Successful!</h1>
-              <p>Your booking has been successfully made.</p>
+              <h1 className="text-2xl text-center mb-5">Booking Successful!</h1>
+              <p className="text-center">
+                Your booking has been successfully made.
+              </p>
+              <p className="text-center">
+                A confirmation will be sent to {userEmail}
+              </p>
             </>
           ) : (
             <>
@@ -119,6 +142,9 @@ const MyBookingCalendar = ({ bookings, venueId }) => {
               </p>
               <p>
                 <strong>Guests:</strong> {guests}
+              </p>
+              <p>
+                <strong>Total Cost:</strong> ${totalCost.toFixed(2)}
               </p>
               <button
                 onClick={handleBooking}
@@ -220,6 +246,7 @@ MyBookingCalendar.propTypes = {
     })
   ),
   venueId: PropTypes.string.isRequired,
+  pricePerNight: PropTypes.number.isRequired,
 };
 
 export default MyBookingCalendar;
