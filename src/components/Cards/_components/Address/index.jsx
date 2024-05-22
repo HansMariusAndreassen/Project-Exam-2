@@ -6,20 +6,37 @@ const Address = ({ object }) => {
     return null;
   }
 
-  const entries = Object.entries(object);
-  if (entries.length === 0) {
-    return null;
-  }
-
-  const capitalizeString = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
+  const { address, city, country, continent } = object;
 
   return (
-    <div className="flex-col gap-2 text-left text-ellipsis overflow-hidden">
-      {entries.map(([key, value]) => (
-        <p key={key}>{`${capitalizeString(key)}: ${value}`}</p>
-      ))}
+    <div className="flex-col gap-2 text-left">
+      <h3>Venue Location:</h3>
+      <ul>
+        <li>
+          Address:{" "}
+          <span className="text-sm text-ellipsis overflow-hidden whitespace-nowrap max-w-xs">
+            {address ? address : "Not provided"}
+          </span>
+        </li>
+        <li>
+          City:{" "}
+          <span className="text-sm text-ellipsis overflow-hidden whitespace-nowrap max-w-xs">
+            {city ? city : "Not provided"}
+          </span>
+        </li>
+        <li>
+          Country:{" "}
+          <span className="text-sm text-ellipsis overflow-hidden whitespace-nowrap max-w-xs">
+            {country ? country : "Not provided"}
+          </span>
+        </li>
+        <li>
+          Continent:{" "}
+          <span className="text-sm text-ellipsis overflow-hidden whitespace-nowrap max-w-xs">
+            {continent ? continent : "Not provided"}
+          </span>
+        </li>
+      </ul>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-const DropdownMenu = ({ onActivate, listItem }) => {
+const DropdownMenu = ({ onActivate, listItems }) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
 
@@ -29,23 +29,25 @@ const DropdownMenu = ({ onActivate, listItem }) => {
           style={{
             position: "absolute",
             zIndex: 1,
-            backgroundColor: "#FFF",
             listStyle: "none",
             borderRadius: 5,
             top: 25,
             right: -15,
-            minWidth: 100,
+            minWidth: 120,
           }}
         >
-          <li
-            className="p-3 text-center hover:underline hover:text-primary hover:cursor-pointer"
-            onClick={() => {
-              onActivate();
-              setIsOpen(false);
-            }}
-          >
-            {listItem}
-          </li>
+          {listItems.map((item, index) => (
+            <li
+              key={index}
+              className="p-3 mb-2 text-center btn text-sm hover:underline hover:cursor-pointer"
+              onClick={() => {
+                onActivate(item.value);
+                setIsOpen(false);
+              }}
+            >
+              {item.label}
+            </li>
+          ))}
         </ul>
       )}
     </div>
@@ -54,7 +56,12 @@ const DropdownMenu = ({ onActivate, listItem }) => {
 
 DropdownMenu.propTypes = {
   onActivate: PropTypes.func.isRequired,
-  listItem: PropTypes.string.isRequired,
+  listItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.any.isRequired,
+    })
+  ).isRequired,
 };
 
 export default DropdownMenu;

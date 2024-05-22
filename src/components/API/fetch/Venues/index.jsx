@@ -4,7 +4,7 @@ import useFetch from "../../auth/FetchHook";
 
 const FetchVenues = () => {
   const { data, loading, error, performFetch } = useFetch(
-    `${venuesUrl}?_owner=true`
+    `${venuesUrl}?_owner=true&sort=created`
   );
 
   useEffect(() => {
