@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import useFetch from "../../auth/FetchHook";
 import PropTypes from "prop-types";
 import { venuesUrl } from "../../../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
-const VenueBanner = ({ venueId }) => {
+const VenueBanner = ({ venueId, isOwnProfile }) => {
   const { performFetch, data, loading, error } = useFetch(
     `${venuesUrl}/${venueId}?_bookings=true`
   );
   const [showBookings, setShowBookings] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (venueId) {
@@ -54,17 +56,26 @@ const VenueBanner = ({ venueId }) => {
           <p className="text-sm text-gray-500 text-center">
             Current Bookings: {_count.bookings}
           </p>
-          <button
-            className={_count.bookings ? "btn mt-4" : "mt-4 btn-disabled"}
-            disabled={_count.bookings === 0}
-            onClick={() => setShowBookings((prev) => !prev)}
-          >
-            {!_count.bookings
-              ? "No Bookings"
-              : showBookings
-                ? "Hide Bookings"
-                : "Show Bookings"}
-          </button>
+          {isOwnProfile ? (
+            <button
+              className={_count.bookings ? "btn mt-4" : "mt-4 btn-disabled"}
+              disabled={_count.bookings === 0}
+              onClick={() => setShowBookings((prev) => !prev)}
+            >
+              {!_count.bookings
+                ? "No Bookings"
+                : showBookings
+                  ? "Hide Bookings"
+                  : "Show Bookings"}
+            </button>
+          ) : (
+            <button
+              className="btn mt-4"
+              onClick={() => navigate(`/booking/${venueId}`)}
+            >
+              View Venue
+            </button>
+          )}
         </div>
       </div>
       {showBookings && bookings && (
@@ -95,6 +106,7 @@ const VenueBanner = ({ venueId }) => {
 
 VenueBanner.propTypes = {
   venueId: PropTypes.string.isRequired,
+  isOwnProfile: PropTypes.bool.isRequired,
 };
 
 export default VenueBanner;

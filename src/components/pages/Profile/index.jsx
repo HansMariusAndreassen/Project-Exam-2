@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../../API/auth/FetchHook";
 import { bookingsUrl, userUrl, venuesUrl } from "../../../utils/constants";
 import { formatDate } from "../../../utils/formatDate";
-import { useNavigate } from "react-router-dom";
 import DropdownMenu from "../../Dropdown";
 import CreateVenue from "../../forms/CreateVenue";
 import UpdateProfile from "../../forms/UpdateUserProfile";
@@ -16,16 +16,20 @@ const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
   const formRef = useRef(null);
 
-  const params = new URLSearchParams(location.search);
-  const id = params.get("name");
-
+  const { name } = useParams();
   const navigate = useNavigate();
 
   const user = localStorage.getItem("user");
-  const userName = JSON.parse(user).name || {};
+  const userName = user ? JSON.parse(user).name : null;
   const token = localStorage.getItem("accessToken");
 
-  const url = id ? `${userUrl}${id}` : `${userUrl}${userName}`;
+  // Determine if we are viewing our own profile
+  const isOwnProfile = !name || name === userName;
+  console.log("Logged-in user name:", userName);
+  console.log("Profile being viewed:", name);
+  console.log("Is own profile:", isOwnProfile);
+
+  const url = name ? `${userUrl}${name}` : `${userUrl}${userName}`;
 
   const { performFetch, data, loading, error } = useFetch(
     `${url}?_venues=true&_bookings=true`
@@ -42,11 +46,11 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (userName) {
+    if (userName || name) {
       console.log("Initiating profile fetch");
       performFetch();
     }
-  }, [userName, performFetch]);
+  }, [userName, name, performFetch]);
 
   const handleScrollToForm = () => {
     if (formRef.current) {
@@ -142,12 +146,18 @@ const Profile = () => {
   const isVenueManager = data.data.venueManager;
   const userDetail = data.data;
 
-  const profileMenuItems = [{ label: "Edit Profile", value: "edit_profile" }];
-  const venueMenuItems = [
-    { label: "Edit Venue", value: "edit_venue" },
-    { label: "Delete Venue", value: "delete_venue" },
-  ];
-  const bookingMenuItems = [{ label: "Delete", value: "delete_booking" }];
+  const profileMenuItems = isOwnProfile
+    ? [{ label: "Edit Profile", value: "edit_profile" }]
+    : [];
+  const venueMenuItems = isOwnProfile
+    ? [
+        { label: "Edit Venue", value: "edit_venue" },
+        { label: "Delete Venue", value: "delete_venue" },
+      ]
+    : [];
+  const bookingMenuItems = isOwnProfile
+    ? [{ label: "Delete", value: "delete_booking" }]
+    : [];
 
   return (
     <div className="flex flex-col m-auto bg-background g-5">
@@ -168,13 +178,15 @@ const Profile = () => {
             />
           </div>
           <div className="w-full">
-            <div className="flex justify-end gap-2 px-3 rounded-full w-full hover:text-primary hover:cursor-pointer">
-              <DropdownMenu
-                className={"hover:cursor-pointer"}
-                listItems={profileMenuItems}
-                onActivate={handleActivate}
-              />
-            </div>
+            {isOwnProfile && (
+              <div className="flex justify-end gap-2 px-3 rounded-full w-full hover:text-primary hover:cursor-pointer">
+                <DropdownMenu
+                  className={"hover:cursor-pointer"}
+                  listItems={profileMenuItems}
+                  onActivate={handleActivate}
+                />
+              </div>
+            )}
           </div>
         </div>
         <h1 className="text-center mt-5">{userDetail.name}</h1>
@@ -187,22 +199,31 @@ const Profile = () => {
         {token && isVenueManager && (
           <div className="mt-5">
             <div>
-              <h2 className="mb-4">My Venues ({userDetail._count.venues})</h2>
+              <h2 className="mb-4">
+                {isOwnProfile ? "My Venues" : `${userDetail.name}'s Venues`} (
+                {userDetail._count.venues})
+              </h2>
               <div className="flex-col justify-around">
                 <div className="mx-3">
                   <ul className="">
                     {userDetail.venues.map((venue) => (
                       <li className="flex justify-between mx-1" key={venue.id}>
-                        <VenueBanner venueId={venue.id} />{" "}
-                        <DropdownMenu
-                          className={"hover:cursor-pointer"}
-                          listItems={venueMenuItems}
-                          onActivate={(value) => {
-                            if (value === "edit_venue") handleEditVenue(venue);
-                            if (value === "delete_venue")
-                              handleDeleteVenue(venue.id);
-                          }}
-                        />
+                        <VenueBanner
+                          venueId={venue.id}
+                          isOwnProfile={isOwnProfile}
+                        />{" "}
+                        {isOwnProfile && (
+                          <DropdownMenu
+                            className={"hover:cursor-pointer"}
+                            listItems={venueMenuItems}
+                            onActivate={(value) => {
+                              if (value === "edit_venue")
+                                handleEditVenue(venue);
+                              if (value === "delete_venue")
+                                handleDeleteVenue(venue.id);
+                            }}
+                          />
+                        )}
                       </li>
                     ))}
                   </ul>
@@ -212,7 +233,7 @@ const Profile = () => {
           </div>
         )}
         <div className="w-full flex justify-end px-4">
-          {token && isVenueManager && (
+          {token && isVenueManager && isOwnProfile && (
             <button className="btn my-5" onClick={() => handleBtnClick()}>
               {showCreateForm || showUpdateForm
                 ? "Close"
@@ -238,45 +259,47 @@ const Profile = () => {
             <UpdateProfile isUser={userName} onClose={refreshUser} />
           )}
         </div>
-        <div className="mt-5">
-          <h2>My Upcoming Bookings</h2>
-          <div>
-            <table className="w-full text-left table-auto">
-              <thead>
-                <tr>
-                  <th className="px-3 py-2">Name</th>
-                  <th className="px-3 py-2">Details</th>
-                  <th className="px-3 py-2"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {userDetail.bookings.map((booking) => (
-                  <tr key={booking.id}>
-                    <td
-                      onClick={() => navigate(`/booking/${booking.venue.id}`)}
-                      className="font-bold px-4 py-2 hover:underline hover:cursor-pointer hover:text-accent"
-                    >
-                      {booking.venue.name}
-                    </td>
-                    <td className="px-4 py-2">
-                      <div className="flex flex-col sm:flex-row">
-                        <span className="block sm:inline">{`From: ${formatDate(booking.dateFrom)}`}</span>
-                        <span className="block sm:inline sm:ml-4">{`To: ${formatDate(booking.dateTo)}`}</span>
-                      </div>
-                    </td>
-                    <td className="px-4 py-2 hover:cursor-pointer">
-                      <DropdownMenu
-                        listItems={bookingMenuItems}
-                        onActivate={() => handleDelete(booking.id)}
-                        size={16}
-                      />
-                    </td>
+        {token && isOwnProfile && (
+          <div className="mt-5">
+            <h2>My Upcoming Bookings</h2>
+            <div>
+              <table className="w-full text-left table-auto">
+                <thead>
+                  <tr>
+                    <th className="px-3 py-2">Name</th>
+                    <th className="px-3 py-2">Details</th>
+                    <th className="px-3 py-2"></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {userDetail.bookings.map((booking) => (
+                    <tr key={booking.id}>
+                      <td
+                        onClick={() => navigate(`/booking/${booking.venue.id}`)}
+                        className="font-bold px-4 py-2 hover:underline hover:cursor-pointer hover:text-accent"
+                      >
+                        {booking.venue.name}
+                      </td>
+                      <td className="px-4 py-2">
+                        <div className="flex flex-col sm:flex-row">
+                          <span className="block sm:inline">{`From: ${formatDate(booking.dateFrom)}`}</span>
+                          <span className="block sm:inline sm:ml-4">{`To: ${formatDate(booking.dateTo)}`}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-2 hover:cursor-pointer">
+                        <DropdownMenu
+                          listItems={bookingMenuItems}
+                          onActivate={() => handleDelete(booking.id)}
+                          size={16}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

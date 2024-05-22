@@ -1,24 +1,42 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FaDog, FaWifi } from "react-icons/fa";
+import { MdOutlineFreeBreakfast } from "react-icons/md";
+import { LuParkingCircle } from "react-icons/lu";
 
 const Meta = ({ object }) => {
-  const entries = Object.entries(object);
-  if (entries.length === 0) {
+  if (!object || Object.keys(object).length === 0) {
     return null;
   }
 
-  const capitalizeString = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
+  const { wifi, parking, pets, breakfast } = object;
+  const hasAmenities = wifi || parking || pets || breakfast;
 
   return (
-    <div className="flex-col gap-2 text-right">
-      <h3>Amenities:</h3>
-      {entries.map(([key, value]) => (
-        <p
-          key={key}
-        >{`${capitalizeString(key)}: ${typeof value === `boolean` ? (value ? `Yes` : `No`) : value}`}</p>
-      ))}
+    <div>
+      {hasAmenities && <h3 className="mb-3">Amenities</h3>}
+      <ul className="flex flex-col gap-3 items-center ">
+        {wifi ? (
+          <li>
+            <FaWifi size={26} />
+          </li>
+        ) : null}
+        {parking ? (
+          <li>
+            <LuParkingCircle size={26} />
+          </li>
+        ) : null}
+        {pets ? (
+          <li>
+            <FaDog size={26} />
+          </li>
+        ) : null}
+        {breakfast ? (
+          <li>
+            <MdOutlineFreeBreakfast size={26} />
+          </li>
+        ) : null}
+      </ul>
     </div>
   );
 };

@@ -40,18 +40,24 @@ const Booking = () => {
         imageStyle={{ height: `auto`, width: `600px` }}
       />
       <div className="px-3 m-auto">
-        <div className="my-5 flex justify-between items-center">
+        <div className="my-5 px-5 flex justify-between items-center">
           <h1 className="text-2xl text-ellipsis overflow-hidden">
+            <span className="text-sm font-text block">Venue Title:</span>
             {data.name}
           </h1>
-          <Price price={data.price} />
+          <div>
+            <span className="text-sm block">Venue Price:</span>
+            <Price price={data.price} />
+          </div>
         </div>
         <div className="my-5 flex justify-between p-5 gap-5">
           <Address object={data.location} />
           <Meta object={data.meta} />
         </div>
-        <OwnerInfo owner={data.owner} />
-        <div className="my-5">
+        <div className="my-5 flex justify-between p-5 gap-5">
+          <OwnerInfo owner={data.owner} />
+        </div>
+        <div className="my-5 flex justify-between p-5 gap-5">
           <Description
             description={data.description}
             isExpanded={expandedCard === venue.id}

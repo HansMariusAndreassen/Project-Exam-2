@@ -3,18 +3,27 @@ import PropTypes from "prop-types";
 
 const OwnerInfo = ({ owner }) => {
   return (
-    <div className="flex-col gap-2 text-left text-ellipsis overflow-hidden">
-      <h3>Owner Information:</h3>
-      <ul>
-        <li>
-          <a href={`/profile/${owner.name}`}>
-            Name: <span className="text-sm">{owner.name}</span>
-          </a>
-        </li>
-        <li>
-          Email: <span className="text-sm">{owner.email}</span>
-        </li>
-      </ul>
+    <div className="">
+      <h3>Venue Owner:</h3>
+      <div className="flex gap-3 items-center ">
+        <div>
+          <img
+            className="h-16 w-16 rounded-full object-cover"
+            src={owner.avatar.url}
+            alt=""
+          />
+        </div>
+        <ul>
+          <li>
+            <span className="hover:underline hover:text-primary">
+              <a href={`/profile/${owner.name}`}>{owner.name}</a>
+            </span>
+          </li>
+          <li>
+            <span>{owner.email}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

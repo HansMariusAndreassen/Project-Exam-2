@@ -129,7 +129,8 @@ textarea {
 }
 
 .loader {
-  font-size: 48px;
+  font-size: 16px;
+  margin: auto;
   font-weight: 600;
   display: inline-block;
   letter-spacing: 2px;
@@ -148,7 +149,7 @@ textarea {
   80%,
   100% {
     opacity: 0;
-    letter-spacing: 32px;
+    letter-spacing: 16px;
   }
 }
 

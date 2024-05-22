@@ -14,6 +14,7 @@ const Router = () => {
         <Route index element={<Home />} />
         <Route path="/booking/:id" element={<Booking />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:name" element={<Profile />} />
         <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/login" element={<LoginForm />} />
       </Route>

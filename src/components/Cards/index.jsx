@@ -52,7 +52,11 @@ const Cards = () => {
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return (
+      <div>
+        <span className="loader">{error}</span>
+      </div>
+    );
   }
 
   const toggleExpanded = (id) => {
