@@ -35,9 +35,13 @@ const RegistrationForm = () => {
     }
   }, [data, error, login, formData]);
 
-  const openModal = () => {
-    setShowModal(true);
-  };
+  useEffect(() => {
+    if (loggedIn) {
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+  }, [loggedIn, navigate]);
 
   const closeModal = () => {
     setShowModal(false);
@@ -67,20 +71,14 @@ const RegistrationForm = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
+    setShowModal(true); // Open modal when submitting the form
     performFetch({
       method: "POST",
       body: JSON.stringify(formData),
     });
   };
-
-  if (loggedIn) {
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
-  }
 
   return (
     <div className="flex justify-center bg-secondary">
@@ -239,14 +237,12 @@ const RegistrationForm = () => {
           <button
             type="button"
             className="btn-revert text-sm font-semibold leading-6 text-gray-900"
+            onClick={() => navigate("/")}
           >
             Cancel
           </button>
-          <button onClick={openModal} type="submit" className="btn">
-            {!showModal && <p>Send</p>}
-            {loading && <p>Loading...</p>}
-            {error && <p>Try again</p>}
-            {showModal && <p>Please wait</p>}
+          <button type="submit" className="btn">
+            {loading ? <p>Loading...</p> : <p>Send</p>}
           </button>
         </div>
       </form>
