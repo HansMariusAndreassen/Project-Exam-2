@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useLogin from "../../API/auth/Login";
 import { loginUrl } from "../../../utils/constants";
 import { PiAt, PiPassword } from "react-icons/pi";
@@ -14,14 +14,6 @@ const LoginForm = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
   const handleChange = (event) => {
     setCredentials({
       ...credentials,
@@ -29,22 +21,29 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    login(credentials);
+    setShowModal(true); // Open modal when submitting the form
+    await login(credentials);
   };
 
-  if (loggedIn) {
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
-  }
+  useEffect(() => {
+    if (loggedIn) {
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+  }, [loggedIn, navigate]);
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className="flex justify-center bg-secondary">
       <Modal isOpen={showModal} onClose={closeModal}>
         {loading && (
-          <p className="text-center text-lg font-heading">{loading}</p>
+          <p className="text-center text-lg font-heading">Loading...</p>
         )}
         {error && (
           <p className="text-center text-xl font-heading">Error: {error}</p>
@@ -117,14 +116,12 @@ const LoginForm = () => {
           <button
             type="button"
             className="btn-revert text-sm font-semibold leading-6 text-gray-900"
+            onClick={() => navigate("/")}
           >
             Cancel
           </button>
-          <button onClick={openModal} type="submit" className="btn">
-            {!showModal && <p>Send</p>}
-            {loading && <p>Loading...</p>}
-            {error && <p>Try again</p>}
-            {showModal && <p>Please wait</p>}
+          <button type="submit" className="btn">
+            {loading ? <p>Loading...</p> : <p>Send</p>}
           </button>
         </div>
       </form>
