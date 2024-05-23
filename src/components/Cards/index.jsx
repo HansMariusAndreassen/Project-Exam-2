@@ -64,7 +64,7 @@ const Cards = () => {
   };
 
   return (
-    <div className="flex gap-10 justify-center flex-wrap m-auto mt-5 text-white">
+    <div className="flex gap-10 justify-center flex-wrap m-auto text-white">
       {selectedContinent && (
         <div className="bg-background rounded-25 pl-3 flex items-center gap-5">
           <p className="text-secondary">

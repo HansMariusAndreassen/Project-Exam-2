@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ContinentMap = ({ onContinentSelect }) => {
   const [isHovering, setIsHovering] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleMouseEnter = (continent) => {
     setIsHovering(continent);
-    // Additional hover logic here
   };
 
   const handleMouseMove = (event) => {
@@ -18,12 +21,15 @@ const ContinentMap = ({ onContinentSelect }) => {
 
   const handleMouseLeave = () => {
     setIsHovering(null);
-    // Reset hover effects here
   };
 
   const handleClick = (continent) => {
     console.log(`Clicked on: ${continent}`);
     onContinentSelect(continent);
+
+    if (location.pathname !== "/") {
+      navigate("/");
+    }
   };
 
   return (
@@ -33,15 +39,15 @@ const ContinentMap = ({ onContinentSelect }) => {
           className="z-10 block bg-white text-black rounded-25 shadow m-auto"
           style={{
             position: "absolute",
-            left: `${mousePosition.x + 10}px`, // 10px to the right of the cursor
-            top: `${mousePosition.y - 20}px`, // 20px above the cursor
+            left: `${mousePosition.x + 10}px`,
+            top: `${mousePosition.y - 20}px`,
           }}
         >
           <p className="mx-5 text-left">{isHovering}</p>
         </div>
       )}
       <svg
-        className="mapStyle"
+        className="mapStyle scale-[1.3]"
         viewBox="0 0 446 228"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
