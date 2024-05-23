@@ -31,12 +31,14 @@ const RegistrationForm = () => {
 
   useEffect(() => {
     if (data && !error) {
+      console.log("Registration successful, logging in...");
       login({ email: formData.email, password: formData.password });
     }
   }, [data, error, login, formData]);
 
   useEffect(() => {
     if (loggedIn) {
+      console.log("Login successful, redirecting...");
       setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -73,7 +75,7 @@ const RegistrationForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setShowModal(true); // Open modal when submitting the form
+    setShowModal(true);
     performFetch({
       method: "POST",
       body: JSON.stringify(formData),
@@ -97,7 +99,6 @@ const RegistrationForm = () => {
             Some of this information will be displayed publicly so be careful
             what you share.
           </p>
-
           <div className="text-left mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-4">
             <div className="sm:col-span-4">
               <div className="flex">
@@ -122,7 +123,6 @@ const RegistrationForm = () => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-4">
               <div className="flex">
                 <PiAt className="mr-2 h-6 w-6 text-gray-900" />
@@ -146,7 +146,6 @@ const RegistrationForm = () => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-4">
               <div className="flex">
                 <PiPassword className="mr-2 h-6 w-6 text-gray-900" />
@@ -212,7 +211,6 @@ const RegistrationForm = () => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-4">
               <label className="block text-sm font-medium leading-6 text-gray-900">
                 Venue Manager
@@ -232,7 +230,6 @@ const RegistrationForm = () => {
             </div>
           </div>
         </div>
-
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="button"
