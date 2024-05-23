@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import Modal from "../Modal";
 import useBookVenue from "../API/fetch/Booking";
 import { useNavigate } from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 const MyBookingCalendar = ({
   bookings,
@@ -27,6 +28,7 @@ const MyBookingCalendar = ({
   const [userEmail, setUserEmail] = useState("");
   const { submitBooking, loading, error } = useBookVenue();
   const navigate = useNavigate();
+  const token = useToken();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -151,7 +153,7 @@ const MyBookingCalendar = ({
                   <strong>Guests:</strong> {guests}
                 </p>
                 <p>
-                  <strong>Total Cost:</strong> ${totalCost.toFixed(2)}
+                  <strong>Total Cost:</strong> $ {totalCost.toFixed(2)}
                 </p>
                 <button
                   onClick={handleBooking}
@@ -197,49 +199,59 @@ const MyBookingCalendar = ({
               }
             />
           </div>
-          <div className="flex flex-col gap-3 items-center justify-center bg-secondary py-5">
-            <div className="btn">
-              <label htmlFor="guests">How many Guests?</label>
-              <select
-                name="guests"
-                id="guests"
-                value={guests}
-                onChange={handleGuestsChange}
-                className="ml-2 p-2 border rounded-25 "
+          {token ? (
+            <div className="flex flex-col gap-3 items-center justify-center bg-secondary py-5">
+              <div className="btn">
+                <label htmlFor="guests">How many Guests?</label>
+                <select
+                  name="guests"
+                  id="guests"
+                  value={guests}
+                  onChange={handleGuestsChange}
+                  className="ml-2 p-2 border rounded-25 "
+                >
+                  {Array.from({ length: maxGuests }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button
+                onClick={() => {
+                  {
+                    value
+                      ? toggleVisibility()
+                      : alert(
+                          "Please select your to and from dates on the calendar!"
+                        );
+                  }
+                }}
+                type="button"
+                className="px-10 py-2 text-black text-xl bg-primary rounded-full hover:bg-background hover:text-secondary transition-all duration-300 ease-in-out"
               >
-                {Array.from({ length: maxGuests }, (_, i) => (
-                  <option key={i + 1} value={i + 1}>
-                    {i + 1}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <button
-              onClick={() => {
-                {
-                  value
-                    ? toggleVisibility()
-                    : alert(
-                        "Please select your to and from dates on the calendar!"
-                      );
+                {!bookingSuccess && "BOOK NOW"}
+                {bookingSuccess && "BOOKED!"}
+              </button>
+              <button
+                onClick={
+                  !bookingSuccess ? clearDates : () => navigate("/profile")
                 }
-              }}
-              type="button"
-              className="px-10 py-2 text-black text-xl bg-primary rounded-full hover:bg-background hover:text-secondary transition-all duration-300 ease-in-out"
-            >
-              {!bookingSuccess && "BOOK NOW"}
-              {bookingSuccess && "BOOKED!"}
-            </button>
+                className="btn"
+              >
+                {!bookingSuccess && "Clear Selected"}
+                {bookingSuccess && "Go to profile!"}
+              </button>
+            </div>
+          ) : (
             <button
-              onClick={
-                !bookingSuccess ? clearDates : () => navigate("/profile")
-              }
-              className="btn"
+              type="button"
+              className="m-auto py-2 w-full uppercase hover:bg-primary hover:text-white bg-secondary text-primary text-xl transition-all duration-300 ease-in-out"
+              onClick={() => navigate("/login")}
             >
-              {!bookingSuccess && "Clear Selected"}
-              {bookingSuccess && "Go to profile!"}
+              Please Log in to make a booking
             </button>
-          </div>
+          )}
         </div>
       </div>
     </div>

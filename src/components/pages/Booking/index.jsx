@@ -9,6 +9,7 @@ import Price from "../../Cards/_components/Price";
 import Meta from "../../Cards/_components/Meta";
 import OwnerInfo from "../../Cards/_components/Owner";
 import Rating from "../../Cards/_components/Rating";
+import useToken from "../../../hooks/useToken";
 
 const Booking = () => {
   const [expandedCard, setExpandedCard] = useState(null);
@@ -16,6 +17,7 @@ const Booking = () => {
   const { id } = useParams();
   const { venue, loading, error } = FetchVenue(id);
   const data = venue.data;
+  const token = useToken();
   console.log(data);
 
   if (loading) {
@@ -62,7 +64,11 @@ const Booking = () => {
           <Meta object={data.meta} />
         </div>
         <div className="my-5 flex justify-between p-5 gap-5">
-          <OwnerInfo owner={data.owner} />
+          {token ? (
+            <OwnerInfo owner={data.owner} />
+          ) : (
+            <p className="italic">Please log in to view owner</p>
+          )}
         </div>
         <div className="my-5 flex justify-between p-5 gap-5">
           <Description
