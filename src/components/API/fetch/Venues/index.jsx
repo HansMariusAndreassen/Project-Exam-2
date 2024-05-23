@@ -8,7 +8,6 @@ const FetchVenues = () => {
   );
 
   useEffect(() => {
-    console.log("Initiating venues fetch");
     performFetch();
   }, [performFetch]);
 

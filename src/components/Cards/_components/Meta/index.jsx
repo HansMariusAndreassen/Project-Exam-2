@@ -18,22 +18,34 @@ const Meta = ({ object }) => {
       <ul className="flex flex-col gap-3 items-center ">
         {wifi ? (
           <li>
-            <FaWifi size={26} />
+            <span className="flex flex-col justify-center items-center">
+              <FaWifi size={26} /> Wifi
+            </span>
           </li>
         ) : null}
         {parking ? (
           <li>
-            <LuParkingCircle size={26} />
+            <span className="flex flex-col justify-center items-center">
+              <LuParkingCircle size={26} /> Parking
+            </span>
           </li>
         ) : null}
         {pets ? (
           <li>
-            <FaDog size={26} />
+            <span className="flex flex-col justify-center items-center">
+              {" "}
+              <FaDog size={26} />
+              Pets
+            </span>
           </li>
         ) : null}
         {breakfast ? (
           <li>
-            <MdOutlineFreeBreakfast size={26} />
+            <span className="flex flex-col justify-center items-center">
+              {" "}
+              <MdOutlineFreeBreakfast size={26} />
+              Breakfast
+            </span>
           </li>
         ) : null}
       </ul>

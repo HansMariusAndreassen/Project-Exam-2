@@ -17,12 +17,6 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
     }
   }, [venueId, performFetch]);
 
-  useEffect(() => {
-    if (data) {
-      console.log("Bookings data:", data.bookings);
-    }
-  }, [data]);
-
   if (loading) return <p>Loading venue...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!data) return <p>No venue data found</p>;
@@ -49,7 +43,14 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
           <div className="w-48 h-48 rounded-full mb-2 bg-gray-200"></div>
         )}
         <div className="flex flex-col flex-wrap m-auto items-center">
-          <h3 className="text-lg font-bold text-center">{name}</h3>
+          <h3 className="text-lg font-bold text-center text-ellipsis overflow-hidden">
+            <a
+              href={`/booking/${venueId}`}
+              className="hover:underline hover:text-accent"
+            >
+              {name.length > 20 ? name.slice(0, 20) : name}
+            </a>
+          </h3>
           <p className="text-sm text-gray-500 text-center">
             Created: {formatDate(created)}
           </p>

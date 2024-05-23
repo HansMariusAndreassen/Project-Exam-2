@@ -5,11 +5,17 @@ import Modal from "../Modal";
 import useBookVenue from "../API/fetch/Booking";
 import { useNavigate } from "react-router-dom";
 
-const MyBookingCalendar = ({ bookings, venueId, pricePerNight }) => {
+const MyBookingCalendar = ({
+  bookings,
+  venueId,
+  pricePerNight,
+  guests,
+  setGuests,
+  maxGuests,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState([new Date(), new Date()]);
   const [viewDate, setViewDate] = useState(new Date());
-  const [guests, setGuests] = useState(1);
   const [booking, setBooking] = useState({
     dateFrom: "",
     dateTo: "",
@@ -72,7 +78,7 @@ const MyBookingCalendar = ({ bookings, venueId, pricePerNight }) => {
         setBooking({
           dateFrom: startDate.toISOString(),
           dateTo: endDate.toISOString(),
-          guests: guests,
+          guests: Number(guests),
           venueId: `${venueId}`,
         });
       } else {
@@ -102,7 +108,7 @@ const MyBookingCalendar = ({ bookings, venueId, pricePerNight }) => {
   };
 
   const handleGuestsChange = (e) => {
-    setGuests(e.target.value);
+    setGuests(parseInt(e.target.value, 10));
     if (value && value.length === 2) {
       const cost = calculateTotalCost(value[0], value[1], e.target.value);
       setTotalCost(cost);
@@ -120,8 +126,8 @@ const MyBookingCalendar = ({ bookings, venueId, pricePerNight }) => {
       <Modal isOpen={isVisible} onClose={toggleVisibility}>
         <div className="flex flex-col gap-2 transition-all duration-100">
           {loading && <p>Loading...</p>}
-          {error && <p>Error: {error.message}</p>}
-          {bookingSuccess ? (
+          {error && !bookingSuccess && <p>Error: {error.message}</p>}
+          {!error && bookingSuccess ? (
             <>
               <h1 className="text-2xl text-center mb-5">Booking Successful!</h1>
               <p className="text-center">
@@ -132,27 +138,29 @@ const MyBookingCalendar = ({ bookings, venueId, pricePerNight }) => {
               </p>
             </>
           ) : (
-            <>
-              <h1 className="text-2xl mb-5">Booking Summary</h1>
-              <p>
-                <strong>From:</strong> {value[0].toDateString()}
-              </p>
-              <p>
-                <strong>To:</strong> {value[1].toDateString()}
-              </p>
-              <p>
-                <strong>Guests:</strong> {guests}
-              </p>
-              <p>
-                <strong>Total Cost:</strong> ${totalCost.toFixed(2)}
-              </p>
-              <button
-                onClick={handleBooking}
-                className="text-xl mt-5 btn-revert m-auto"
-              >
-                Confirm Booking
-              </button>
-            </>
+            !error && (
+              <>
+                <h1 className="text-2xl mb-5">Booking Summary</h1>
+                <p>
+                  <strong>From:</strong> {value[0].toDateString()}
+                </p>
+                <p>
+                  <strong>To:</strong> {value[1].toDateString()}
+                </p>
+                <p>
+                  <strong>Guests:</strong> {guests}
+                </p>
+                <p>
+                  <strong>Total Cost:</strong> ${totalCost.toFixed(2)}
+                </p>
+                <button
+                  onClick={handleBooking}
+                  className="text-xl mt-5 btn-revert m-auto"
+                >
+                  Confirm Booking
+                </button>
+              </>
+            )
           )}
         </div>
       </Modal>
@@ -191,15 +199,15 @@ const MyBookingCalendar = ({ bookings, venueId, pricePerNight }) => {
           </div>
           <div className="flex flex-col gap-3 items-center justify-center bg-secondary py-5">
             <div className="btn">
-              <label htmlFor="guests">Number of Guests:</label>
+              <label htmlFor="guests">How many Guests?</label>
               <select
                 name="guests"
                 id="guests"
                 value={guests}
                 onChange={handleGuestsChange}
-                className="ml-2 p-1 border rounded-25"
+                className="ml-2 p-2 border rounded-25 "
               >
-                {[...Array(12).keys()].map((i) => (
+                {Array.from({ length: maxGuests }, (_, i) => (
                   <option key={i + 1} value={i + 1}>
                     {i + 1}
                   </option>
@@ -228,7 +236,7 @@ const MyBookingCalendar = ({ bookings, venueId, pricePerNight }) => {
               }
               className="btn"
             >
-              {!bookingSuccess && "Clear Dates"}
+              {!bookingSuccess && "Clear Selected"}
               {bookingSuccess && "Go to profile!"}
             </button>
           </div>
@@ -247,6 +255,9 @@ MyBookingCalendar.propTypes = {
   ),
   venueId: PropTypes.string.isRequired,
   pricePerNight: PropTypes.number.isRequired,
+  guests: PropTypes.number.isRequired,
+  setGuests: PropTypes.func.isRequired,
+  maxGuests: PropTypes.number.isRequired,
 };
 
 export default MyBookingCalendar;

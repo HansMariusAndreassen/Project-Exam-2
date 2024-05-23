@@ -23,12 +23,7 @@ const Profile = () => {
   const userName = user ? JSON.parse(user).name : null;
   const token = localStorage.getItem("accessToken");
 
-  // Determine if we are viewing our own profile
   const isOwnProfile = !name || name === userName;
-  console.log("Logged-in user name:", userName);
-  console.log("Profile being viewed:", name);
-  console.log("Is own profile:", isOwnProfile);
-
   const url = name ? `${userUrl}${name}` : `${userUrl}${userName}`;
 
   const { performFetch, data, loading, error } = useFetch(
@@ -47,7 +42,6 @@ const Profile = () => {
 
   useEffect(() => {
     if (userName || name) {
-      console.log("Initiating profile fetch");
       performFetch();
     }
   }, [userName, name, performFetch]);
@@ -55,9 +49,6 @@ const Profile = () => {
   const handleScrollToForm = () => {
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: "smooth" });
-      window.setTimeout(() => {
-        window.scrollBy(0, 50);
-      }, 200);
     }
   };
 
@@ -65,12 +56,14 @@ const Profile = () => {
     setCurrentVenue(venue);
     setIsEdit(true);
     setShowCreateForm(true);
-    handleScrollToForm();
+    setShowUpdateForm(false);
+    setTimeout(handleScrollToForm, 100); // Wait for the form to render
   };
 
   const handleEditProfile = () => {
     setShowUpdateForm(true);
-    handleScrollToForm();
+    setShowCreateForm(false);
+    setTimeout(handleScrollToForm, 100); // Wait for the form to render
   };
 
   const handleBtnClick = () => {
@@ -161,18 +154,18 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col m-auto bg-background g-5">
-      <div className="h-[300px] max-w-[600px] bg-primary overflow-hidden">
+      <div className="h-[300px] max-w-2xl bg-primary overflow-hidden">
         <img
-          className="relative w-full h-full object-cover"
+          className="w-full h-full object-cover"
           src={userDetail.banner.url}
           alt={"Profile Banner"}
         />
       </div>
       <div className="relative p-5">
         <div className="flex">
-          <div className="relative -mt-16">
+          <div className="relative -mt-16 w-40 h-36 overflow-hidden rounded-[50%]">
             <img
-              className="rounded-full w-40 h-auto object-cover"
+              className="object-cover w-full h-full"
               src={userDetail.avatar.url}
               alt={"Profile Avatar"}
             />
@@ -192,7 +185,7 @@ const Profile = () => {
         <h1 className="text-center mt-5">{userDetail.name}</h1>
         <div className="mt-5">
           <h2>Bio</h2>
-          <p className="mx-3 mb-5">
+          <p className="mx-3 mb-5 break-words max-w-[600px]">
             {userDetail.bio ? userDetail.bio : "No bio yet"}
           </p>
         </div>
@@ -232,9 +225,9 @@ const Profile = () => {
             </div>
           </div>
         )}
-        <div className="w-full flex justify-end px-4">
+        <div ref={formRef} className="w-full flex justify-end px-4">
           {token && isVenueManager && isOwnProfile && (
-            <button className="btn my-5" onClick={() => handleBtnClick()}>
+            <button className="btn my-5" onClick={handleBtnClick}>
               {showCreateForm || showUpdateForm
                 ? "Close"
                 : isVenueManager
@@ -243,7 +236,7 @@ const Profile = () => {
             </button>
           )}
         </div>
-        <div ref={formRef}>
+        <div>
           {showCreateForm && (
             <CreateVenue
               venue={currentVenue}
@@ -278,7 +271,7 @@ const Profile = () => {
                         onClick={() => navigate(`/booking/${booking.venue.id}`)}
                         className="font-bold px-4 py-2 hover:underline hover:cursor-pointer hover:text-accent"
                       >
-                        {booking.venue.name}
+                        {booking.venue.name.slice(0, 20)}
                       </td>
                       <td className="px-4 py-2">
                         <div className="flex flex-col sm:flex-row">

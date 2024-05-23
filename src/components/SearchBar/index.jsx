@@ -17,6 +17,7 @@ const SearchBar = ({ onContinentSelect }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
   const searchBarRef = useRef(null);
+  const [headingText, setHeadingText] = useState("You can travel Anywhere");
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -33,9 +34,27 @@ const SearchBar = ({ onContinentSelect }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const updateHeadingText = () => {
+      if (window.innerWidth <= 416) {
+        setHeadingText("Travel Anywhere");
+      } else {
+        setHeadingText("You can travel Anywhere");
+      }
+    };
+
+    updateHeadingText();
+
+    window.addEventListener("resize", updateHeadingText);
+
+    return () => {
+      window.removeEventListener("resize", updateHeadingText);
+    };
+  }, []);
+
   const handleSearch = async (event) => {
     event.preventDefault();
-    if (!searchQuery.trim()) return; // Prevent searching with an empty query
+    if (!searchQuery.trim()) return;
     performFetch();
     setSearchQuery("");
     setShowResults(true);
@@ -53,7 +72,7 @@ const SearchBar = ({ onContinentSelect }) => {
 
   const handleContinentSelect = (continent) => {
     onContinentSelect(continent);
-    setIsExpanded(false); // Close the search bar
+    setIsExpanded(false);
   };
 
   const toggleExpanded = () => {
@@ -61,7 +80,7 @@ const SearchBar = ({ onContinentSelect }) => {
   };
 
   return (
-    <div className="fixed top-10 w-full m-auto z-[60]">
+    <div className="relative top-[72px] w-full m-auto">
       <div className="flex justify-center">
         <div
           id="search-bar"
@@ -69,26 +88,29 @@ const SearchBar = ({ onContinentSelect }) => {
           ref={searchBarRef}
         >
           <div
-            className="flex justify-center items-center gap-10 :hover cursor-pointer"
+            className="flex justify-center items-center gap-9 :hover cursor-pointer"
             onClick={toggleExpanded}
           >
             <IoSearchSharp size={32} />
-            <h2>You can go anywhere</h2>
+            <h2 id="searchBarH2">{headingText}</h2>
             <RxHamburgerMenu size={32} />
           </div>
           {isExpanded && (
-            <div className="w-full">
-              <form onSubmit={handleSearch}>
+            <div className="w-full mt-3">
+              <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={handleInputChange}
                   placeholder="Search here..."
-                  className="mt-3 p-2 border rounded-50 w-full"
+                  className="p-2 border rounded-50 w-full pr-10"
                   aria-label="Search for venues"
                 />
-                <button type="submit" className="hidden">
-                  Search
+                <button
+                  type="submit"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-black rounded-full p-2 hover:text-accent"
+                >
+                  <IoSearchSharp size={20} />
                 </button>
               </form>
               <div className="max-w-[375px]">
@@ -109,10 +131,8 @@ const SearchBar = ({ onContinentSelect }) => {
                         <div className="py-1">
                           {Array.isArray(result.media) &&
                           result.media.length > 0 ? (
-                            // If media is an array and has elements, show the first one
                             <div>
                               <img
-                                // className="w-20 h-auto m-2"
                                 style={{
                                   width: "50px",
                                   height: "50px",
@@ -123,7 +143,6 @@ const SearchBar = ({ onContinentSelect }) => {
                               />
                             </div>
                           ) : result.media ? (
-                            // If media is not an array but an object, render it directly
                             <div>
                               <img
                                 className="w-auto h-20 m-2"
@@ -159,10 +178,10 @@ const SearchBar = ({ onContinentSelect }) => {
                   ))}
                 </div>
               )}
-              <div className="mt-10">
+              <div className="mt-20">
                 <ContinentMap onContinentSelect={handleContinentSelect} />
               </div>
-              <div className="flex justify-end">
+              <div className="flex justify-end mt-10">
                 <IoClose
                   size={24}
                   className=":hover cursor-pointer"

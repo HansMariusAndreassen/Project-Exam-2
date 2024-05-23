@@ -13,9 +13,12 @@ const ImageCarousel = ({ images, imageStyle }) => {
     setCurrent(current === 0 ? length - 1 : current - 1);
   };
 
-  if (!Array.isArray(images) || images.length <= 0) {
-    return null;
-  }
+  const placeholderImage = {
+    url: "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=500&w=1500",
+    alt: "Placeholder image",
+  };
+
+  const imagesToDisplay = length > 0 ? images : [placeholderImage];
 
   const defaultImageStyle = {
     height: "200px",
@@ -25,7 +28,7 @@ const ImageCarousel = ({ images, imageStyle }) => {
 
   return (
     <div className="relative max-w-2xl mx-auto overflow-hidden">
-      {images.map((image, index) => (
+      {imagesToDisplay.map((image, index) => (
         <div
           key={index}
           className={index === current ? "opacity-100" : "opacity-0"}

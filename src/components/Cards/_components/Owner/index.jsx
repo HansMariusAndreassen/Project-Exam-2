@@ -5,25 +5,22 @@ const OwnerInfo = ({ owner }) => {
   return (
     <div className="">
       <h3>Venue Owner:</h3>
-      <div className="flex gap-3 items-center ">
+      <a
+        href={`/profile/${owner.name}`}
+        className="flex items-center gap-3 p-1 rounded-25 hover:shadow-lg transition-all duration-300 ease-in-out"
+      >
         <div>
           <img
             className="h-16 w-16 rounded-full object-cover"
             src={owner.avatar.url}
-            alt=""
+            alt="Profile avatar"
           />
         </div>
         <ul>
-          <li>
-            <span className="hover:underline hover:text-primary">
-              <a href={`/profile/${owner.name}`}>{owner.name}</a>
-            </span>
-          </li>
-          <li>
-            <span>{owner.email}</span>
-          </li>
+          <li>{owner.name}</li>
+          <li>{owner.email}</li>
         </ul>
-      </div>
+      </a>
     </div>
   );
 };
