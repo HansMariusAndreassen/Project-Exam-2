@@ -21,16 +21,16 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    setShowModal(true); // Open modal when submitting the form
-    await login(credentials);
+    setShowModal(true);
+    login(credentials);
   };
 
   useEffect(() => {
     if (loggedIn) {
       setTimeout(() => {
-        navigate("/");
+        navigate(-1);
       }, 1000);
     }
   }, [loggedIn, navigate]);
