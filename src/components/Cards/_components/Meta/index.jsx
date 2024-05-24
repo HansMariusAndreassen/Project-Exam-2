@@ -13,9 +13,9 @@ const Meta = ({ object }) => {
   const hasAmenities = wifi || parking || pets || breakfast;
 
   return (
-    <div>
-      {hasAmenities && <h3 className="mb-3">Amenities</h3>}
-      <ul className="flex flex-col gap-3 items-center ">
+    <div className="flex-col items-end">
+      {hasAmenities && <h3 className="mb-3 text-start">Amenities</h3>}
+      <ul className="flex justify-center gap-3 items-center ">
         {wifi ? (
           <li>
             <span className="flex flex-col justify-center items-center">

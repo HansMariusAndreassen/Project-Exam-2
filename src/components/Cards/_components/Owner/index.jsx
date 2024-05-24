@@ -7,7 +7,7 @@ const OwnerInfo = ({ owner }) => {
       <h3>Venue Owner:</h3>
       <a
         href={`/profile/${owner.name}`}
-        className="flex items-center gap-3 p-1 rounded-25 hover:shadow-lg transition-all duration-300 ease-in-out"
+        className="flex items-center gap-3 p-2 rounded-25 border border-secondary border-opacity-0 hover:border-opacity-100 hover:shadow-2xl hover:shadow-primary transition-all duration-300 ease-in-out"
       >
         <div>
           <img

@@ -152,7 +152,7 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col m-auto bg-background g-5">
-      <div className="h-[300px] max-w-2xl bg-primary overflow-hidden">
+      <div className="h-[300px] bg-primary overflow-hidden">
         <img
           className="w-full h-full object-cover"
           src={userDetail.banner.url}
