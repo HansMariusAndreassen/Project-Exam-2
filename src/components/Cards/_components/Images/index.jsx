@@ -38,7 +38,6 @@ const ImageCarousel = ({ images, imageStyle }) => {
             <img
               src={image.url}
               alt={image.alt}
-              loading="lazy"
               className="w-full object-cover bg-white"
               style={defaultImageStyle}
             />
