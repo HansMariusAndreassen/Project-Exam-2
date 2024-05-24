@@ -37,7 +37,7 @@ const Booking = () => {
   };
 
   return (
-    <div className="m-auto bg-background">
+    <div className="m-auto bg-background mb-16">
       <ImageCarousel
         images={data.media}
         imageStyle={{ height: `auto`, width: `auto` }}
@@ -55,7 +55,6 @@ const Booking = () => {
               <Address object={data.location} />
             </div>
           </div>
-
           <div>
             <Price price={data.price} />
             <div>
@@ -63,10 +62,7 @@ const Booking = () => {
               <Meta object={data.meta} />
             </div>
           </div>
-          {/* <div className="my-5 flex justify-between flex-wrap p-3 gap-5"> */}
-          {/* </div> */}
         </div>
-
         <div className="my-5 flex justify-between p-5 gap-5">
           {token ? (
             <OwnerInfo owner={data.owner} />

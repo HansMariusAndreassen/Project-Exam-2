@@ -132,6 +132,12 @@ textarea {
   text-indent: 0.5rem;
 }
 
+select {
+  text-indent: 0.5rem;
+  height: 38px;
+  /* padding: 5px; */
+}
+
 .loader {
   font-size: 16px;
   margin: auto;

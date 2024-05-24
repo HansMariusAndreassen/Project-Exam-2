@@ -25,8 +25,8 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
     name: "",
     description: "",
     media: [{ url: "", alt: "" }],
-    price: 0,
-    maxGuests: 0,
+    price: "",
+    maxGuests: "",
     rating: 0,
     meta: { wifi: false, parking: false, breakfast: false, pets: false },
     location: {
@@ -47,8 +47,8 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
         description: venue.description || "",
         media: venue.media.length ? venue.media : [{ url: "", alt: "" }],
         price: venue.price || 0,
-        maxGuests: venue.maxGuests || 0,
-        rating: venue.rating || 0,
+        maxGuests: venue.maxGuests || 1,
+        rating: venue.rating || 1,
         meta: venue.meta || {
           wifi: false,
           parking: false,
@@ -109,7 +109,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Check if media URL is empty and set placeholder media
     const updatedMedia = formData.media.map((media) => {
       if (!media.url) {
         return { url: placeHolderMedia, alt: "Placeholder media image" };
@@ -173,7 +172,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="text"
                   name="name"
                   id="name"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 "
                   placeholder="Venue name"
                   value={formData.name || ""}
                   required
@@ -195,7 +194,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   onChange={handleChange}
                   name="description"
                   id="description"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 "
                   placeholder="Venue description"
                   value={formData.description || ""}
                   required
@@ -219,7 +218,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                     type="text"
                     name="url"
                     id={`mediaUrl-${index}`}
-                    className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border py-1.5 "
                     placeholder="Media URL"
                     value={media.url || ""}
                   />
@@ -239,7 +238,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                     type="text"
                     name="alt"
                     id={`mediaAlt-${index}`}
-                    className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border py-1.5 "
                     placeholder="Media description"
                     value={media.alt || ""}
                   />
@@ -265,7 +264,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 <PiCurrencyDollar className="mr-2 h-6 w-6 text-gray-900" />
                 <label
                   htmlFor="price"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Price
                 </label>
@@ -273,22 +272,22 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
               <div className="mt-2">
                 <input
                   onChange={handleChange}
-                  type="number"
+                  type="currency"
                   name="price"
                   id="price"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 "
                   placeholder="Price"
-                  value={formData.price || 0}
+                  value={formData.price || ""}
                   required
                 />
               </div>
             </div>
             <div className="sm:col-span-2">
               <div className="flex">
-                <PiUsers className="mr-2 h-6 w-6 text-gray-900" />
+                <PiUsers className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="maxGuests"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Max Guests
                 </label>
@@ -299,19 +298,19 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="number"
                   name="maxGuests"
                   id="maxGuests"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 "
                   placeholder="Max guests"
-                  value={formData.maxGuests || 0}
+                  value={formData.maxGuests || ""}
                   required
                 />
               </div>
             </div>
             <div className="sm:col-span-4">
               <div className="flex">
-                <PiStar className="mr-2 h-6 w-6 text-gray-900" />
+                <PiStar className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="rating"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Rating
                 </label>
@@ -322,14 +321,14 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="number"
                   name="rating"
                   id="rating"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 "
                   placeholder="Rating"
-                  value={formData.rating || 0}
+                  value={formData.rating || ""}
                 />
               </div>
             </div>
             <div className="sm:col-span-4">
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label className="block text-sm font-medium leading-6">
                 Amenities
               </label>
               <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-6">
@@ -352,10 +351,10 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
             </div>
             <div className="sm:col-span-4">
               <div className="flex">
-                <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
+                <PiMapPin className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="address"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Address
                 </label>
@@ -366,7 +365,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="text"
                   name="address"
                   id="address"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 "
                   placeholder="Address"
                   value={formData.location.address || ""}
                 />
@@ -374,10 +373,10 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
             </div>
             <div className="sm:col-span-2">
               <div className="flex">
-                <PiAt className="mr-2 h-6 w-6 text-gray-900" />
+                <PiAt className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="city"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   City
                 </label>
@@ -388,7 +387,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="text"
                   name="city"
                   id="city"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 "
                   placeholder="City"
                   value={formData.location.city || ""}
                 />
@@ -396,10 +395,10 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
             </div>
             <div className="sm:col-span-2">
               <div className="flex">
-                <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
+                <PiMapPin className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="zip"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   ZIP Code
                 </label>
@@ -410,7 +409,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="text"
                   name="zip"
                   id="zip"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5"
                   placeholder="ZIP Code"
                   value={formData.location.zip || ""}
                 />
@@ -418,10 +417,10 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
             </div>
             <div className="sm:col-span-2">
               <div className="flex">
-                <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
+                <PiMapPin className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="country"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Country
                 </label>
@@ -432,7 +431,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="text"
                   name="country"
                   id="country"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 "
                   placeholder="Country"
                   value={formData.location.country || ""}
                 />
@@ -440,80 +439,36 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
             </div>
             <div className="sm:col-span-2">
               <div className="flex">
-                <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
+                <PiMapPin className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="continent"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Continent
                 </label>
               </div>
               <div className="mt-2">
-                <input
+                <select
                   onChange={handleLocationChange}
-                  type="text"
                   name="continent"
                   id="continent"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Continent"
+                  className="block w-full rounded-md border py-1.5 "
                   value={formData.location.continent || ""}
-                />
-              </div>
-            </div>
-            <div className="sm:col-span-2">
-              <div className="flex">
-                <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
-                <label
-                  htmlFor="lat"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  required
                 >
-                  Latitude
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  onChange={handleLocationChange}
-                  type="number"
-                  name="lat"
-                  id="lat"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Latitude"
-                  value={formData.location.lat || 0}
-                />
-              </div>
-            </div>
-            <div className="sm:col-span-2">
-              <div className="flex">
-                <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
-                <label
-                  htmlFor="lng"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Longitude
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  onChange={handleLocationChange}
-                  type="number"
-                  name="lng"
-                  id="lng"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Longitude"
-                  value={formData.location.lng || 0}
-                />
+                  <option value="">Select a continent</option>
+                  <option value="North America">North America</option>
+                  <option value="South America">South America</option>
+                  <option value="Europe">Europe</option>
+                  <option value="Africa">Africa</option>
+                  <option value="Asia">Asia</option>
+                  <option value="Australia">Australia</option>
+                </select>
               </div>
             </div>
           </div>
         </div>
         <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button
-            type="button"
-            className="btn-revert text-sm font-semibold leading-6 text-gray-900"
-            onClick={closeModal}
-          >
-            Cancel
-          </button>
           <button type="submit" className="btn">
             {!showModal && <p>Send</p>}
             {loading && <p>Loading...</p>}
