@@ -139,8 +139,8 @@ const MyBookingCalendar = ({
       >
         <div className="flex flex-col gap-2 transition-all duration-100">
           {loading && <p>Loading...</p>}
-          {error && !bookingSuccess && <p>Error: {error.message}</p>}
-          {!error && bookingSuccess ? (
+          {!loading && error && <p className="text-red-500">Error: {error}</p>}
+          {!loading && !error && bookingSuccess && (
             <>
               <h1 className="text-2xl text-center mb-5">Booking Successful!</h1>
               <p className="text-center">
@@ -150,33 +150,33 @@ const MyBookingCalendar = ({
                 A confirmation will be sent to {userEmail}
               </p>
             </>
-          ) : (
-            !error && (
-              <>
-                <h1 className="text-2xl mb-5">Booking Summary</h1>
-                <p>
-                  <strong>From:</strong> {value[0].toDateString()}
-                </p>
-                <p>
-                  <strong>To:</strong> {value[1].toDateString()}
-                </p>
-                <p>
-                  <strong>Guests:</strong> {guests}
-                </p>
-                <p>
-                  <strong>Total Cost:</strong> $ {totalCost.toFixed(2)}
-                </p>
-                <button
-                  onClick={handleBooking}
-                  className="text-xl mt-5 btn-revert m-auto"
-                >
-                  Confirm Booking
-                </button>
-              </>
-            )
+          )}
+          {!loading && !error && !bookingSuccess && (
+            <>
+              <h1 className="text-2xl mb-5">Booking Summary</h1>
+              <p>
+                <strong>From:</strong> {value[0].toDateString()}
+              </p>
+              <p>
+                <strong>To:</strong> {value[1].toDateString()}
+              </p>
+              <p>
+                <strong>Guests:</strong> {guests}
+              </p>
+              <p>
+                <strong>Total Cost:</strong> ${totalCost.toFixed(2)}
+              </p>
+              <button
+                onClick={handleBooking}
+                className="text-xl mt-5 btn-revert m-auto"
+              >
+                Confirm Booking
+              </button>
+            </>
           )}
         </div>
       </Modal>
+
       <div className="flex flex-col items-center">
         <div className="flex gap-3 my-3"></div>
         <div className="flex-col">
