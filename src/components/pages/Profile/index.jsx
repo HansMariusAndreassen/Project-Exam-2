@@ -84,7 +84,6 @@ const Profile = () => {
   const handleDelete = (bookingId) => {
     console.log("Delete triggered!", bookingId);
     if (window.confirm("Are you sure you want to delete this booking?")) {
-      console.log("Delete confirmed");
       submitDelete(bookingsUrl, bookingId);
       refreshUser();
     } else {
@@ -93,9 +92,7 @@ const Profile = () => {
   };
 
   const handleDeleteVenue = (venueId) => {
-    console.log("Delete venue triggered!", venueId);
     if (window.confirm("Are you sure you want to delete this venue?")) {
-      console.log("Delete confirmed");
       submitDelete(venuesUrl, venueId);
       refreshUser();
     } else {
