@@ -2,7 +2,8 @@ import useFetch from "../../auth/FetchHook";
 import { createBookingUrl } from "../../../../utils/constants";
 
 const useBookVenue = () => {
-  const { data, loading, error, performFetch } = useFetch(createBookingUrl);
+  const { data, loading, error, performFetch, isSuccess } =
+    useFetch(createBookingUrl);
 
   const submitBooking = async (booking) => {
     await performFetch({
@@ -11,7 +12,7 @@ const useBookVenue = () => {
     });
   };
 
-  return { submitBooking, data, loading, error };
+  return { submitBooking, data, loading, error, isSuccess };
 };
 
 export default useBookVenue;

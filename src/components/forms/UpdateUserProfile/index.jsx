@@ -21,6 +21,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
     venueManager: false,
   });
   const [showModal, setShowModal] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     performFetch();
@@ -84,27 +85,24 @@ const UpdateProfile = ({ isUser, onClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    setShowModal(true);
     performFetch({
       method: "PUT",
       body: JSON.stringify(formData),
+    }).then(() => {
+      setIsSuccess(true);
     });
-    setShowModal(false);
-    if (onClose) onClose();
-  };
-
-  const openModal = () => {
-    setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
+    setIsSuccess(false);
     if (onClose) onClose();
   };
 
   return (
     <div>
-      <Modal isOpen={showModal} onClose={closeModal}>
+      <Modal isOpen={showModal} onClose={closeModal} isSuccess={isSuccess}>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
         {data && <p>Success! Profile updated.</p>}
@@ -249,7 +247,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
           </div>
         </div>
         <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button onClick={openModal} type="submit" className="btn">
+          <button type="submit" className="btn">
             {!showModal && <p>Update</p>}
             {loading && <p>Loading...</p>}
             {error && <p>Try again</p>}

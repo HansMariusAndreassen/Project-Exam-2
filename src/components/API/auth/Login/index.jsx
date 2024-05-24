@@ -2,7 +2,7 @@ import { useCallback, useState, useEffect } from "react";
 import useFetch from "../FetchHook";
 
 const useLogin = (url) => {
-  const { data, loading, error, performFetch } = useFetch(url);
+  const { data, loading, error, performFetch, isSuccess } = useFetch(url);
   const [loggedIn, setLoggedIn] = useState(false);
 
   const login = useCallback(
@@ -27,7 +27,7 @@ const useLogin = (url) => {
     }
   }, [data]);
 
-  return { loading, error, loggedIn, login };
+  return { loading, error, loggedIn, login, isSuccess };
 };
 
 export default useLogin;

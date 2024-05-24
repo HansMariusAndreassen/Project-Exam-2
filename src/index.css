@@ -13,9 +13,13 @@
   background-color: theme("colors.secondary");
 }
 
+body {
+  width: 100%;
+}
+
 main {
   margin: 0 auto;
-  margin-bottom: 10rem;
+  margin-bottom: 2rem;
   max-width: 1440px;
 }
 h1,
@@ -153,24 +157,85 @@ textarea {
   }
 }
 
-.modalLoader {
-  width: 48px;
-  height: 48px;
-  margin: auto;
-  border-radius: 50%;
+/* MODAL SUCCESS LOADER */
+.circle-loader {
+  margin-bottom: 3.5em;
+  border: 1px solid theme("colors.primary");
+  border-left-color: theme("colors.secondary");
+  animation: loader-spin 1.2s infinite linear;
+  position: relative;
   display: inline-block;
-  border-top: 3px solid theme("colors.primary");
-  border-right: 3px solid transparent;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
+  vertical-align: top;
+  border-radius: 50%;
+  width: 7em;
+  height: 7em;
+  margin: auto;
 }
 
-@keyframes rotation {
+.load-complete {
+  -webkit-animation: none;
+  animation: none;
+  border-color: theme("colors.primary");
+  transition: border 500ms ease-out;
+}
+
+.checkmark {
+  display: none;
+}
+
+.load-complete .checkmark {
+  display: block;
+}
+
+.checkmark.draw:after {
+  animation-duration: 800ms;
+  animation-timing-function: ease;
+  animation-name: checkmark;
+  transform: scaleX(-1) rotate(135deg);
+}
+
+.checkmark:after {
+  opacity: 1;
+  height: 3.5em;
+  width: 1.75em;
+  transform-origin: left top;
+  border-right: 3px solid theme("colors.primary");
+  border-top: 3px solid theme("colors.primary");
+  content: "";
+  left: 1.75em;
+  top: 3.5em;
+  position: absolute;
+}
+
+@keyframes loader-spin {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: 1.75em;
+    opacity: 1;
+  }
+  40% {
+    height: 3.5em;
+    width: 1.75em;
+    opacity: 1;
+  }
+  100% {
+    height: 3.5em;
+    width: 1.75em;
+    opacity: 1;
   }
 }
 
@@ -215,9 +280,9 @@ textarea {
 .plane {
   position: absolute;
   left: 0;
-  top: 65%;
-  font-size: 3rem;
-  animation: fly 15s linear infinite;
+  top: 77%;
+  font-size: 2rem;
+  animation: fly 30s linear infinite;
 }
 
 @keyframes fly {

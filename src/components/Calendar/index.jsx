@@ -26,7 +26,7 @@ const MyBookingCalendar = ({
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [totalCost, setTotalCost] = useState(0);
   const [userEmail, setUserEmail] = useState("");
-  const { submitBooking, loading, error } = useBookVenue();
+  const { submitBooking, loading, error, isSuccess } = useBookVenue();
   const navigate = useNavigate();
   const token = useToken();
 
@@ -60,9 +60,19 @@ const MyBookingCalendar = ({
   };
 
   const isRangeValid = (startDate, endDate) => {
+    const today = new Date().setHours(0, 0, 0, 0);
+    if (startDate < today) {
+      alert(
+        "Sadly, we can't book in the past. Please select today or a future date."
+      );
+      return false;
+    }
     let currentDate = new Date(startDate);
     while (currentDate <= endDate) {
       if (tileDisabled({ date: currentDate, view: "month" })) {
+        alert(
+          "You have selected days that are already booked. Please select different dates."
+        );
         return false;
       }
       currentDate.setDate(currentDate.getDate() + 1);
@@ -84,9 +94,6 @@ const MyBookingCalendar = ({
           venueId: `${venueId}`,
         });
       } else {
-        alert(
-          "Invalid date range. You have selected a date range that is already booked."
-        );
         setValue([new Date(), new Date()]); // Resets to a default range
       }
     } else {
@@ -125,7 +132,11 @@ const MyBookingCalendar = ({
 
   return (
     <div>
-      <Modal isOpen={isVisible} onClose={toggleVisibility}>
+      <Modal
+        isOpen={isVisible}
+        onClose={toggleVisibility}
+        isSuccess={isSuccess}
+      >
         <div className="flex flex-col gap-2 transition-all duration-100">
           {loading && <p>Loading...</p>}
           {error && !bookingSuccess && <p>Error: {error.message}</p>}
@@ -187,7 +198,7 @@ const MyBookingCalendar = ({
               Selected
             </div>
           </div>
-          <div>
+          <div className="w-full max-w-2xl shadow-xl">
             <Calendar
               onChange={handleDateChange}
               value={value}
@@ -200,7 +211,7 @@ const MyBookingCalendar = ({
             />
           </div>
           {token ? (
-            <div className="flex flex-col gap-3 items-center justify-center bg-secondary py-5">
+            <div className="flex flex-col gap-3 items-center justify-center bg-background py-5">
               <div className="btn">
                 <label htmlFor="guests">How many Guests?</label>
                 <select
@@ -228,7 +239,7 @@ const MyBookingCalendar = ({
                   }
                 }}
                 type="button"
-                className="px-10 py-2 text-black text-xl bg-primary rounded-full hover:bg-background hover:text-secondary transition-all duration-300 ease-in-out"
+                className="btn-revert px-10 py-2 text-black text-xl bg-primary rounded-full hover:bg-background hover:text-secondary transition-all duration-300 ease-in-out"
               >
                 {!bookingSuccess && "BOOK NOW"}
                 {bookingSuccess && "BOOKED!"}

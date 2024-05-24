@@ -16,6 +16,7 @@ const RegistrationForm = () => {
   const { performFetch, data, error, loading } = useFetch(registerUrl);
   const { login, loggedIn } = useLogin(loginUrl);
   const [showModal, setShowModal] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -47,6 +48,7 @@ const RegistrationForm = () => {
 
   const closeModal = () => {
     setShowModal(false);
+    setIsSuccess(false);
   };
 
   const handleChange = (event) => {
@@ -79,12 +81,14 @@ const RegistrationForm = () => {
     performFetch({
       method: "POST",
       body: JSON.stringify(formData),
+    }).then(() => {
+      setIsSuccess(true);
     });
   };
 
   return (
     <div className="flex justify-center bg-secondary">
-      <Modal isOpen={showModal} onClose={closeModal}>
+      <Modal isOpen={showModal} onClose={closeModal} isSuccess={isSuccess}>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
         {data && <p>Success! Data received.</p>}

@@ -27,7 +27,7 @@ const ImageCarousel = ({ images, imageStyle }) => {
   };
 
   return (
-    <div className="relative max-w-2xl mx-auto overflow-hidden">
+    <div className="relative mx-auto overflow-hidden">
       {imagesToDisplay.map((image, index) => (
         <div
           key={index}

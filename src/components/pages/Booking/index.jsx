@@ -37,32 +37,36 @@ const Booking = () => {
   };
 
   return (
-    <div className="max-w-[600px] m-auto bg-background">
+    <div className="m-auto bg-background">
       <ImageCarousel
         images={data.media}
-        imageStyle={{ height: `auto`, width: `600px` }}
+        imageStyle={{ height: `auto`, width: `auto` }}
       />
-      <div className="px-3 m-auto">
-        <div className="my-5 px-5 flex justify-between flex-wrap">
+      <div className="px-3 m-auto md:px-5 lg:max-w-4xl">
+        <div className="my-5 px-3 flex justify-between flex-wrap gap-5">
           <div>
-            <h1 className="text-2xl text-ellipsis overflow-hidden max-w-[320px]">
-              <span className="text-sm font-text block ">Venue Title:</span>
-              {data.name}
-            </h1>
-            <div className="flex align-center text-lg gap-1">
-              Venue Rating: <Rating rating={data.rating} />
+            <div>
+              <h1 className="text-2xl text-ellipsis overflow-hidden max-w-96">
+                {data.name}
+              </h1>
+              <div className="flex items-center gap-3 mb-5">
+                Venue Rating: <Rating rating={data.rating} />
+              </div>
+              <Address object={data.location} />
             </div>
           </div>
+
           <div>
-            <span className="text-sm block">Venue Price:</span>
             <Price price={data.price} />
-            <p className="text-lg text-end">Max Guests: {data.maxGuests}</p>
+            <div>
+              <p className="text-lg mb-5">Max Guests: {data.maxGuests}</p>
+              <Meta object={data.meta} />
+            </div>
           </div>
+          {/* <div className="my-5 flex justify-between flex-wrap p-3 gap-5"> */}
+          {/* </div> */}
         </div>
-        <div className="my-5 flex justify-between p-5 gap-5">
-          <Address object={data.location} />
-          <Meta object={data.meta} />
-        </div>
+
         <div className="my-5 flex justify-between p-5 gap-5">
           {token ? (
             <OwnerInfo owner={data.owner} />

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { baseUrl } from "../../../../utils/constants";
 
 const useRegister = (method, url, body = null) => {
-  // const baseUrl = "https://v2.api.noroff.dev/";
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);

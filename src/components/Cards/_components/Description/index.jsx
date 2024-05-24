@@ -10,11 +10,14 @@ const Description = ({ description, isExpanded, toggleExpanded }) => {
   return (
     <div className="max-h-full">
       <h3 className="w-full text-left">Description</h3>
-      <p className="text-left text-wrap break-all break-words z-30 bg-background border-background overflow-auto max-h-[280px]">
+      <p
+        className="text-left break-words break-all z-30 bg-background border-background overflow-auto max-h-[280px]"
+        style={{ wordBreak: "break-word" }}
+      >
         {longDescription ? displayedDescription : description}
         {longDescription && (
           <button
-            className="text-accent text-sm cursor-pointer hover:underline"
+            className="text-secondary rounded-25 text-sm cursor-pointer hover:underline"
             onClick={toggleExpanded}
           >
             {isExpanded ? "Read less" : "Read More"}

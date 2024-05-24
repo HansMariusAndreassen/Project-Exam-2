@@ -4,11 +4,14 @@ const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
   const apiKey = import.meta.env.VITE_API_KEY;
 
   const performFetch = useCallback(
     async (options = {}) => {
       setLoading(true);
+      setError(null); // Reset error state before new request
+      setIsSuccess(false); // Reset success state before new request
       const token = localStorage.getItem("accessToken");
       try {
         const headers = new Headers({
@@ -26,12 +29,18 @@ const useFetch = (url) => {
           headers,
         });
 
+        const json = await response.json();
+
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          const errorMessage =
+            json.errors && json.errors[0] && json.errors[0].message
+              ? json.errors[0].message
+              : `HTTP error! status: ${response.status}`;
+          throw new Error(errorMessage);
         }
 
-        const json = await response.json();
         setData(json);
+        setIsSuccess(true); // Set success state if response is okay
       } catch (error) {
         setError(error.message);
       } finally {
@@ -41,7 +50,7 @@ const useFetch = (url) => {
     [url, apiKey]
   );
 
-  return { data, loading, error, performFetch };
+  return { data, loading, error, performFetch, isSuccess };
 };
 
 export default useFetch;
