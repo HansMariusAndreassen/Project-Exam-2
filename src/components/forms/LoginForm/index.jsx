@@ -10,7 +10,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const { login, loggedIn, error, loading } = useLogin(loginUrl);
+  const { login, loggedIn, error, loading, isSuccess } = useLogin(loginUrl);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
@@ -41,18 +41,10 @@ const LoginForm = () => {
 
   return (
     <div className="flex justify-center bg-secondary">
-      <Modal isOpen={showModal} onClose={closeModal}>
-        {loading && (
-          <p className="text-center text-lg font-heading">Loading...</p>
-        )}
-        {error && (
-          <p className="text-center text-xl font-heading">Error: {error}</p>
-        )}
-        {loggedIn && (
-          <p className="text-center text-xl font-heading">
-            Successful login! Redirecting...
-          </p>
-        )}
+      <Modal isOpen={showModal} onClose={closeModal} isSuccess={isSuccess}>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        {loggedIn && <p>Successful login! Redirecting...</p>}
       </Modal>
       <form
         onSubmit={handleSubmit}

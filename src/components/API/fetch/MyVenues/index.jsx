@@ -48,7 +48,7 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
               href={`/booking/${venueId}`}
               className="hover:underline hover:text-accent"
             >
-              {name.length > 20 ? name.slice(0, 20) : name}
+              {name.length > 30 ? name.slice(0, 30) : name}
             </a>
           </h3>
           <p className="text-sm text-gray-500 text-center">

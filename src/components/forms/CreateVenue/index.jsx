@@ -16,9 +16,10 @@ import Modal from "../../Modal";
 import PropTypes from "prop-types";
 
 const CreateVenue = ({ venue, isEdit, onClose }) => {
-  const { performFetch, data, error, loading } = useFetch();
+  const placeHolderMedia =
+    "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=500&w=1500";
+  const { performFetch, data, error, loading, isSuccess } = useFetch();
   const [showModal, setShowModal] = useState(false);
-  // const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -67,10 +68,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
     }
   }, [isEdit, venue]);
 
-  const openModal = () => {
-    setShowModal(true);
-  };
-
   const closeModal = () => {
     setShowModal(false);
     onClose();
@@ -111,10 +108,22 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // Check if media URL is empty and set placeholder media
+    const updatedMedia = formData.media.map((media) => {
+      if (!media.url) {
+        return { url: placeHolderMedia, alt: "Placeholder media image" };
+      }
+      return media;
+    });
+
+    const updatedFormData = { ...formData, media: updatedMedia };
+
+    setShowModal(true);
     performFetch({
       url: isEdit ? `${createVenueUrl}/${venue.id}` : createVenueUrl,
       method: isEdit ? "PUT" : "POST",
-      body: JSON.stringify(formData),
+      body: JSON.stringify(updatedFormData),
     });
   };
 
@@ -134,7 +143,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
 
   return (
     <div>
-      <Modal isOpen={showModal} onClose={closeModal}>
+      <Modal isOpen={showModal} onClose={closeModal} isSuccess={isSuccess}>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}. Please Try Again with updated form!</p>}
         {data && <p>Success! Venue {isEdit ? "updated" : "created"}.</p>}
@@ -171,7 +180,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-4">
               <div className="flex">
                 <PiTextAUnderline className="mr-2 h-6 w-6 text-gray-900" />
@@ -194,7 +202,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             {formData.media.map((media, index) => (
               <div key={index} className="sm:col-span-4">
                 <div className="flex">
@@ -253,7 +260,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 Add More Media
               </button>
             </div>
-
             <div className="sm:col-span-2">
               <div className="flex">
                 <PiCurrencyDollar className="mr-2 h-6 w-6 text-gray-900" />
@@ -277,7 +283,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-2">
               <div className="flex">
                 <PiUsers className="mr-2 h-6 w-6 text-gray-900" />
@@ -301,7 +306,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-4">
               <div className="flex">
                 <PiStar className="mr-2 h-6 w-6 text-gray-900" />
@@ -324,7 +328,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-4">
               <label className="block text-sm font-medium leading-6 text-gray-900">
                 Amenities
@@ -347,7 +350,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 ))}
               </div>
             </div>
-
             <div className="sm:col-span-4">
               <div className="flex">
                 <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
@@ -370,7 +372,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-2">
               <div className="flex">
                 <PiAt className="mr-2 h-6 w-6 text-gray-900" />
@@ -393,7 +394,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-2">
               <div className="flex">
                 <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
@@ -416,7 +416,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-2">
               <div className="flex">
                 <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
@@ -439,7 +438,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-2">
               <div className="flex">
                 <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
@@ -462,7 +460,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-2">
               <div className="flex">
                 <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
@@ -485,7 +482,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                 />
               </div>
             </div>
-
             <div className="sm:col-span-2">
               <div className="flex">
                 <PiMapPin className="mr-2 h-6 w-6 text-gray-900" />
@@ -510,7 +506,6 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
             </div>
           </div>
         </div>
-
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="button"
@@ -519,7 +514,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
           >
             Cancel
           </button>
-          <button onClick={openModal} type="submit" className="btn">
+          <button type="submit" className="btn">
             {!showModal && <p>Send</p>}
             {loading && <p>Loading...</p>}
             {error && <p>Try again</p>}

@@ -88,7 +88,7 @@ const SearchBar = ({ onContinentSelect }) => {
           ref={searchBarRef}
         >
           <div
-            className="flex justify-center items-center gap-9 :hover cursor-pointer"
+            className="flex justify-center items-center gap-9 hover:cursor-pointer"
             onClick={toggleExpanded}
           >
             <IoSearchSharp size={32} />
@@ -127,8 +127,8 @@ const SearchBar = ({ onContinentSelect }) => {
                       key={result.id}
                       onClick={() => handleSearchResultClick(result.id)}
                     >
-                      <div className="flex g-3 items-center  hover:border hover:cursor-pointer">
-                        <div className="py-1">
+                      <div className="flex gap-2 my-3 border border-accent items-center hover:bg-accentTwo hover:cursor-pointer transition-all duration-300 ease-in-out">
+                        <div className="">
                           {Array.isArray(result.media) &&
                           result.media.length > 0 ? (
                             <div>

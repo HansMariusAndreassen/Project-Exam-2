@@ -35,8 +35,6 @@ const Profile = () => {
   const refreshUser = () => {
     setTimeout(() => {
       performFetch();
-      setShowCreateForm(false);
-      setShowUpdateForm(false);
     }, 500);
   };
 
@@ -162,8 +160,8 @@ const Profile = () => {
         />
       </div>
       <div className="relative p-5">
-        <div className="flex">
-          <div className="relative -mt-16 w-40 h-36 overflow-hidden rounded-[50%]">
+        <div>
+          <div className="relative -mt-24 w-40 h-40 overflow-hidden rounded-[50%]">
             <img
               className="object-cover w-full h-full"
               src={userDetail.avatar.url}
@@ -242,7 +240,6 @@ const Profile = () => {
               venue={currentVenue}
               isEdit={isEdit}
               onClose={() => {
-                setShowCreateForm(false);
                 setCurrentVenue(null);
                 setIsEdit(false);
               }}

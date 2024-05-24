@@ -43,20 +43,18 @@ const Booking = () => {
         imageStyle={{ height: `auto`, width: `600px` }}
       />
       <div className="px-3 m-auto">
-        <div className="my-5 px-5 flex justify-between flex-wrap">
+        <div className="my-5 px-5 flex justify-between flex-wrap gap-5">
           <div>
             <h1 className="text-2xl text-ellipsis overflow-hidden max-w-[320px]">
-              <span className="text-sm font-text block ">Venue Title:</span>
               {data.name}
             </h1>
-            <div className="flex align-center text-lg gap-1">
+            <div className="flex align-center text-lg gap-1 justify-center">
               Venue Rating: <Rating rating={data.rating} />
             </div>
           </div>
           <div>
-            <span className="text-sm block">Venue Price:</span>
             <Price price={data.price} />
-            <p className="text-lg text-end">Max Guests: {data.maxGuests}</p>
+            <p className="text-lg text-center">Max Guests: {data.maxGuests}</p>
           </div>
         </div>
         <div className="my-5 flex justify-between p-5 gap-5">
