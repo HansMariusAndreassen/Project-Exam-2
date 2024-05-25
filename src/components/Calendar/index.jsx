@@ -94,6 +94,7 @@ const MyBookingCalendar = ({
   };
 
   const handleDateChange = (newRange) => {
+    setBookingSuccess(false);
     if (Array.isArray(newRange) && newRange.length === 2) {
       const [startDate, endDate] = newRange;
       if (isRangeValid(startDate, endDate)) {
@@ -167,17 +168,21 @@ const MyBookingCalendar = ({
           {!loading && !error && !bookingSuccess && (
             <>
               <h1 className="text-2xl mb-5">Booking Summary</h1>
-              <p>
-                <strong>From:</strong> {value[0].toDateString()}
+              <p>From:</p>
+              <p className="text-center">
+                <strong> {value[0].toDateString()}</strong>
               </p>
-              <p>
-                <strong>To:</strong> {value[1].toDateString()}
+              <p>To:</p>
+              <p className="text-center">
+                <strong> {value[1].toDateString()}</strong>
               </p>
-              <p>
-                <strong>Guests:</strong> {guests}
+              Guests:
+              <p className="text-center">
+                <strong> {guests}</strong>
               </p>
-              <p>
-                <strong>Total Cost:</strong> ${totalCost.toFixed(2)}
+              <p>Total Cost:</p>
+              <p className="text-3xl text-center text-background bg-secondary rounded-25">
+                <strong> $ {totalCost.toFixed(0)}</strong>
               </p>
               <button
                 onClick={handleBooking}

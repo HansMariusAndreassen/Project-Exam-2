@@ -45,7 +45,7 @@ const Booking = () => {
     <div className="m-auto bg-background mb-16">
       <ImageCarousel
         images={data.media}
-        imageStyle={{ height: `auto`, width: `auto` }}
+        imageStyle={{ height: `auto`, width: `100%` }}
       />
       <div className="px-3 m-auto md:px-5 lg:max-w-4xl">
         <div className="my-5 px-3 flex justify-between flex-wrap gap-5">

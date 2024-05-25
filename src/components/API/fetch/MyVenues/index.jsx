@@ -53,8 +53,8 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
       ) : (
         <div className="w-36 h-36 rounded-full mb-2 bg-background"></div>
       )}
-      <div className="flex flex-col mx-auto">
-        <h3 className="text-lg font-bold text-ellipsis overflow-hidden">
+      <div className="flex flex-col">
+        <h3 className="text-xl text-ellipsis overflow-hidden">
           <a
             href={`/booking/${venueId}`}
             className="hover:underline hover:text-accent"
@@ -62,14 +62,14 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
             {name.length > 30 ? name.slice(0, 30) : name}
           </a>
         </h3>
-        <p className="text-sm text-gray-500">Created: {formatDate(created)}</p>
-        <p className="text-sm text-gray-500">
-          Current Bookings: {_count.bookings}
-        </p>
+        <p className="text-sm">Created: {formatDate(created)}</p>
+        <p className="text-sm">Current Bookings: {_count.bookings}</p>
         {isOwnProfile ? (
           <button
             className={
-              _count.bookings ? "btn mt-2 text-sm" : "mt-4 btn-disabled"
+              _count.bookings
+                ? "btn mt-2 text-sm mr-auto"
+                : "mr-auto mt-4 btn-disabled"
             }
             disabled={_count.bookings === 0}
             onClick={() => setShowBookings((prev) => !prev)}
@@ -82,7 +82,7 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
           </button>
         ) : (
           <button
-            className="btn mt-4"
+            className="btn mt-4 mr-auto"
             onClick={() => navigate(`/booking/${venueId}`)}
           >
             View Venue

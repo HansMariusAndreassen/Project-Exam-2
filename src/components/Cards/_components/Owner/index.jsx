@@ -14,11 +14,11 @@ import PropTypes from "prop-types";
  */
 const OwnerInfo = ({ owner }) => {
   return (
-    <div className="">
+    <div>
       <h3>Venue Owner:</h3>
       <a
         href={`/profile/${owner.name}`}
-        className="flex items-center gap-3 p-2 rounded-25 border border-secondary border-opacity-0 hover:border-opacity-100 hover:shadow-2xl hover:shadow-primary transition-all duration-300 ease-in-out"
+        className="flex flex-wrap items-center gap-3 p-2 rounded-25 border border-secondary border-opacity-0 hover:border-opacity-100 hover:shadow-2xl hover:shadow-primary transition-all duration-300 ease-in-out"
       >
         <div>
           <img
@@ -28,7 +28,7 @@ const OwnerInfo = ({ owner }) => {
           />
         </div>
         <ul>
-          <li>{owner.name}</li>
+          <li className="font-bold">{owner.name}</li>
           <li>{owner.email}</li>
         </ul>
       </a>

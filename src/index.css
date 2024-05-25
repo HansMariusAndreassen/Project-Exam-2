@@ -246,7 +246,6 @@ form select {
 
 .react-calendar {
   width: 100%;
-  min-width: 375px;
   padding: 1rem;
   border: none;
 }

@@ -8,6 +8,11 @@ import Country from "./_components/Country";
 import Rating from "./_components/Rating";
 import { ContinentContext } from "../layout/Main";
 
+/**
+ * Renders a list of cards displaying venue information.
+ *
+ * @returns {JSX.Element} The rendered Cards component.
+ */
 const Cards = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20);

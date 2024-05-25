@@ -18,7 +18,7 @@ const Modal = ({ children, isOpen, onClose, isSuccess }) => {
   const location = useLocation();
   useEffect(() => {
     if (!isOpen) return;
-    if (isSuccess && location.pathname !== "/booking") {
+    if (isSuccess && !location.pathname.includes("/booking/")) {
       const timer = setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -38,9 +38,7 @@ const Modal = ({ children, isOpen, onClose, isSuccess }) => {
         <button
           className="btn m-auto mt-5"
           onClick={() => {
-            if (!isSuccess) {
-              onClose();
-            }
+            onClose();
           }}
           aria-label="Close modal"
         >
