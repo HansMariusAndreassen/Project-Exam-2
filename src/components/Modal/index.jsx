@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import ReactDom from "react-dom";
 import PropTypes from "prop-types";
+import { useLocation } from "react-router-dom";
 
 const Modal = ({ children, isOpen, onClose, isSuccess }) => {
+  const location = useLocation();
   useEffect(() => {
     if (!isOpen) return;
-    if (isSuccess) {
+    if (isSuccess && location.pathname !== "/booking") {
       const timer = setTimeout(() => {
         window.location.reload();
       }, 1000);

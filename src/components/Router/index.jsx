@@ -3,9 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "../layout/Layout";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
-import RegistrationForm from "../forms/RegisterForm";
 import Booking from "../pages/Booking";
-import LoginForm from "../forms/LoginForm";
+import LoginPage from "../pages/Login";
+import RegisterPage from "../pages/RegisterPage";
 
 const Router = () => {
   return (
@@ -15,8 +15,8 @@ const Router = () => {
         <Route path="/booking/:id" element={<Booking />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/:name" element={<Profile />} />
-        <Route path="/registration" element={<RegistrationForm />} />
-        <Route path="/login" element={<LoginForm />} />
+        <Route path="/registration" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Route>
     </Routes>
   );

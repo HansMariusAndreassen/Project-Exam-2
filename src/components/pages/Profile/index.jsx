@@ -84,7 +84,6 @@ const Profile = () => {
   const handleDelete = (bookingId) => {
     console.log("Delete triggered!", bookingId);
     if (window.confirm("Are you sure you want to delete this booking?")) {
-      console.log("Delete confirmed");
       submitDelete(bookingsUrl, bookingId);
       refreshUser();
     } else {
@@ -93,9 +92,7 @@ const Profile = () => {
   };
 
   const handleDeleteVenue = (venueId) => {
-    console.log("Delete venue triggered!", venueId);
     if (window.confirm("Are you sure you want to delete this venue?")) {
-      console.log("Delete confirmed");
       submitDelete(venuesUrl, venueId);
       refreshUser();
     } else {
@@ -151,7 +148,7 @@ const Profile = () => {
     : [];
 
   return (
-    <div className="flex flex-col m-auto bg-background g-5">
+    <div className="flex flex-col m-auto bg-background gap-5 mb-16">
       <div className="h-[300px] bg-primary overflow-hidden">
         <img
           className="w-full h-full object-cover"
@@ -161,7 +158,7 @@ const Profile = () => {
       </div>
       <div className="relative p-5">
         <div>
-          <div className="relative -mt-24 w-40 h-40 overflow-hidden rounded-[50%]">
+          <div className="relative -mt-24 w-40 h-40 overflow-hidden rounded-full">
             <img
               className="object-cover w-full h-full"
               src={userDetail.avatar.url}
@@ -170,7 +167,7 @@ const Profile = () => {
           </div>
           <div className="w-full">
             {isOwnProfile && (
-              <div className="flex justify-end gap-2 px-3 rounded-full w-full hover:text-primary hover:cursor-pointer">
+              <div className="flex justify-end gap-2 translate-y-7">
                 <DropdownMenu
                   className={"hover:cursor-pointer"}
                   listItems={profileMenuItems}
@@ -180,7 +177,7 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <h1 className="text-center mt-5">{userDetail.name}</h1>
+        <h1 className="text-center text-xl">{userDetail.name}</h1>
         <div className="mt-5">
           <h2>Bio</h2>
           <p className="mx-3 mb-5 break-words max-w-[600px]">
@@ -194,38 +191,36 @@ const Profile = () => {
                 {isOwnProfile ? "My Venues" : `${userDetail.name}'s Venues`} (
                 {userDetail._count.venues})
               </h2>
-              <div className="flex-col justify-around">
-                <div className="mx-3">
-                  <ul className="">
-                    {userDetail.venues.map((venue) => (
-                      <li className="flex justify-between mx-1" key={venue.id}>
-                        <VenueBanner
-                          venueId={venue.id}
-                          isOwnProfile={isOwnProfile}
-                        />{" "}
-                        {isOwnProfile && (
-                          <DropdownMenu
-                            className={"hover:cursor-pointer"}
-                            listItems={venueMenuItems}
-                            onActivate={(value) => {
-                              if (value === "edit_venue")
-                                handleEditVenue(venue);
-                              if (value === "delete_venue")
-                                handleDeleteVenue(venue.id);
-                            }}
-                          />
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div>
+                {userDetail.venues.map((venue) => (
+                  <div
+                    className="flex justify-center w-full mb-4"
+                    key={venue.id}
+                  >
+                    <VenueBanner
+                      venueId={venue.id}
+                      isOwnProfile={isOwnProfile}
+                    />
+                    {isOwnProfile && (
+                      <DropdownMenu
+                        className={"hover:cursor-pointer"}
+                        listItems={venueMenuItems}
+                        onActivate={(value) => {
+                          if (value === "edit_venue") handleEditVenue(venue);
+                          if (value === "delete_venue")
+                            handleDeleteVenue(venue.id);
+                        }}
+                      />
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         )}
         <div ref={formRef} className="w-full flex justify-end px-4">
-          {token && isVenueManager && isOwnProfile && (
-            <button className="btn my-5" onClick={handleBtnClick}>
+          {token && isOwnProfile && (
+            <button className="btn my-5 m-auto" onClick={handleBtnClick}>
               {showCreateForm || showUpdateForm
                 ? "Close"
                 : isVenueManager

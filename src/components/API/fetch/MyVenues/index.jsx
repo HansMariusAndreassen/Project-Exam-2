@@ -3,6 +3,9 @@ import useFetch from "../../auth/FetchHook";
 import PropTypes from "prop-types";
 import { venuesUrl } from "../../../../utils/constants";
 import { useNavigate } from "react-router-dom";
+import { FaBarcode } from "react-icons/fa";
+import { PiAt, PiUser, PiUsers } from "react-icons/pi";
+import { BsCalendar2Date } from "react-icons/bs";
 
 const VenueBanner = ({ venueId, isOwnProfile }) => {
   const { performFetch, data, loading, error } = useFetch(
@@ -29,75 +32,86 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
   };
 
   return (
-    <div className="pb-4 px-4 bg-background rounded-lg flex flex-col items-center w-full">
-      <div className="flex gap-5 items-center w-full">
-        {media && media.length > 0 ? (
-          <div>
-            <img
-              className="w-36 h-36 object-cover mb-2"
-              src={media[0].url}
-              alt={`${name} banner`}
-            />
-          </div>
-        ) : (
-          <div className="w-48 h-48 rounded-full mb-2 bg-gray-200"></div>
-        )}
-        <div className="flex flex-col flex-wrap m-auto items-center">
-          <h3 className="text-lg font-bold text-center text-ellipsis overflow-hidden">
-            <a
-              href={`/booking/${venueId}`}
-              className="hover:underline hover:text-accent"
-            >
-              {name.length > 30 ? name.slice(0, 30) : name}
-            </a>
-          </h3>
-          <p className="text-sm text-gray-500 text-center">
-            Created: {formatDate(created)}
-          </p>
-          <p className="text-sm text-gray-500 text-center">
-            Current Bookings: {_count.bookings}
-          </p>
-          {isOwnProfile ? (
-            <button
-              className={_count.bookings ? "btn mt-4" : "mt-4 btn-disabled"}
-              disabled={_count.bookings === 0}
-              onClick={() => setShowBookings((prev) => !prev)}
-            >
-              {!_count.bookings
-                ? "No Bookings"
-                : showBookings
-                  ? "Hide Bookings"
-                  : "Show Bookings"}
-            </button>
-          ) : (
-            <button
-              className="btn mt-4"
-              onClick={() => navigate(`/booking/${venueId}`)}
-            >
-              View Venue
-            </button>
-          )}
+    <div className="grid grid-cols-2 w-full">
+      {media && media.length > 0 ? (
+        <div className="w-36 h-36 overflow-hidden m-auto">
+          <img
+            className="object-cover w-full h-full mb-2"
+            src={media[0].url}
+            alt={`${name} banner`}
+          />
         </div>
+      ) : (
+        <div className="w-36 h-36 rounded-full mb-2 bg-background"></div>
+      )}
+
+      <div className="flex flex-col mx-auto">
+        <h3 className="text-lg font-bold text-ellipsis overflow-hidden">
+          <a
+            href={`/booking/${venueId}`}
+            className="hover:underline hover:text-accent"
+          >
+            {name.length > 30 ? name.slice(0, 30) : name}
+          </a>
+        </h3>
+        <p className="text-sm text-gray-500">Created: {formatDate(created)}</p>
+        <p className="text-sm text-gray-500">
+          Current Bookings: {_count.bookings}
+        </p>
+        {isOwnProfile ? (
+          <button
+            className={
+              _count.bookings ? "btn mt-2 text-sm" : "mt-4 btn-disabled"
+            }
+            disabled={_count.bookings === 0}
+            onClick={() => setShowBookings((prev) => !prev)}
+          >
+            {!_count.bookings
+              ? "No Bookings"
+              : showBookings
+                ? "Hide"
+                : "Bookings"}
+          </button>
+        ) : (
+          <button
+            className="btn mt-4"
+            onClick={() => navigate(`/booking/${venueId}`)}
+          >
+            View Venue
+          </button>
+        )}
       </div>
       {showBookings && bookings && (
-        <div className="mt-4 w-full">
+        <div className="col-span-2 flex flex-col items-center mt-4">
           {bookings.length > 0 ? (
             bookings.map((booking) => (
-              <div
-                key={booking.id}
-                className="mb-4 p-2 border-b border-gray-300"
-              >
-                <p className="text-sm">Booking ID: {booking.id}</p>
-                <p className="mt-2 text-lg">Booker Details:</p>
-                <p>{`Name: ${booking.customer.name}`}</p>
-                <p>{`Email: ${booking.customer.email}`}</p>
-                <p>{`Date From: ${formatDate(booking.dateFrom)}`}</p>
-                <p>{`Date To: ${formatDate(booking.dateTo)}`}</p>
-                <p>{`Guests: ${booking.guests}`}</p>
+              <div key={booking.id} className="mb-4 p-2 border-b">
+                <p className="flex items-center gap-3 flex-wrap">
+                  <FaBarcode size={20} /> Booking ID: <span>{booking.id}</span>
+                </p>
+                <p className="flex items-center font-bold gap-3">
+                  <PiUser size={20} /> {`${booking.customer.name}`}
+                </p>
+                <p className="flex items-center gap-3">
+                  <PiAt size={20} />
+                  {`${booking.customer.email}`}
+                </p>
+                <p className="flex items-center gap-3">
+                  <BsCalendar2Date size={20} />
+                  {`From: ${formatDate(booking.dateFrom)}`}
+                </p>
+                <p className="flex items-center gap-3">
+                  <BsCalendar2Date size={20} />
+                  {`To: ${formatDate(booking.dateTo)}`}
+                </p>
+                <p className="flex items-center gap-3">
+                  <PiUsers size={20} />
+                  {`${booking.guests} Guests `}
+                </p>
               </div>
             ))
           ) : (
-            <p className="text-sm text-gray-500">No bookings available</p>
+            <p className="text-sm">No bookings available</p>
           )}
         </div>
       )}
