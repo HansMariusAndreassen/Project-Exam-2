@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useFetch } from "../../../hooks/useFetch";
 import { userUrl } from "../../../utils/constants";
 
@@ -24,9 +24,9 @@ const useProfile = (user) => {
     [performFetch]
   );
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   return { data, loading, error, updateUser };
 };
