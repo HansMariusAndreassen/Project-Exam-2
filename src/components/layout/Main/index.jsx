@@ -5,6 +5,10 @@ import ScrollToTop from "../../../utils/ScrollToTop";
 import ScrollToTopButton from "../../../utils/ScrollToTopBtn";
 import BackButton from "../../../utils/BackBtn";
 
+/**
+ * Context object for managing continent data.
+ * @type {React.Context}
+ */
 const ContinentContext = React.createContext();
 
 const Main = ({ selectedContinent, setSelectedContinent }) => {

@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { venuesUrl } from "../../../../utils/constants.js";
 
+/**
+ * Fetches venue data from the server.
+ *
+ * @param {string} id - The ID of the venue to fetch.
+ * @returns {Object} - An object containing the venue data, loading state, and error state.
+ */
 const FetchVenue = (id) => {
   const [venue, setVenue] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -4,6 +4,10 @@ import { Main } from "../Main";
 import Footer from "../Footer";
 import SearchBar from "../../SearchBar";
 
+/**
+ * Represents the layout component of the application.
+ * @component
+ */
 const Layout = () => {
   const [selectedContinent, setSelectedContinent] = useState(null);
 

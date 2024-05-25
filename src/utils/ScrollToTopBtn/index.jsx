@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 
+/**
+ * ScrollToTopButton component.
+ * A button that appears when the user scrolls down and allows them to scroll back to the top of the page.
+ */
 const ScrollToTopButton = () => {
   const [showButton, setShowButton] = useState(false);
 
