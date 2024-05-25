@@ -1,11 +1,13 @@
-import "./App.css";
+import React from "react";
+import Router from "../Router";
 
+/**
+ * Renders the main App component.
+ *
+ * @returns {JSX.Element} The rendered App component.
+ */
 function App() {
-  return (
-    <>
-      <h1>Hello World</h1>
-    </>
-  );
+  return <Router />;
 }
 
 export default App;
