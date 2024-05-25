@@ -2,6 +2,12 @@ import { useCallback, useEffect } from "react";
 import { useFetch } from "../../../hooks/useFetch";
 import { userUrl } from "../../../utils/constants";
 
+/**
+ * Custom hook for fetching user profile data.
+ *
+ * @param {string} user - The user ID or username.
+ * @returns {Object} - An object containing the fetched data, loading state, error state, and a function to update the user.
+ */
 const useProfile = (user) => {
   const { data, loading, error, performFetch } = useFetch(`${userUrl}/${user}`);
 
@@ -18,9 +24,7 @@ const useProfile = (user) => {
     [performFetch]
   );
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   return { data, loading, error, updateUser };
 };

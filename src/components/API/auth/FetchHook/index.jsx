@@ -1,5 +1,11 @@
 import { useState, useCallback } from "react";
 
+/**
+ * Custom hook for making HTTP requests and handling the response.
+ *
+ * @param {string} url - The URL to make the request to.
+ * @returns {object} - An object containing the response data, loading state, error message, success state, and a function to perform the fetch.
+ */
 const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -10,8 +16,8 @@ const useFetch = (url) => {
   const performFetch = useCallback(
     async (options = {}) => {
       setLoading(true);
-      setError(null); // Reset error state before new request
-      setIsSuccess(false); // Reset success state before new request
+      setError(null);
+      setIsSuccess(false);
       const token = localStorage.getItem("accessToken");
       try {
         const headers = new Headers({
@@ -40,7 +46,6 @@ const useFetch = (url) => {
         }
 
         setData(json);
-        setIsSuccess(true); // Set success state if response is okay
       } catch (error) {
         setError(error.message);
       } finally {

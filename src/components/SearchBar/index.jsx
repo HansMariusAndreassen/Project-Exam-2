@@ -8,6 +8,14 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Rating from "../Cards/_components/Rating";
 
+/**
+ * SearchBar component for searching and displaying search results.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Function} props.onContinentSelect - The callback function to handle continent selection.
+ * @returns {JSX.Element} The SearchBar component.
+ */
 const SearchBar = ({ onContinentSelect }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);

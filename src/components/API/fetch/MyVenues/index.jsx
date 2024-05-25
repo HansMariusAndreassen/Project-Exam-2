@@ -7,6 +7,15 @@ import { FaBarcode } from "react-icons/fa";
 import { PiAt, PiUser, PiUsers } from "react-icons/pi";
 import { BsCalendar2Date } from "react-icons/bs";
 
+/**
+ * Renders a banner for a venue on profile page.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.venueId - The ID of the venue.
+ * @param {boolean} props.isOwnProfile - Indicates whether the profile is owned by the user.
+ * @returns {JSX.Element} The rendered VenueBanner component.
+ */
 const VenueBanner = ({ venueId, isOwnProfile }) => {
   const { performFetch, data, loading, error } = useFetch(
     `${venuesUrl}/${venueId}?_bookings=true`
@@ -32,9 +41,9 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 w-full">
+    <div className="grid grid-cols-2 w-full sm:gap-20">
       {media && media.length > 0 ? (
-        <div className="w-36 h-36 overflow-hidden m-auto">
+        <div className="w-36 h-36 overflow-hidden sm:ml-auto">
           <img
             className="object-cover w-full h-full mb-2"
             src={media[0].url}
@@ -45,7 +54,7 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
         <div className="w-36 h-36 rounded-full mb-2 bg-background"></div>
       )}
 
-      <div className="flex flex-col mx-auto">
+      <div className="flex flex-col">
         <h3 className="text-lg font-bold text-ellipsis overflow-hidden">
           <a
             href={`/booking/${venueId}`}
@@ -54,14 +63,14 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
             {name.length > 30 ? name.slice(0, 30) : name}
           </a>
         </h3>
-        <p className="text-sm text-gray-500">Created: {formatDate(created)}</p>
-        <p className="text-sm text-gray-500">
-          Current Bookings: {_count.bookings}
-        </p>
+        <p className="text-sm">Created: {formatDate(created)}</p>
+        <p className="text-sm">Current Bookings: {_count.bookings}</p>
         {isOwnProfile ? (
           <button
             className={
-              _count.bookings ? "btn mt-2 text-sm" : "mt-4 btn-disabled"
+              _count.bookings
+                ? "btn mt-2 text-sm mr-auto"
+                : "mt-4 btn-disabled mr-auto"
             }
             disabled={_count.bookings === 0}
             onClick={() => setShowBookings((prev) => !prev)}
@@ -73,13 +82,44 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
                 : "Bookings"}
           </button>
         ) : (
-          <button
-            className="btn mt-4"
-            onClick={() => navigate(`/booking/${venueId}`)}
-          >
-            View Venue
-          </button>
+          <div className="w-48 h-48 rounded-full mb-2 bg-gray-200"></div>
         )}
+        <div className="flex flex-col flex-wrap m-auto items-center">
+          <h3 className="text-lg font-bold text-center text-ellipsis overflow-hidden">
+            <a
+              href={`/booking/${venueId}`}
+              className="hover:underline hover:text-accent"
+            >
+              {name.length > 20 ? name.slice(0, 20) : name}
+            </a>
+          </h3>
+          <p className="text-sm text-gray-500 text-center">
+            Created: {formatDate(created)}
+          </p>
+          <p className="text-sm text-gray-500 text-center">
+            Current Bookings: {_count.bookings}
+          </p>
+          {isOwnProfile ? (
+            <button
+              className={_count.bookings ? "btn mt-4" : "mt-4 btn-disabled"}
+              disabled={_count.bookings === 0}
+              onClick={() => setShowBookings((prev) => !prev)}
+            >
+              {!_count.bookings
+                ? "No Bookings"
+                : showBookings
+                  ? "Hide Bookings"
+                  : "Show Bookings"}
+            </button>
+          ) : (
+            <button
+              className="btn mt-4"
+              onClick={() => navigate(`/booking/${venueId}`)}
+            >
+              View Venue
+            </button>
+          )}
+        </div>
       </div>
       {showBookings && bookings && (
         <div className="col-span-2 flex flex-col items-center mt-4">

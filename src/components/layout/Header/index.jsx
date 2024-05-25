@@ -4,6 +4,10 @@ import { logOut } from "../../../utils/logOut";
 import { FaUser } from "react-icons/fa";
 import { IoAirplaneSharp } from "react-icons/io5";
 
+/**
+ * Represents the header component of the application.
+ * @returns {JSX.Element} The header component.
+ */
 const Header = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("accessToken");

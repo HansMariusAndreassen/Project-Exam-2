@@ -4,6 +4,15 @@ import useFetch from "../../API/auth/FetchHook";
 import PropTypes from "prop-types";
 import Modal from "../../Modal";
 
+/**
+ * UpdateProfile component.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {boolean} props.isUser - Indicates whether the user is logged in.
+ * @param {Function} props.onClose - Callback function to close the modal.
+ * @returns {JSX.Element} The UpdateProfile component.
+ */
 const UpdateProfile = ({ isUser, onClose }) => {
   const { performFetch, data, error, loading } = useFetch(
     `https://v2.api.noroff.dev/holidaze/profiles/${isUser}`
@@ -29,7 +38,6 @@ const UpdateProfile = ({ isUser, onClose }) => {
 
   useEffect(() => {
     if (data) {
-      console.log("Data fetched", data);
       setFormData({
         bio: data.data.bio || "No bio",
         avatar: {

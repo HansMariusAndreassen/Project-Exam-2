@@ -5,6 +5,15 @@ import { PiAt, PiPassword } from "react-icons/pi";
 import Modal from "../../Modal";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * LoginForm component for user login.
+ *
+ * @component
+ * @example
+ * return (
+ *   <LoginForm />
+ * )
+ */
 const LoginForm = () => {
   const [credentials, setCredentials] = useState({
     email: "",

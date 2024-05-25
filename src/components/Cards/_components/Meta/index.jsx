@@ -4,6 +4,13 @@ import { FaDog, FaWifi } from "react-icons/fa";
 import { MdOutlineFreeBreakfast } from "react-icons/md";
 import { LuParkingCircle } from "react-icons/lu";
 
+/**
+ * Renders the Meta component.
+ *
+ * @component
+ * @param {Object} object - The object containing the amenities information.
+ * @returns {JSX.Element|null} The rendered Meta component.
+ */
 const Meta = ({ object }) => {
   if (!object || Object.keys(object).length === 0) {
     return null;

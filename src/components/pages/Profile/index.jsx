@@ -9,6 +9,16 @@ import UpdateProfile from "../../forms/UpdateUserProfile";
 import useDeleteFetch from "../../API/fetch/Delete";
 import VenueBanner from "../../API/fetch/MyVenues";
 
+/**
+ * Profile component displays the user profile information, including avatar, banner, bio, venues, and bookings.
+ * It allows the user to edit their profile, add venues, and manage bookings.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Profile />
+ * )
+ */
 const Profile = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
@@ -55,13 +65,13 @@ const Profile = () => {
     setIsEdit(true);
     setShowCreateForm(true);
     setShowUpdateForm(false);
-    setTimeout(handleScrollToForm, 100); // Wait for the form to render
+    setTimeout(handleScrollToForm, 100);
   };
 
   const handleEditProfile = () => {
     setShowUpdateForm(true);
     setShowCreateForm(false);
-    setTimeout(handleScrollToForm, 100); // Wait for the form to render
+    setTimeout(handleScrollToForm, 100);
   };
 
   const handleBtnClick = () => {

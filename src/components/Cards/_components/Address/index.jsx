@@ -2,6 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { PiMapPin } from "react-icons/pi";
 
+/**
+ * Renders the address information.
+ *
+ * @component
+ * @param {Object} object - The object containing the address information.
+ * @returns {JSX.Element|null} The rendered address component.
+ */
 const Address = ({ object }) => {
   if (!object) {
     return null;

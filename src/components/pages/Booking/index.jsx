@@ -11,6 +11,11 @@ import OwnerInfo from "../../Cards/_components/Owner";
 import Rating from "../../Cards/_components/Rating";
 import useToken from "../../../hooks/useToken";
 
+/**
+ * Renders the Booking component.
+ *
+ * @returns {JSX.Element} The Booking component.
+ */
 const Booking = () => {
   const [expandedCard, setExpandedCard] = useState(null);
   const [numGuests, setNumGuests] = useState(1);
@@ -18,7 +23,6 @@ const Booking = () => {
   const { venue, loading, error } = FetchVenue(id);
   const data = venue.data;
   const token = useToken();
-  console.log(data);
 
   if (loading) {
     return (

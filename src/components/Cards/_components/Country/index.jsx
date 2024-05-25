@@ -1,6 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+/**
+ * Renders a component that displays the country name.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.country - The name of the country.
+ * @returns {JSX.Element|null} The rendered Country component.
+ */
 const Country = ({ country }) => {
   const trimCountry = (country) => {
     if (country.length > 15) {

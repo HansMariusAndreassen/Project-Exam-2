@@ -9,12 +9,21 @@ import {
   PiStar,
   PiMapPin,
 } from "react-icons/pi";
-// import { useNavigate } from "react-router-dom";
 import useFetch from "../../API/auth/FetchHook";
 import { createVenueUrl } from "../../../utils/constants";
 import Modal from "../../Modal";
 import PropTypes from "prop-types";
 
+/**
+ * CreateVenue component is responsible for rendering a form to create or edit a venue.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Object} props.venue - The venue object to edit (optional).
+ * @param {boolean} props.isEdit - Indicates whether the form is for editing an existing venue.
+ * @param {Function} props.onClose - The function to close the form.
+ * @returns {JSX.Element} The CreateVenue component.
+ */
 const CreateVenue = ({ venue, isEdit, onClose }) => {
   const placeHolderMedia =
     "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=500&w=1500";
