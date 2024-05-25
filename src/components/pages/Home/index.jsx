@@ -7,9 +7,10 @@ import Cards from "../../Cards";
  */
 const Home = () => {
   return (
-    <div>
+    <>
+      <h1 className="text-primary text-xl text-center">Featured Venues</h1>
       <Cards />
-    </div>
+    </>
   );
 };
 
