@@ -23,7 +23,6 @@ const Booking = () => {
   const { venue, loading, error } = FetchVenue(id);
   const data = venue.data;
   const token = useToken();
-  console.log(data);
 
   if (loading) {
     return (

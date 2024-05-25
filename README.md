@@ -46,6 +46,26 @@ In today's digital landscape, creating visually appealing and performant web app
 - **Search**: Advanced search options to easily find and manage content.
 - **Filter**: Custom world map continent filter
 
+## Technical Decisions
+
+### Prop-types
+
+When deciding between Prop-types and TypeScript, several factors influenced the choice to use Prop-types:
+
+- **Simplicity**: Prop-types provide a simple way to validate props in React components without adding the complexity of TypeScript.
+- **Project Scope**: The project is relatively small, and the overhead of setting up and learning TypeScript was not justified.
+- **Learning Curve**: For team members who may not be familiar with TypeScript, Prop-types allow for quicker onboarding and understanding.
+- **Tooling and Setup**: Using Prop-types does not require additional configuration and integrates seamlessly with the existing build process.
+- **Knowledge**: TypeScript was not taught during the semester. While it was explored briefly, the decision was made not to take on this project with a new language in addition to Tailwind CSS due to a lack of familiarity.
+
+### Design Differences
+
+The final design of the project differs slightly from the initial prototype due to the following reasons:
+
+- **User Feedback**: During the development process, feedback was gathered from potential users, which led to some design adjustments to improve usability and user experience.
+- **Technical Constraints**: Certain design elements in the prototype were not feasible within the project's technical constraints, necessitating changes.
+- **Improved Functionality**: Some changes were made to enhance the overall functionality and flow of the application, which resulted in slight deviations from the original design.
+
 ## Installation
 
 To install and set up this project, follow these steps:
@@ -128,6 +148,8 @@ For more information, see the [Creative Commons Attribution 4.0 International Li
 - [Tailwind CSS](https://tailwindcss.com) - For the utility-first CSS framework used to style the project.
 - [CodePen](https://codepen.io) - For inspiration and examples of front-end development.
 - [CSS Loaders](https://css-loaders.com) - For providing pre-made CSS loaders used in the project.
+- [React-Icons](https://react-icons.github.io/react-icons/) - For providing icons used in the project.
+- [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Continents.svg) - Map adapted from PDF world map at [CIA World Fact Book](https://en.wikipedia.org/wiki/CIA_World_Fact_Book)
 
 ## References
 
@@ -138,3 +160,5 @@ For more information, see the [Creative Commons Attribution 4.0 International Li
 - [Tailwind CSS](https://tailwindcss.com) - A utility-first CSS framework for rapid UI development.
 - [CodePen](https://codepen.io) - A social development environment for front-end designers and developers.
 - [CSS Loaders](https://css-loaders.com) - A collection of loading animations made with CSS.
+- [React-Icons](https://react-icons.github.io/react-icons/) - A library of icons.
+- [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Continents.svg) - This is where the world map was found and used to create the continent filter component.

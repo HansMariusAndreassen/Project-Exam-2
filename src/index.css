@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto+Flex:opsz,wght@8..144,100;8..144,300;8..144,400;8..144,700&display=swap");
-@import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
 @import "react-calendar/dist/Calendar.css";
 
 @tailwind base;
@@ -162,7 +161,6 @@ form select {
   }
 }
 
-/* MODAL SUCCESS LOADER */
 .circle-loader {
   margin-bottom: 3.5em;
   border: 1px solid theme("colors.primary");
