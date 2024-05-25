@@ -54,7 +54,7 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
         <div className="w-36 h-36 rounded-full mb-2 bg-background"></div>
       )}
       <div className="flex flex-col">
-        <h3 className="text-lg font-bold text-ellipsis overflow-hidden">
+        <h3 className="text-xl text-ellipsis overflow-hidden">
           <a
             href={`/booking/${venueId}`}
             className="hover:underline hover:text-accent"
