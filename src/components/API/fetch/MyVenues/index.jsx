@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useFetch from "../../auth/FetchHook";
 import PropTypes from "prop-types";
 import { venuesUrl } from "../../../../utils/constants";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { FaBarcode } from "react-icons/fa";
 import { PiAt, PiUser, PiUsers } from "react-icons/pi";
 import { BsCalendar2Date } from "react-icons/bs";
@@ -21,7 +21,6 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
     `${venuesUrl}/${venueId}?_bookings=true`
   );
   const [showBookings, setShowBookings] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (venueId) {
@@ -84,42 +83,6 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
         ) : (
           <div className="w-48 h-48 rounded-full mb-2 bg-gray-200"></div>
         )}
-        <div className="flex flex-col flex-wrap m-auto items-center">
-          <h3 className="text-lg font-bold text-center text-ellipsis overflow-hidden">
-            <a
-              href={`/booking/${venueId}`}
-              className="hover:underline hover:text-accent"
-            >
-              {name.length > 20 ? name.slice(0, 20) : name}
-            </a>
-          </h3>
-          <p className="text-sm text-gray-500 text-center">
-            Created: {formatDate(created)}
-          </p>
-          <p className="text-sm text-gray-500 text-center">
-            Current Bookings: {_count.bookings}
-          </p>
-          {isOwnProfile ? (
-            <button
-              className={_count.bookings ? "btn mt-4" : "mt-4 btn-disabled"}
-              disabled={_count.bookings === 0}
-              onClick={() => setShowBookings((prev) => !prev)}
-            >
-              {!_count.bookings
-                ? "No Bookings"
-                : showBookings
-                  ? "Hide Bookings"
-                  : "Show Bookings"}
-            </button>
-          ) : (
-            <button
-              className="btn mt-4"
-              onClick={() => navigate(`/booking/${venueId}`)}
-            >
-              View Venue
-            </button>
-          )}
-        </div>
       </div>
       {showBookings && bookings && (
         <div className="col-span-2 flex flex-col items-center mt-4">
