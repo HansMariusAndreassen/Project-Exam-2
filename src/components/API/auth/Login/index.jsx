@@ -25,7 +25,6 @@ const useLogin = (url) => {
   );
 
   useEffect(() => {
-    console.log(data);
     if (data && data.data.accessToken) {
       localStorage.setItem("accessToken", data.data.accessToken);
       localStorage.setItem("user", JSON.stringify(data.data));
