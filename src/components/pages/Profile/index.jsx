@@ -165,9 +165,9 @@ const Profile = () => {
               alt={"Profile Avatar"}
             />
           </div>
-          <div className="w-full">
+          <div className="w-1/4 mx-auto">
             {isOwnProfile && (
-              <div className="flex justify-end gap-2 translate-y-7">
+              <div className="flex justify-end translate-y-7">
                 <DropdownMenu
                   className={"hover:cursor-pointer"}
                   listItems={profileMenuItems}

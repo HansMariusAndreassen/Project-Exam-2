@@ -32,21 +32,21 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 w-full">
+    <div className="grid grid-cols-2 w-3/4">
       {media && media.length > 0 ? (
-        <div className="w-36 h-36 overflow-hidden m-auto">
+        <div className="w-36 h-36 overflow-hidden">
           <img
             className="object-cover w-full h-full mb-2"
             src={media[0].url}
-            alt={`${name} banner`}
+            alt={`${name} picture`}
           />
         </div>
       ) : (
         <div className="w-36 h-36 rounded-full mb-2 bg-background"></div>
       )}
 
-      <div className="flex flex-col mx-auto">
-        <h3 className="text-lg font-bold text-ellipsis overflow-hidden">
+      <div className="flex flex-col mr-auto">
+        <h3 className="text-ellipsis overflow-hidden">
           <a
             href={`/booking/${venueId}`}
             className="hover:underline hover:text-accent"
@@ -54,10 +54,8 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
             {name.length > 30 ? name.slice(0, 30) : name}
           </a>
         </h3>
-        <p className="text-sm text-gray-500">Created: {formatDate(created)}</p>
-        <p className="text-sm text-gray-500">
-          Current Bookings: {_count.bookings}
-        </p>
+        <p className="text-sm">Created: {formatDate(created)}</p>
+        <p className="text-sm">Current Bookings: {_count.bookings}</p>
         {isOwnProfile ? (
           <button
             className={
@@ -111,7 +109,7 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
               </div>
             ))
           ) : (
-            <p className="text-sm text-gray-500">No bookings available</p>
+            <p className="text-sm">No bookings available</p>
           )}
         </div>
       )}
