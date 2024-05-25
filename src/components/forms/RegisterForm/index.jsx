@@ -12,6 +12,15 @@ import useLogin from "../../API/auth/Login";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../Modal";
 
+/**
+ * RegistrationForm component.
+ *
+ * This component renders a registration form for users to register their profile.
+ * It includes fields for username, email, password, avatar URL, avatar alt text, and a checkbox for venue manager.
+ * The form handles form submission, performs API requests for registration and login, and displays a modal for success or error messages.
+ *
+ * @returns {JSX.Element} The rendered RegistrationForm component.
+ */
 const RegistrationForm = () => {
   const { performFetch, data, error, loading } = useFetch(registerUrl);
   const { login, loggedIn } = useLogin(loginUrl);

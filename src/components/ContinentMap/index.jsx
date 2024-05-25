@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate, useLocation } from "react-router-dom";
 
+/**
+ * Renders a map of continents and handles user interactions.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Function} props.onContinentSelect - The callback function to be called when a continent is selected.
+ * @returns {JSX.Element} The rendered ContinentMap component.
+ */
 const ContinentMap = ({ onContinentSelect }) => {
   const [isHovering, setIsHovering] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

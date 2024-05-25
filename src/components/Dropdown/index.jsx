@@ -2,11 +2,18 @@ import React, { useState, useRef, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
+/**
+ * DropdownMenu component.
+ *
+ * @param {Object} props - The component props.
+ * @param {Function} props.onActivate - The function to be called when an item is activated.
+ * @param {Array} props.listItems - The list of items to be displayed in the dropdown menu.
+ * @returns {JSX.Element} The DropdownMenu component.
+ */
 const DropdownMenu = ({ onActivate, listItems }) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {

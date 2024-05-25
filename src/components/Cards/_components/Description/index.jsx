@@ -1,6 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+/**
+ * Renders a description component with an option to expand or collapse the description text.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.description - The description text.
+ * @param {boolean} props.isExpanded - Indicates whether the description is expanded or collapsed.
+ * @param {Function} props.toggleExpanded - A function to toggle the expanded state of the description.
+ * @returns {JSX.Element} The rendered Description component.
+ */
 const Description = ({ description, isExpanded, toggleExpanded }) => {
   const longDescription = description.length > 100;
   const displayedDescription = isExpanded

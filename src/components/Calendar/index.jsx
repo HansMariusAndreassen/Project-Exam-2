@@ -6,6 +6,19 @@ import useBookVenue from "../API/fetch/Booking";
 import { useNavigate } from "react-router-dom";
 import useToken from "../../hooks/useToken";
 
+/**
+ * MyBookingCalendar component displays a calendar for booking a venue.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Array} props.bookings - The array of existing bookings.
+ * @param {string} props.venueId - The ID of the venue.
+ * @param {number} props.pricePerNight - The price per night for the venue.
+ * @param {number} props.guests - The number of guests.
+ * @param {function} props.setGuests - The function to set the number of guests.
+ * @param {number} props.maxGuests - The maximum number of guests allowed.
+ * @returns {JSX.Element} The rendered MyBookingCalendar component.
+ */
 const MyBookingCalendar = ({
   bookings,
   venueId,
@@ -94,11 +107,11 @@ const MyBookingCalendar = ({
           venueId: `${venueId}`,
         });
       } else {
-        setValue([new Date(), new Date()]); // Resets to a default range
+        setValue([new Date(), new Date()]);
       }
     } else {
       console.log("Date range cleared or invalid input:", newRange);
-      setValue([new Date(), new Date()]); // Resets to a default range
+      setValue([new Date(), new Date()]);
     }
   };
 
@@ -176,7 +189,6 @@ const MyBookingCalendar = ({
           )}
         </div>
       </Modal>
-
       <div className="flex flex-col items-center">
         <div className="flex gap-3 my-3"></div>
         <div className="flex-col">

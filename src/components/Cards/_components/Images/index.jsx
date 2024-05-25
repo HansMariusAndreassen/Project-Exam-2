@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
+/**
+ * ImageCarousel component displays a carousel of images.
+ *
+ * @component
+ * @param {Object[]} images - An array of image objects.
+ * @param {string} images[].url - The URL of the image.
+ * @param {string} images[].alt - The alt text for the image.
+ * @param {Object} imageStyle - Additional styles to be applied to the image.
+ * @returns {JSX.Element} The rendered ImageCarousel component.
+ */
 const ImageCarousel = ({ images, imageStyle }) => {
   const [current, setCurrent] = useState(0);
   const length = images.length;

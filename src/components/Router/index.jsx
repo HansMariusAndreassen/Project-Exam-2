@@ -7,6 +7,10 @@ import Booking from "../pages/Booking";
 import LoginPage from "../pages/Login";
 import RegisterPage from "../pages/RegisterPage";
 
+/**
+ * Renders the router component.
+ * @returns {JSX.Element} The router component.
+ */
 const Router = () => {
   return (
     <Routes>

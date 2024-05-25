@@ -7,6 +7,15 @@ import { FaBarcode } from "react-icons/fa";
 import { PiAt, PiUser, PiUsers } from "react-icons/pi";
 import { BsCalendar2Date } from "react-icons/bs";
 
+/**
+ * Renders a banner for a venue.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.venueId - The ID of the venue.
+ * @param {boolean} props.isOwnProfile - Indicates whether the profile is owned by the user.
+ * @returns {JSX.Element} The rendered VenueBanner component.
+ */
 const VenueBanner = ({ venueId, isOwnProfile }) => {
   const { performFetch, data, loading, error } = useFetch(
     `${venuesUrl}/${venueId}?_bookings=true`
@@ -44,7 +53,6 @@ const VenueBanner = ({ venueId, isOwnProfile }) => {
       ) : (
         <div className="w-36 h-36 rounded-full mb-2 bg-background"></div>
       )}
-
       <div className="flex flex-col mx-auto">
         <h3 className="text-lg font-bold text-ellipsis overflow-hidden">
           <a
