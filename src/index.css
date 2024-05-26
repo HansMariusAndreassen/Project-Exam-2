@@ -356,3 +356,27 @@ form select {
 .toggle-switch.dark .icon {
   left: 32px;
 }
+
+/* @media (max-width: 768px) {
+  .flex {
+    display: none;
+  }
+
+  .block {
+    display: block;
+  }
+
+  .md\\:hidden {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  .hidden {
+    display: none;
+  }
+
+  .md\\:flex {
+    display: flex;
+  }
+} */

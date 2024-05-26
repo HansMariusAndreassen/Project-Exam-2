@@ -117,6 +117,7 @@ const SearchBar = ({ onContinentSelect }) => {
                 <button
                   type="submit"
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-black rounded-full p-2 hover:text-accent"
+                  aria-label="Search button"
                 >
                   <IoSearchSharp size={20} />
                 </button>

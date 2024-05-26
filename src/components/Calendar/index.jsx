@@ -200,18 +200,18 @@ const MyBookingCalendar = ({
           <div className="bg-primary flex mb-0">
             <div
               type="button"
-              className="w-full h-10 bg-primary text-white text-center p-2 hover:bg-secondary hover:text-primary transition-all duration-300 ease-in-out hover:cursor-pointer"
+              className="w-full h-10 bg-primary text-black text-center p-2 hover:bg-secondary hover:text-primary transition-all duration-300 ease-in-out hover:cursor-pointer"
               onClick={handleTodayClick}
             >
               Today
             </div>
-            <div className="w-full h-10 bg-accentTwo text-center text-white p-2">
+            <div className="w-full h-10 bg-accentTwo text-center text-black p-2">
               Occupied
             </div>
             <div className="w-full h-10 bg-white text-black text-center p-2">
               Available
             </div>
-            <div className="w-full h-10 bg-accent text-white text-center p-2">
+            <div className="w-full h-10 bg-accent text-black text-center p-2">
               Selected
             </div>
           </div>
@@ -256,7 +256,7 @@ const MyBookingCalendar = ({
                   }
                 }}
                 type="button"
-                className="btn-revert px-10 py-2 text-black text-xl bg-primary rounded-full hover:bg-background hover:text-secondary transition-all duration-300 ease-in-out"
+                className="btn-revert px-10 py-2 text-xl bg-primary rounded-full hover:bg-background hover:text-secondary transition-all duration-300 ease-in-out"
               >
                 {!bookingSuccess && "BOOK NOW"}
                 {bookingSuccess && "BOOKED!"}
