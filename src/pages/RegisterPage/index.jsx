@@ -1,5 +1,5 @@
 import React from "react";
-import RegistrationForm from "../../forms/RegisterForm";
+import RegistrationForm from "../../components/forms/RegisterForm";
 
 /**
  * Renders the RegisterPage component.

@@ -69,12 +69,10 @@ const Cards = () => {
   };
 
   return (
-    <div className="flex gap-10 justify-center flex-wrap m-auto text-white">
+    <div className="flex gap-10 justify-center flex-wrap m-auto">
       {selectedContinent && (
-        <div className="bg-background rounded-25 pl-3 flex items-center gap-5">
-          <p className="text-secondary">
-            Showing Venues in {selectedContinent}
-          </p>
+        <div className="bg-background rounded-25 pl-3 flex items-center gap-5 border border-primary">
+          <p className="text-black">Showing Venues in {selectedContinent}</p>
           <button onClick={handleRemoveFilter} className="btn">
             Remove Filter
           </button>

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import FetchVenue from "../../API/fetch/Venue";
-import MyBookingCalendar from "../../Calendar";
-import ImageCarousel from "../../Cards/_components/Images";
-import Description from "../../Cards/_components/Description";
-import Address from "../../Cards/_components/Address";
-import Price from "../../Cards/_components/Price";
-import Meta from "../../Cards/_components/Meta";
-import OwnerInfo from "../../Cards/_components/Owner";
-import Rating from "../../Cards/_components/Rating";
-import useToken from "../../../hooks/useToken";
+import FetchVenue from "../../components/API/fetch/Venue";
+import MyBookingCalendar from "../../components/Calendar";
+import ImageCarousel from "../../components/Cards/_components/Images";
+import Description from "../../components/Cards/_components/Description";
+import Address from "../../components/Cards/_components/Address";
+import Price from "../../components/Cards/_components/Price";
+import Meta from "../../components/Cards/_components/Meta";
+import OwnerInfo from "../../components/Cards/_components/Owner";
+import Rating from "../../components/Cards/_components/Rating";
+import useToken from "../../hooks/useToken";
 
 /**
  * Renders the Booking component.

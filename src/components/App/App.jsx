@@ -1,5 +1,6 @@
 import React from "react";
 import Router from "../Router";
+import { ThemeProvider } from "../Theme";
 
 /**
  * Renders the main App component.
@@ -7,7 +8,11 @@ import Router from "../Router";
  * @returns {JSX.Element} The rendered App component.
  */
 function App() {
-  return <Router />;
+  return (
+    <ThemeProvider>
+      <Router />
+    </ThemeProvider>
+  );
 }
 
 export default App;

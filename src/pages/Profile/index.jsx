@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import useFetch from "../../API/auth/FetchHook";
-import { bookingsUrl, userUrl, venuesUrl } from "../../../utils/constants";
-import { formatDate } from "../../../utils/formatDate";
-import DropdownMenu from "../../Dropdown";
-import CreateVenue from "../../forms/CreateVenue";
-import UpdateProfile from "../../forms/UpdateUserProfile";
-import useDeleteFetch from "../../API/fetch/Delete";
-import VenueBanner from "../../API/fetch/MyVenues";
+import useFetch from "../../components/API/auth/FetchHook";
+import { bookingsUrl, userUrl, venuesUrl } from "../../utils/constants";
+import { formatDate } from "../../utils/formatDate";
+import DropdownMenu from "../../components/Dropdown";
+import CreateVenue from "../../components/forms/CreateVenue";
+import UpdateProfile from "../../components/forms/UpdateUserProfile";
+import useDeleteFetch from "../../components/API/fetch/Delete";
+import VenueBanner from "../../components/API/fetch/MyVenues";
 
 /**
  * Profile component displays the user profile information, including the banner, avatar, bio, venues, and bookings.
