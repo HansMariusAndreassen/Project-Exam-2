@@ -4,6 +4,7 @@ import { logOut } from "../../../utils/logOut";
 import { FaUser, FaBars, FaTimes } from "react-icons/fa";
 import { IoAirplaneSharp } from "react-icons/io5";
 import ThemeContext from "../../Theme";
+import { FaHouse } from "react-icons/fa6";
 
 /**
  * Represents the header component of the application.
@@ -69,11 +70,19 @@ const Header = () => {
           >
             <span className="icon">{theme === "light" ? "🌞" : "🌜"}</span>
           </button>
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+            aria-label="home button"
+            className="btn"
+          >
+            <FaHouse />
+          </button>
           {token && (
             <button
               onClick={() => {
                 navigate("/profile");
-                closeMenu();
               }}
               aria-label="user profile button"
               className="btn"
@@ -85,7 +94,6 @@ const Header = () => {
             <button
               onClick={() => {
                 navigate("/registration");
-                closeMenu();
               }}
               aria-label="register button"
               className="btn"
@@ -97,7 +105,6 @@ const Header = () => {
             <button
               onClick={() => {
                 handleLogOut();
-                closeMenu();
               }}
               className="btn"
             >
@@ -108,7 +115,6 @@ const Header = () => {
             <button
               onClick={() => {
                 navigate("/login");
-                closeMenu();
               }}
               className="btn"
             >
@@ -121,7 +127,7 @@ const Header = () => {
         ref={menuRef}
         className={`md:hidden ${isMenuOpen ? "block" : "hidden"} bg-secondary w-full`}
       >
-        <div className={`flex justify-around pb-5`}>
+        <div className={`flex justify-center gap-5 pb-6`}>
           <button
             type="button"
             className={`toggle-switch ${theme}`}
@@ -131,6 +137,15 @@ const Header = () => {
             aria-label="dark light toggle button"
           >
             <span className="icon">{theme === "light" ? "🌞" : "🌜"}</span>
+          </button>
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+            aria-label="home button"
+            className="btn"
+          >
+            <FaHouse />
           </button>
           {token && (
             <button
@@ -176,7 +191,11 @@ const Header = () => {
           )}
         </div>
       </div>
-      <div className="plane text-primary">
+      <div
+        className={
+          isMenuOpen ? "plane text-primary mt-3" : "plane text-primary"
+        }
+      >
         <IoAirplaneSharp />
       </div>
     </header>
