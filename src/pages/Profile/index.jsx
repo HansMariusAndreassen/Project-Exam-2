@@ -142,9 +142,27 @@ const Profile = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-  if (!data) return <p>No data found</p>;
+  if (loading) {
+    return (
+      <div>
+        <span className="loader">Loading</span>
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div>
+        <span className="loader">{error}</span>
+      </div>
+    );
+  }
+  if (!data) {
+    return (
+      <div>
+        <span className="loader">{data}</span>
+      </div>
+    );
+  }
   const isVenueManager = data.data.venueManager;
   const userDetail = data.data;
 

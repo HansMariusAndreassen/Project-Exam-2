@@ -33,9 +33,19 @@ const Booking = () => {
       </div>
     );
   }
-
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return (
+      <div>
+        <span className="loader">{error}</span>
+      </div>
+    );
+  }
+  if (!data) {
+    return (
+      <div>
+        <span className="loader">{data}</span>
+      </div>
+    );
   }
 
   const toggleExpanded = (id) => {
