@@ -160,7 +160,7 @@ const RegistrationForm = () => {
                   htmlFor="name"
                   className="block text-sm font-medium leading-6"
                 >
-                  Username
+                  Username *
                 </label>
               </div>
               <div className="mt-2">
@@ -186,7 +186,7 @@ const RegistrationForm = () => {
                   htmlFor="email"
                   className="block text-sm font-medium leading-6"
                 >
-                  Email address
+                  Email address *
                 </label>
               </div>
               <div className="mt-2">
@@ -212,7 +212,7 @@ const RegistrationForm = () => {
                   htmlFor="password"
                   className="block text-sm font-medium leading-6"
                 >
-                  Password
+                  Password *
                 </label>
               </div>
               <div className="mt-2">
@@ -239,7 +239,7 @@ const RegistrationForm = () => {
                   htmlFor="repeatPassword"
                   className="block text-sm font-medium leading-6"
                 >
-                  Repeat Password
+                  Repeat Password *
                 </label>
               </div>
               <div className="mt-2">

@@ -79,6 +79,10 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
     }
   }, [isEdit, venue]);
 
+  useEffect(() => {
+    validateForm();
+  }, [formData]);
+
   const closeModal = () => {
     setShowModal(false);
     onClose();
@@ -134,7 +138,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    validateForm();
     if (!validateForm()) return;
 
     const updatedMedia = formData.media.map((media) => {
@@ -206,7 +210,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   required
                 />
                 {formErrors.name && (
-                  <p className="text-red text-xs mt-1">{formErrors.name}</p>
+                  <p className="text-xs mt-1">{formErrors.name}</p>
                 )}
               </div>
             </div>
@@ -231,9 +235,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   required
                 />
                 {formErrors.description && (
-                  <p className="text-red text-xs mt-1">
-                    {formErrors.description}
-                  </p>
+                  <p className="text-xs mt-1">{formErrors.description}</p>
                 )}
               </div>
             </div>
@@ -317,7 +319,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   required
                 />
                 {formErrors.price && (
-                  <p className="text-red text-xs mt-1">{formErrors.price}</p>
+                  <p className="text-xs mt-1">{formErrors.price}</p>
                 )}
               </div>
             </div>
@@ -343,9 +345,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   required
                 />
                 {formErrors.maxGuests && (
-                  <p className="text-red text-xs mt-1">
-                    {formErrors.maxGuests}
-                  </p>
+                  <p className="text-xs mt-1">{formErrors.maxGuests}</p>
                 )}
               </div>
             </div>
