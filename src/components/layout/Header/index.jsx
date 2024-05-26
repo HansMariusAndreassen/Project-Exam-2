@@ -54,10 +54,10 @@ const Header = () => {
         <div className="md:hidden">
           <button
             onClick={toggleMenu}
-            className="text-primary text-2xl focus:outline-none"
+            className="text-primary focus:outline-none flex"
             aria-label="toggle menu"
           >
-            {isMenuOpen ? <FaTimes /> : <FaBars />}
+            {isMenuOpen ? <FaTimes size={26} /> : <FaBars size={26} />}
           </button>
         </div>
         <div className="hidden md:flex flex-wrap gap-2">
