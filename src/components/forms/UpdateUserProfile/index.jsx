@@ -30,7 +30,6 @@ const UpdateProfile = ({ isUser, onClose }) => {
     venueManager: false,
   });
   const [showModal, setShowModal] = useState(false);
-  // const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     performFetch();
