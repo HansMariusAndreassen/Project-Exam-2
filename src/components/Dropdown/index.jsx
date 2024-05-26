@@ -28,7 +28,11 @@ const DropdownMenu = ({ onActivate, listItems }) => {
 
   return (
     <div ref={ref} style={{ position: "relative" }}>
-      <button onClick={() => setIsOpen(!isOpen)} className="hover:text-primary">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Dropdown menu button"
+        className="hover:text-primary"
+      >
         <FaRegEdit size={20} className="pt-1" />
       </button>
       {isOpen && (

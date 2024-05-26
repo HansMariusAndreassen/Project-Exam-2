@@ -418,6 +418,8 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="text"
                   name="zip"
                   id="zip"
+                  pattern="[0-9]{5}"
+                  maxLength="5"
                   className="block w-full rounded-md border py-1.5"
                   placeholder="ZIP Code"
                   value={formData.location.zip || ""}
