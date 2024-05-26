@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "../../../utils/logOut";
 import { FaUser, FaBars, FaTimes } from "react-icons/fa";
@@ -14,6 +14,7 @@ const Header = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("accessToken");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const handleLogOut = () => {
     logOut();
@@ -23,6 +24,23 @@ const Header = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      closeMenu();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="bg-secondary fixed w-full z-[61]">
@@ -53,7 +71,10 @@ const Header = () => {
           </button>
           {token && (
             <button
-              onClick={() => navigate("/profile")}
+              onClick={() => {
+                navigate("/profile");
+                closeMenu();
+              }}
               aria-label="user profile button"
               className="btn"
             >
@@ -62,7 +83,10 @@ const Header = () => {
           )}
           {!token && (
             <button
-              onClick={() => navigate("/registration")}
+              onClick={() => {
+                navigate("/registration");
+                closeMenu();
+              }}
               aria-label="register button"
               className="btn"
             >
@@ -70,32 +94,49 @@ const Header = () => {
             </button>
           )}
           {token && (
-            <button onClick={handleLogOut} className="btn">
+            <button
+              onClick={() => {
+                handleLogOut();
+                closeMenu();
+              }}
+              className="btn"
+            >
               Log Out
             </button>
           )}
           {!token && (
-            <button onClick={() => navigate("/login")} className="btn">
+            <button
+              onClick={() => {
+                navigate("/login");
+                closeMenu();
+              }}
+              className="btn"
+            >
               Login
             </button>
           )}
         </div>
       </nav>
       <div
+        ref={menuRef}
         className={`md:hidden ${isMenuOpen ? "block" : "hidden"} bg-secondary w-full`}
       >
         <div className={`flex justify-around pb-5`}>
           <button
             type="button"
             className={`toggle-switch ${theme}`}
-            onClick={toggleTheme}
+            onClick={() => {
+              toggleTheme();
+            }}
             aria-label="dark light toggle button"
           >
             <span className="icon">{theme === "light" ? "🌞" : "🌜"}</span>
           </button>
           {token && (
             <button
-              onClick={() => navigate("/profile")}
+              onClick={() => {
+                navigate("/profile");
+              }}
               aria-label="user profile button"
               className="btn"
             >
@@ -104,7 +145,9 @@ const Header = () => {
           )}
           {!token && (
             <button
-              onClick={() => navigate("/registration")}
+              onClick={() => {
+                navigate("/registration");
+              }}
               aria-label="register button"
               className="btn"
             >
@@ -112,12 +155,22 @@ const Header = () => {
             </button>
           )}
           {token && (
-            <button onClick={handleLogOut} className="btn">
+            <button
+              onClick={() => {
+                handleLogOut();
+              }}
+              className="btn"
+            >
               Log Out
             </button>
           )}
           {!token && (
-            <button onClick={() => navigate("/login")} className="btn">
+            <button
+              onClick={() => {
+                navigate("/login");
+              }}
+              className="btn"
+            >
               Login
             </button>
           )}

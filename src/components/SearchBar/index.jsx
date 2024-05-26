@@ -89,7 +89,7 @@ const SearchBar = ({ onContinentSelect }) => {
 
   return (
     <div className="absolute top-[72px] w-full m-auto z-50">
-      <div className="flex justify-center">
+      <div className="flex justify-center py-5">
         <div
           id="search-bar"
           className="bg-white gap-5 p-5 rounded-50 border-primary border-2 shadow-xl"
