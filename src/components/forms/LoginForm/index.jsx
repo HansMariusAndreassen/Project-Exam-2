@@ -39,7 +39,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (loggedIn) {
       setTimeout(() => {
-        navigate(-1);
+        navigate("/");
       }, 1000);
     }
   }, [loggedIn, navigate]);
@@ -49,7 +49,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex justify-center ">
+    <div className="flex justify-center w-full">
       <Modal isOpen={showModal} onClose={closeModal} isSuccess={isSuccess}>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
@@ -57,14 +57,11 @@ const LoginForm = () => {
       </Modal>
       <form
         onSubmit={handleSubmit}
-        className="flex-col align-middle bg-accentTwo p-4 rounded-25"
+        className="flex-col align-middle bg-accentTwo p-4 rounded-25 w-[20rem]"
       >
-        <div className="border-b pb-12">
+        <div className="border-b pb-12 min-w-3/4">
           <h2 className="leading-7 text">Login</h2>
-          <p className="mt-1 text-sm text-wrap leading-6">
-            Some of this information will be displayed publicly so be careful
-            what you share.
-          </p>
+
           <div className="text-left mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-4">
             <div className="sm:col-span-4">
               <div className="flex">

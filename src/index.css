@@ -335,10 +335,12 @@ form select {
 
 .toggle-switch.light::before {
   transform: translateX(0);
+  box-shadow: 15px 0px 20px rgba(255, 255, 0, 1);
 }
 
 .toggle-switch.dark::before {
   transform: translateX(100%);
+  box-shadow: -15px 0px 20px rgba(0, 0, 0, 1);
 }
 
 .toggle-switch .icon {
@@ -356,27 +358,3 @@ form select {
 .toggle-switch.dark .icon {
   left: 32px;
 }
-
-/* @media (max-width: 768px) {
-  .flex {
-    display: none;
-  }
-
-  .block {
-    display: block;
-  }
-
-  .md\\:hidden {
-    display: block;
-  }
-}
-
-@media (min-width: 769px) {
-  .hidden {
-    display: none;
-  }
-
-  .md\\:flex {
-    display: flex;
-  }
-} */

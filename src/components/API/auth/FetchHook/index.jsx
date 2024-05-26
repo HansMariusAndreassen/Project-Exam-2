@@ -17,7 +17,7 @@ const useFetch = (url) => {
     async (options = {}) => {
       setLoading(true);
       setError(null);
-      setIsSuccess(false);
+      setIsSuccess(false); // Ensure isSuccess is reset before fetching
       const token = localStorage.getItem("accessToken");
       try {
         const headers = new Headers({
@@ -46,9 +46,10 @@ const useFetch = (url) => {
         }
 
         setData(json);
-        setIsSuccess(true);
+        setIsSuccess(true); // Set isSuccess only if response is ok
       } catch (error) {
         setError(error.message);
+        setIsSuccess(false); // Ensure isSuccess is false on error
       } finally {
         setLoading(false);
       }

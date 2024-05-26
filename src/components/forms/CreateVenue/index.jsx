@@ -49,6 +49,8 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
     },
   });
 
+  const [formErrors, setFormErrors] = useState({});
+
   useEffect(() => {
     if (isEdit && venue) {
       setFormData({
@@ -77,9 +79,28 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
     }
   }, [isEdit, venue]);
 
+  useEffect(() => {
+    validateForm();
+  }, [formData]);
+
   const closeModal = () => {
     setShowModal(false);
     onClose();
+  };
+
+  const validateForm = () => {
+    const errors = {};
+
+    if (!formData.name) errors.name = "Venue name is required.";
+    if (!formData.description) errors.description = "Description is required.";
+    if (!formData.price || formData.price <= 0)
+      errors.price = "Price must be greater than 0.";
+    if (!formData.maxGuests || formData.maxGuests <= 0)
+      errors.maxGuests = "Max guests must be greater than 0.";
+
+    setFormErrors(errors);
+
+    return Object.keys(errors).length === 0;
   };
 
   const handleChange = (event) => {
@@ -117,6 +138,8 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    validateForm();
+    if (!validateForm()) return;
 
     const updatedMedia = formData.media.map((media) => {
       if (!media.url) {
@@ -153,7 +176,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
     <div>
       <Modal isOpen={showModal} onClose={closeModal} isSuccess={isSuccess}>
         {loading && <p>Loading...</p>}
-        {error && <p>Error: {error}. Please Try Again with updated form!</p>}
+        {error && <p>Error: {error}. Please try again with updated form!</p>}
         {data && <p>Success! Venue {isEdit ? "updated" : "created"}.</p>}
       </Modal>
       <form
@@ -181,11 +204,14 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="text"
                   name="name"
                   id="name"
-                  className="block w-full rounded-md border py-1.5 "
+                  className="block w-full rounded-md border py-1.5"
                   placeholder="Venue name"
                   value={formData.name || ""}
                   required
                 />
+                {formErrors.name && (
+                  <p className="text-xs mt-1">{formErrors.name}</p>
+                )}
               </div>
             </div>
             <div className="sm:col-span-4">
@@ -203,11 +229,14 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   onChange={handleChange}
                   name="description"
                   id="description"
-                  className="block w-full rounded-md border py-1.5 "
+                  className="block w-full rounded-md border py-1.5"
                   placeholder="Venue description"
                   value={formData.description || ""}
                   required
                 />
+                {formErrors.description && (
+                  <p className="text-xs mt-1">{formErrors.description}</p>
+                )}
               </div>
             </div>
             {formData.media.map((media, index) => (
@@ -227,7 +256,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                     type="text"
                     name="url"
                     id={`mediaUrl-${index}`}
-                    className="block w-full rounded-md border py-1.5 "
+                    className="block w-full rounded-md border py-1.5"
                     placeholder="Media URL"
                     value={media.url || ""}
                   />
@@ -247,7 +276,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                     type="text"
                     name="alt"
                     id={`mediaAlt-${index}`}
-                    className="block w-full rounded-md border py-1.5 "
+                    className="block w-full rounded-md border py-1.5"
                     placeholder="Media description"
                     value={media.alt || ""}
                   />
@@ -281,14 +310,17 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
               <div className="mt-2">
                 <input
                   onChange={handleChange}
-                  type="currency"
+                  type="number"
                   name="price"
                   id="price"
-                  className="block w-full rounded-md border py-1.5 "
+                  className="block w-full rounded-md border py-1.5"
                   placeholder="Price"
                   value={formData.price || ""}
                   required
                 />
+                {formErrors.price && (
+                  <p className="text-xs mt-1">{formErrors.price}</p>
+                )}
               </div>
             </div>
             <div className="sm:col-span-2">
@@ -307,11 +339,14 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="number"
                   name="maxGuests"
                   id="maxGuests"
-                  className="block w-full rounded-md border py-1.5 "
+                  className="block w-full rounded-md border py-1.5"
                   placeholder="Max guests"
                   value={formData.maxGuests || ""}
                   required
                 />
+                {formErrors.maxGuests && (
+                  <p className="text-xs mt-1">{formErrors.maxGuests}</p>
+                )}
               </div>
             </div>
             <div className="sm:col-span-4">
@@ -330,7 +365,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="number"
                   name="rating"
                   id="rating"
-                  className="block w-full rounded-md border py-1.5 "
+                  className="block w-full rounded-md border py-1.5"
                   placeholder="Rating"
                   value={formData.rating || ""}
                 />
@@ -374,7 +409,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="text"
                   name="address"
                   id="address"
-                  className="block w-full rounded-md border py-1.5 "
+                  className="block w-full rounded-md border py-1.5"
                   placeholder="Address"
                   value={formData.location.address || ""}
                 />
@@ -396,7 +431,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="text"
                   name="city"
                   id="city"
-                  className="block w-full rounded-md border py-1.5 "
+                  className="block w-full rounded-md border py-1.5"
                   placeholder="City"
                   value={formData.location.city || ""}
                 />
@@ -442,7 +477,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   type="text"
                   name="country"
                   id="country"
-                  className="block w-full rounded-md border py-1.5 "
+                  className="block w-full rounded-md border py-1.5"
                   placeholder="Country"
                   value={formData.location.country || ""}
                 />
@@ -463,7 +498,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   onChange={handleLocationChange}
                   name="continent"
                   id="continent"
-                  className="block w-full rounded-md border py-1.5 "
+                  className="block w-full rounded-md border py-1.5"
                   value={formData.location.continent || ""}
                   required
                 >
@@ -481,10 +516,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
         </div>
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button type="submit" className="btn">
-            {!showModal && <p>Send</p>}
-            {loading && <p>Loading...</p>}
-            {error && <p>Try again</p>}
-            {showModal && <p>Please wait</p>}
+            {isEdit ? "Update" : "Create"}
           </button>
         </div>
       </form>

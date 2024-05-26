@@ -14,9 +14,10 @@ import Modal from "../../Modal";
  * @returns {JSX.Element} The UpdateProfile component.
  */
 const UpdateProfile = ({ isUser, onClose }) => {
-  const { performFetch, data, error, loading } = useFetch(
+  const { performFetch, data, error, loading, isSuccess } = useFetch(
     `https://v2.api.noroff.dev/holidaze/profiles/${isUser}`
   );
+  const [initialData, setInitialData] = useState(null);
   const [formData, setFormData] = useState({
     bio: "",
     avatar: {
@@ -30,7 +31,6 @@ const UpdateProfile = ({ isUser, onClose }) => {
     venueManager: false,
   });
   const [showModal, setShowModal] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     performFetch();
@@ -38,7 +38,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
 
   useEffect(() => {
     if (data) {
-      setFormData({
+      const fetchedData = {
         bio: data.data.bio || "No bio",
         avatar: {
           url: data.data.avatar?.url || "",
@@ -49,9 +49,26 @@ const UpdateProfile = ({ isUser, onClose }) => {
           alt: data.data.banner?.alt || "",
         },
         venueManager: data.data.venueManager || false,
-      });
+      };
+      setInitialData(fetchedData);
+      setFormData(fetchedData);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (showModal && (isSuccess || error)) {
+      setShowModal(true);
+    }
+  }, [isSuccess, error]);
+
+  const isValidUrl = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -93,19 +110,28 @@ const UpdateProfile = ({ isUser, onClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (JSON.stringify(formData) === JSON.stringify(initialData)) {
+      onClose();
+      return;
+    }
+
+    if (!isValidUrl(formData.avatar.url) || !isValidUrl(formData.banner.url)) {
+      alert("Please provide valid URLs for the avatar and banner images.");
+      return;
+    }
+
     setShowModal(true);
     performFetch({
       method: "PUT",
       body: JSON.stringify(formData),
-    }).then(() => {
-      setIsSuccess(true);
     });
   };
 
   const closeModal = () => {
     setShowModal(false);
-    setIsSuccess(false);
-    if (onClose) onClose();
+
+    if (isSuccess && onClose) onClose();
   };
 
   return (
@@ -113,7 +139,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
       <Modal isOpen={showModal} onClose={closeModal} isSuccess={isSuccess}>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        {data && <p>Success! Profile updated.</p>}
+        {isSuccess && <p>Success! Profile updated.</p>}
       </Modal>
       <form
         onSubmit={handleSubmit}
@@ -129,7 +155,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
                   htmlFor="bio"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Bio
+                  Bio <small className="italic">(Max 160 characters)</small>
                 </label>
               </div>
               <div className="mt-2">
@@ -140,6 +166,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
                   value={formData.bio}
                   className="indent-2 font-text lock w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Your bio"
+                  maxLength={160}
                   required
                 />
               </div>
@@ -256,10 +283,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
         </div>
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button type="submit" className="btn">
-            {!showModal && <p>Update</p>}
-            {loading && <p>Loading...</p>}
-            {error && <p>Try again</p>}
-            {showModal && <p>Wait..</p>}
+            Update
           </button>
         </div>
       </form>
