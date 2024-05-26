@@ -17,6 +17,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
   const { performFetch, data, error, loading, isSuccess } = useFetch(
     `https://v2.api.noroff.dev/holidaze/profiles/${isUser}`
   );
+  const [initialData, setInitialData] = useState(null);
   const [formData, setFormData] = useState({
     bio: "",
     avatar: {
@@ -37,7 +38,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
 
   useEffect(() => {
     if (data) {
-      setFormData({
+      const fetchedData = {
         bio: data.data.bio || "No bio",
         avatar: {
           url: data.data.avatar?.url || "",
@@ -48,9 +49,26 @@ const UpdateProfile = ({ isUser, onClose }) => {
           alt: data.data.banner?.alt || "",
         },
         venueManager: data.data.venueManager || false,
-      });
+      };
+      setInitialData(fetchedData);
+      setFormData(fetchedData);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (showModal && (isSuccess || error)) {
+      setShowModal(true);
+    }
+  }, [isSuccess, error]);
+
+  const isValidUrl = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -92,6 +110,17 @@ const UpdateProfile = ({ isUser, onClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (JSON.stringify(formData) === JSON.stringify(initialData)) {
+      onClose();
+      return;
+    }
+
+    if (!isValidUrl(formData.avatar.url) || !isValidUrl(formData.banner.url)) {
+      alert("Please provide valid URLs for the avatar and banner images.");
+      return;
+    }
+
     setShowModal(true);
     performFetch({
       method: "PUT",
@@ -102,7 +131,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
   const closeModal = () => {
     setShowModal(false);
 
-    if (onClose) onClose();
+    if (isSuccess && onClose) onClose();
   };
 
   return (
@@ -110,7 +139,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
       <Modal isOpen={showModal} onClose={closeModal} isSuccess={isSuccess}>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        {data && isSuccess && <p>Success! Profile updated.</p>}
+        {isSuccess && <p>Success! Profile updated.</p>}
       </Modal>
       <form
         onSubmit={handleSubmit}
