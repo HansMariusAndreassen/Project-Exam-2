@@ -19,12 +19,14 @@ const BackButton = () => {
   }
 
   return (
-    <button
-      onClick={() => navigate(-1)}
-      className={`py-2 px-4 rounded m-auto w-full text-sm ${theme === "light" ? "text-secondary" : "text-background"}`}
-    >
-      Go Back
-    </button>
+    <div className="flex justify-center">
+      <button
+        onClick={() => navigate(-1)}
+        className={`py-2 px-4 rounded text-sm hover:text-primary ${theme === "light" ? "text-secondary" : "text-background"}`}
+      >
+        Go Back
+      </button>
+    </div>
   );
 };
 

@@ -17,7 +17,7 @@ const Main = ({ selectedContinent, setSelectedContinent }) => {
       value={{ selectedContinent, setSelectedContinent }}
     >
       <ScrollToTop />
-      <main className="pt-[7rem] min-h-screen">
+      <main className="pt-[7rem] min-h-screen mt-20">
         <BackButton />
         <Outlet />
         <ScrollToTopButton />
