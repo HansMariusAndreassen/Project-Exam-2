@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import ThemeContext from "../../components/Theme";
 
 /**
  * Renders a back button that navigates to the previous page.
@@ -9,6 +10,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 const BackButton = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { theme } = useContext(ThemeContext);
 
   const landingPagePath = "/";
 
@@ -19,7 +21,7 @@ const BackButton = () => {
   return (
     <button
       onClick={() => navigate(-1)}
-      className="text-background py-2 px-4 rounded m-auto w-full text-sm"
+      className={`py-2 px-4 rounded m-auto w-full text-sm ${theme === "light" ? "text-secondary" : "text-background"}`}
     >
       Go Back
     </button>

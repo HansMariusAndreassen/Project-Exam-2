@@ -96,7 +96,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="flex justify-center bg-secondary">
+    <div className="flex justify-center">
       <Modal isOpen={showModal} onClose={closeModal} isSuccess={isSuccess}>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
@@ -107,7 +107,7 @@ const RegistrationForm = () => {
         className="flex-col align-middle bg-accentTwo p-4 rounded-25"
       >
         <div className="border-b pb-12">
-          <h2 className="leading-7 text-gray-900">Register your Profile</h2>
+          <h2 className="leading-7">Register your Profile</h2>
           <p className="mt-1 text-sm text-wrap leading-6 text-gray-600">
             Some of this information will be displayed publicly so be careful
             what you share.
@@ -115,10 +115,10 @@ const RegistrationForm = () => {
           <div className="text-left mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-4">
             <div className="sm:col-span-4">
               <div className="flex">
-                <PiUser className="mr-2 h-6 w-6 text-gray-900" />
+                <PiUser className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Username
                 </label>
@@ -130,7 +130,7 @@ const RegistrationForm = () => {
                   name="name"
                   id="name"
                   autoComplete="username"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Your username"
                   required
                 />
@@ -138,10 +138,10 @@ const RegistrationForm = () => {
             </div>
             <div className="sm:col-span-4">
               <div className="flex">
-                <PiAt className="mr-2 h-6 w-6 text-gray-900" />
+                <PiAt className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Email address
                 </label>
@@ -153,7 +153,7 @@ const RegistrationForm = () => {
                   name="email"
                   id="email"
                   autoComplete="email"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="first.last@stud.noroff.no"
                   required
                 />
@@ -161,10 +161,10 @@ const RegistrationForm = () => {
             </div>
             <div className="sm:col-span-4">
               <div className="flex">
-                <PiPassword className="mr-2 h-6 w-6 text-gray-900" />
+                <PiPassword className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Password
                 </label>
@@ -176,17 +176,17 @@ const RegistrationForm = () => {
                   name="password"
                   id="password"
                   autoComplete="new-password"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   required
                 />
               </div>
             </div>
             <div className="sm:col-span-4">
               <div className="flex">
-                <PiImage className="mr-2 h-6 w-6 text-gray-900" />
+                <PiImage className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="avatarUrl"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Avatar URL
                 </label>
@@ -198,17 +198,17 @@ const RegistrationForm = () => {
                   name="url"
                   value={formData.avatar.url}
                   id="avatarUrl"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Valid image address goes here"
                 />
               </div>
             </div>
             <div className="sm:col-span-4">
               <div className="flex">
-                <PiTextAUnderline className="mr-2 h-6 w-6 text-gray-900" />
+                <PiTextAUnderline className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="avatarAlt"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Avatar Alt Text
                 </label>
@@ -219,13 +219,13 @@ const RegistrationForm = () => {
                   type="text"
                   name="avatarAlt"
                   id="avatarAlt"
-                  className="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="My avatar alt text"
                 />
               </div>
             </div>
             <div className="sm:col-span-4">
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label className="block text-sm font-medium leading-6">
                 Venue Manager
               </label>
               <div className="mt-2">
@@ -246,7 +246,7 @@ const RegistrationForm = () => {
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="button"
-            className="btn-revert text-sm font-semibold leading-6 text-gray-900"
+            className="btn-revert text-sm font-semibold leading-6"
             onClick={() => navigate("/")}
           >
             Cancel

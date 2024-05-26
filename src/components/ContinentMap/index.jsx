@@ -44,7 +44,7 @@ const ContinentMap = ({ onContinentSelect }) => {
     <>
       {isHovering && (
         <div
-          className="z-10 block bg-white text-black rounded-25 shadow m-auto"
+          className="z-10 block rounded-25 shadow m-auto"
           style={{
             position: "absolute",
             left: `${mousePosition.x + 10}px`,

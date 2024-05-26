@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import FetchVenue from "../../API/fetch/Venue";
-import MyBookingCalendar from "../../Calendar";
-import ImageCarousel from "../../Cards/_components/Images";
-import Description from "../../Cards/_components/Description";
-import Address from "../../Cards/_components/Address";
-import Price from "../../Cards/_components/Price";
-import Meta from "../../Cards/_components/Meta";
-import OwnerInfo from "../../Cards/_components/Owner";
-import Rating from "../../Cards/_components/Rating";
-import useToken from "../../../hooks/useToken";
+import FetchVenue from "../../components/API/fetch/Venue";
+import MyBookingCalendar from "../../components/Calendar";
+import ImageCarousel from "../../components/Cards/_components/Images";
+import Description from "../../components/Cards/_components/Description";
+import Address from "../../components/Cards/_components/Address";
+import Price from "../../components/Cards/_components/Price";
+import Meta from "../../components/Cards/_components/Meta";
+import OwnerInfo from "../../components/Cards/_components/Owner";
+import Rating from "../../components/Cards/_components/Rating";
+import useToken from "../../hooks/useToken";
+import ThemeContext from "../../components/Theme";
 
 /**
  * Renders the Booking component.
@@ -21,6 +22,7 @@ const Booking = () => {
   const [numGuests, setNumGuests] = useState(1);
   const { id } = useParams();
   const { venue, loading, error } = FetchVenue(id);
+  const { theme } = useContext(ThemeContext);
   const data = venue.data;
   const token = useToken();
 
@@ -41,7 +43,9 @@ const Booking = () => {
   };
 
   return (
-    <div className="m-auto bg-background mb-16">
+    <div
+      className={`m-auto mb-16 ${theme === "light" ? "text-black" : " text-background"}`}
+    >
       <ImageCarousel
         images={data.media}
         imageStyle={{ height: `auto`, width: `100%` }}

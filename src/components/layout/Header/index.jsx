@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "../../../utils/logOut";
 import { FaUser } from "react-icons/fa";
 import { IoAirplaneSharp } from "react-icons/io5";
+import ThemeContext from "../../Theme";
 
 /**
  * Represents the header component of the application.
  * @returns {JSX.Element} The header component.
  */
 const Header = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
   const token = localStorage.getItem("accessToken");
 
@@ -26,7 +28,14 @@ const Header = () => {
         >
           Havens
         </h1>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            className={`toggle-switch ${theme}`}
+            onClick={toggleTheme}
+          >
+            <span className="icon">{theme === "light" ? "🌞" : "🌜"}</span>
+          </button>
           {token && (
             <button onClick={() => navigate("/profile")} className="btn">
               <FaUser />
