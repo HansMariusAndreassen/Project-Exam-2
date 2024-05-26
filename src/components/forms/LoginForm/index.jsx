@@ -39,7 +39,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (loggedIn) {
       setTimeout(() => {
-        navigate(-1);
+        navigate("/");
       }, 1000);
     }
   }, [loggedIn, navigate]);

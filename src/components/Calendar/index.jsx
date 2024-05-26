@@ -111,7 +111,6 @@ const MyBookingCalendar = ({
         setValue([new Date(), new Date()]);
       }
     } else {
-      console.log("Date range cleared or invalid input:", newRange);
       setValue([new Date(), new Date()]);
     }
   };
@@ -153,7 +152,7 @@ const MyBookingCalendar = ({
       >
         <div className="flex flex-col gap-2 transition-all duration-100">
           {loading && <p>Loading...</p>}
-          {!loading && error && <p className="text-red-500">Error: {error}</p>}
+          {!loading && error && <p className="text-red">Error: {error}</p>}
           {!loading && !error && bookingSuccess && (
             <>
               <h1 className="text-2xl text-center mb-5">Booking Successful!</h1>

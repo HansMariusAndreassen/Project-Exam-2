@@ -32,12 +32,16 @@ const RegistrationForm = () => {
     name: "",
     email: "",
     password: "",
+    repeatPassword: "",
     avatar: {
       url: "https://img.freepik.com/premium-vector/vector-flat-illustration-black-line-avatar-user-profile-person-icon-gender-neutral-silhouette-profile-picture-suitable-social-media-profiles-icons-screensavers-as-templatex9xa_719432-802.jpg?w=1380",
       alt: "",
     },
     venueManager: false,
   });
+
+  const [formErrors, setFormErrors] = useState({});
+  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
     if (data && !error) {
@@ -54,6 +58,10 @@ const RegistrationForm = () => {
       }, 1000);
     }
   }, [loggedIn, navigate]);
+
+  useEffect(() => {
+    validateForm();
+  }, [formData]);
 
   const closeModal = () => {
     setShowModal(false);
@@ -84,15 +92,47 @@ const RegistrationForm = () => {
     });
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@stud\.noroff\.no$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).+$/;
+    return passwordRegex.test(password);
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.name) {
+      errors.name = "Username is required.";
+    }
+    if (!validateEmail(formData.email)) {
+      errors.email = "Email must be a valid @stud.noroff.no address.";
+    }
+    if (!validatePassword(formData.password)) {
+      errors.password =
+        "Password must contain at least one uppercase letter and one number.";
+    }
+    if (formData.password !== formData.repeatPassword) {
+      errors.repeatPassword = "Passwords do not match.";
+    }
+
+    setFormErrors(errors);
+    setIsFormValid(Object.keys(errors).length === 0);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    setShowModal(true);
-    performFetch({
-      method: "POST",
-      body: JSON.stringify(formData),
-    }).then(() => {
-      setIsSuccess(true);
-    });
+    if (isFormValid) {
+      setShowModal(true);
+      performFetch({
+        method: "POST",
+        body: JSON.stringify(formData),
+      }).then(() => {
+        setIsSuccess(true);
+      });
+    }
   };
 
   return (
@@ -134,6 +174,9 @@ const RegistrationForm = () => {
                   placeholder="Your username"
                   required
                 />
+                {formErrors.name && (
+                  <p className="text-black text-xs mt-1">{formErrors.name}</p>
+                )}
               </div>
             </div>
             <div className="sm:col-span-4">
@@ -157,6 +200,9 @@ const RegistrationForm = () => {
                   placeholder="first.last@stud.noroff.no"
                   required
                 />
+                {formErrors.email && (
+                  <p className="text-black text-xs mt-1">{formErrors.email}</p>
+                )}
               </div>
             </div>
             <div className="sm:col-span-4">
@@ -179,6 +225,38 @@ const RegistrationForm = () => {
                   className="block w-full rounded-md border py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   required
                 />
+                {formErrors.password && (
+                  <p className="text-black text-xs mt-1">
+                    {formErrors.password}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <div className="flex">
+                <PiPassword className="mr-2 h-6 w-6" />
+                <label
+                  htmlFor="repeatPassword"
+                  className="block text-sm font-medium leading-6"
+                >
+                  Repeat Password
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  onChange={handleChange}
+                  type="password"
+                  name="repeatPassword"
+                  id="repeatPassword"
+                  autoComplete="new-password"
+                  className="block w-full rounded-md border py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  required
+                />
+                {formErrors.repeatPassword && (
+                  <p className="text-black text-xs mt-1">
+                    {formErrors.repeatPassword}
+                  </p>
+                )}
               </div>
             </div>
             <div className="sm:col-span-4">
@@ -217,8 +295,9 @@ const RegistrationForm = () => {
                 <input
                   onChange={handleAvatarChange}
                   type="text"
-                  name="avatarAlt"
+                  name="alt"
                   id="avatarAlt"
+                  value={formData.avatar.alt}
                   className="block w-full rounded-md border py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="My avatar alt text"
                 />
@@ -251,7 +330,7 @@ const RegistrationForm = () => {
           >
             Cancel
           </button>
-          <button type="submit" className="btn">
+          <button type="submit" className="btn" disabled={!isFormValid}>
             {loading ? <p>Loading...</p> : <p>Send</p>}
           </button>
         </div>

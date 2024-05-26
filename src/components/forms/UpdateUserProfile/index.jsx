@@ -14,7 +14,7 @@ import Modal from "../../Modal";
  * @returns {JSX.Element} The UpdateProfile component.
  */
 const UpdateProfile = ({ isUser, onClose }) => {
-  const { performFetch, data, error, loading } = useFetch(
+  const { performFetch, data, error, loading, isSuccess } = useFetch(
     `https://v2.api.noroff.dev/holidaze/profiles/${isUser}`
   );
   const [formData, setFormData] = useState({
@@ -30,7 +30,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
     venueManager: false,
   });
   const [showModal, setShowModal] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  // const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     performFetch();
@@ -97,14 +97,12 @@ const UpdateProfile = ({ isUser, onClose }) => {
     performFetch({
       method: "PUT",
       body: JSON.stringify(formData),
-    }).then(() => {
-      setIsSuccess(true);
     });
   };
 
   const closeModal = () => {
     setShowModal(false);
-    setIsSuccess(false);
+
     if (onClose) onClose();
   };
 
@@ -113,7 +111,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
       <Modal isOpen={showModal} onClose={closeModal} isSuccess={isSuccess}>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        {data && <p>Success! Profile updated.</p>}
+        {data && isSuccess && <p>Success! Profile updated.</p>}
       </Modal>
       <form
         onSubmit={handleSubmit}
@@ -256,10 +254,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
         </div>
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button type="submit" className="btn">
-            {!showModal && <p>Update</p>}
-            {loading && <p>Loading...</p>}
-            {error && <p>Try again</p>}
-            {showModal && <p>Wait..</p>}
+            Update
           </button>
         </div>
       </form>

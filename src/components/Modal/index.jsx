@@ -3,22 +3,19 @@ import ReactDom from "react-dom";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 
-/**
- * Modal component that displays a modal dialog.
- *
- * @component
- * @param {Object} props - The component props.
- * @param {ReactNode} props.children - The content to be rendered inside the modal.
- * @param {boolean} props.isOpen - Indicates whether the modal is open or not.
- * @param {Function} props.onClose - The function to be called when the modal is closed.
- * @param {boolean} props.isSuccess - Indicates whether the modal is in a success state or not.
- * @returns {ReactNode} The rendered modal component.
- */
 const Modal = ({ children, isOpen, onClose, isSuccess }) => {
   const location = useLocation();
+
   useEffect(() => {
     if (!isOpen) return;
-    if (isSuccess && !location.pathname.includes("/booking/")) {
+
+    const isBookingPath = /\/booking\/\d+/.test(location.pathname);
+    if (
+      isSuccess &&
+      !isBookingPath &&
+      location.pathname !== "/registration" &&
+      location.pathname !== "/login"
+    ) {
       const timer = setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -38,7 +35,9 @@ const Modal = ({ children, isOpen, onClose, isSuccess }) => {
         <button
           className="btn m-auto mt-5"
           onClick={() => {
+            // if (!isSuccess) {
             onClose();
+            // }
           }}
           aria-label="Close modal"
         >

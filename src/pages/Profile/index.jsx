@@ -45,6 +45,8 @@ const Profile = () => {
   const { submitDelete } = useDeleteFetch();
 
   const refreshUser = () => {
+    setShowCreateForm(false);
+    setShowUpdateForm(false);
     setTimeout(() => {
       performFetch();
     }, 500);
