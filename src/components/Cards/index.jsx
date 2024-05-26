@@ -79,14 +79,14 @@ const Cards = () => {
         </div>
       )}
       <div className="w-full flex items-center justify-end mx-5">
-        <label className="text-background" htmlFor="limit">
+        <label className="" htmlFor="limit">
           Venues per page:{" "}
         </label>
         <select
           id="limit"
           value={limit}
           onChange={handleLimitChange}
-          className="ml-2 p-2 rounded-25 text-black btn"
+          className="ml-2 p-2 rounded-25 bg-background text-black border border-primary shadow-lg"
         >
           <option value={10}>10</option>
           <option value={20}>20</option>
@@ -95,9 +95,7 @@ const Cards = () => {
         </select>
       </div>
       {filteredVenues.length === 0 ? (
-        <p className="text-lg text-background">
-          No current venues in selected continent.
-        </p>
+        <p className="text-lg ">No current venues in selected continent.</p>
       ) : (
         paginatedVenues.map((venue) => (
           <div key={venue.id} className="cards">

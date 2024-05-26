@@ -11,9 +11,9 @@ const Home = () => {
 
   return (
     <div
-      className={`${theme === "light" ? "bg-background text-black" : "bg-secondary text-white"}`}
+      className={`${theme === "light" ? "bg-background text-secondary" : "bg-secondary text-primary"}`}
     >
-      <h1 className="text-primary text-xl text-center">Featured Venues</h1>
+      <h1 className="text-xl text-center">Featured Venues</h1>
 
       <Cards />
     </div>

@@ -28,9 +28,13 @@ const Header = () => {
         >
           Havens
         </h1>
-        <div className="flex gap-2">
-          <button type="toggle" className="" onClick={toggleTheme}>
-            {theme === "light" ? "🌞" : "🌜"}
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            className={`toggle-switch ${theme}`}
+            onClick={toggleTheme}
+          >
+            <span className="icon">{theme === "light" ? "🌞" : "🌜"}</span>
           </button>
           {token && (
             <button onClick={() => navigate("/profile")} className="btn">

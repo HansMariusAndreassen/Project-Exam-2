@@ -301,3 +301,31 @@ form select {
     transform: rotate(0deg);
   }
 }
+
+/* Add this CSS to your styles.css or a similar file */
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  overflow: hidden;
+}
+
+.toggle-switch .icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  transition: left 0.3s ease;
+}
+
+.toggle-switch.light .icon {
+  left: 5px;
+}
+
+.toggle-switch.dark .icon {
+  left: 35px;
+}
