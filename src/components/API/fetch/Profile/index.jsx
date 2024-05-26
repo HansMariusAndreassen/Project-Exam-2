@@ -24,10 +24,6 @@ const useProfile = (user) => {
     [performFetch]
   );
 
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-
   return { data, loading, error, updateUser };
 };
 
