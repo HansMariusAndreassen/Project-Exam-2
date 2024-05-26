@@ -213,10 +213,10 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
             {formData.media.map((media, index) => (
               <div key={index} className="sm:col-span-4">
                 <div className="flex">
-                  <PiImage className="mr-2 h-6 w-6 text-gray-900" />
+                  <PiImage className="mr-2 h-6 w-6" />
                   <label
                     htmlFor={`mediaUrl-${index}`}
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6"
                   >
                     Media URL
                   </label>
@@ -233,10 +233,10 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                   />
                 </div>
                 <div className="flex mt-2">
-                  <PiTextAUnderline className="mr-2 h-6 w-6 text-gray-900" />
+                  <PiTextAUnderline className="mr-2 h-6 w-6" />
                   <label
                     htmlFor={`mediaAlt-${index}`}
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6"
                   >
                     Media Alt Text
                   </label>
@@ -270,7 +270,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
             </div>
             <div className="sm:col-span-2">
               <div className="flex">
-                <PiCurrencyDollar className="mr-2 h-6 w-6 text-gray-900" />
+                <PiCurrencyDollar className="mr-2 h-6 w-6" />
                 <label
                   htmlFor="price"
                   className="block text-sm font-medium leading-6"
@@ -348,7 +348,7 @@ const CreateVenue = ({ venue, isEdit, onClose }) => {
                       type="checkbox"
                       name={amenity}
                       id={amenity}
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600 align-middle"
+                      className="h-4 w-4 rounded border focus:ring-primary align-middle"
                       checked={formData.meta[amenity] || false}
                     />
                     <label htmlFor={amenity} className="ml-2">
