@@ -32,7 +32,6 @@ const ContinentMap = ({ onContinentSelect }) => {
   };
 
   const handleClick = (continent) => {
-    console.log(`Clicked on: ${continent}`);
     onContinentSelect(continent);
 
     if (location.pathname !== "/") {
@@ -44,7 +43,7 @@ const ContinentMap = ({ onContinentSelect }) => {
     <>
       {isHovering && (
         <div
-          className="z-10 block rounded-25 shadow m-auto"
+          className="z-[100] block rounded-25 shadow m-auto bg-background"
           style={{
             position: "absolute",
             left: `${mousePosition.x + 10}px`,
