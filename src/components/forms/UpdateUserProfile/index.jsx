@@ -127,7 +127,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
                   htmlFor="bio"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Bio
+                  Bio <small className="italic">(Max 160 characters)</small>
                 </label>
               </div>
               <div className="mt-2">
@@ -138,6 +138,7 @@ const UpdateProfile = ({ isUser, onClose }) => {
                   value={formData.bio}
                   className="indent-2 font-text lock w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Your bio"
+                  maxLength={160}
                   required
                 />
               </div>

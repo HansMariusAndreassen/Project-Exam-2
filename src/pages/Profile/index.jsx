@@ -268,8 +268,8 @@ const Profile = () => {
                 <thead>
                   <tr>
                     <th className="px-3 py-2">Name</th>
-                    <th className="px-3 py-2">Details</th>
-                    <th className="px-3 py-2"></th>
+                    <th className="py-2">Details</th>
+                    <th className="text-right px-3 py-2">Edit</th>
                   </tr>
                 </thead>
                 <tbody>
