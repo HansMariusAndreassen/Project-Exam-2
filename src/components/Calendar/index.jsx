@@ -181,7 +181,7 @@ const MyBookingCalendar = ({
                 <strong> {guests}</strong>
               </p>
               <p>Total Cost:</p>
-              <p className="text-3xl text-center text-background bg-secondary rounded-25">
+              <p className="text-3xl text-center rounded-25">
                 <strong> $ {totalCost.toFixed(0)}</strong>
               </p>
               <button
@@ -208,14 +208,14 @@ const MyBookingCalendar = ({
             <div className="w-full h-10 bg-accentTwo text-center text-white p-2">
               Occupied
             </div>
-            <div className="w-full h-10 bg-white text-center p-2">
+            <div className="w-full h-10 bg-white text-black text-center p-2">
               Available
             </div>
             <div className="w-full h-10 bg-accent text-white text-center p-2">
               Selected
             </div>
           </div>
-          <div className="w-full max-w-2xl shadow-xl">
+          <div className={`w-full max-w-2xl shadow-xl text-black`}>
             <Calendar
               onChange={handleDateChange}
               value={value}
@@ -228,7 +228,7 @@ const MyBookingCalendar = ({
             />
           </div>
           {token ? (
-            <div className="flex flex-col gap-3 items-center justify-center bg-background py-5">
+            <div className="flex flex-col gap-3 items-center justify-center py-5">
               <div className="btn">
                 <label htmlFor="guests">How many Guests?</label>
                 <select

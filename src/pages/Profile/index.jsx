@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "../../components/API/auth/FetchHook";
 import { bookingsUrl, userUrl, venuesUrl } from "../../utils/constants";
@@ -8,6 +8,7 @@ import CreateVenue from "../../components/forms/CreateVenue";
 import UpdateProfile from "../../components/forms/UpdateUserProfile";
 import useDeleteFetch from "../../components/API/fetch/Delete";
 import VenueBanner from "../../components/API/fetch/MyVenues";
+import ThemeContext from "../../components/Theme";
 
 /**
  * Profile component displays the user profile information, including the banner, avatar, bio, venues, and bookings.
@@ -24,6 +25,7 @@ const Profile = () => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [currentVenue, setCurrentVenue] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
+  const { theme } = useContext(ThemeContext);
   const formRef = useRef(null);
 
   const { name } = useParams();
@@ -138,9 +140,9 @@ const Profile = () => {
     }
   };
 
-  if (loading) return <p className="text-white">Loading...</p>;
-  if (error) return <p className="text-white">Error: {error}</p>;
-  if (!data) return <p className="text-white">No data found</p>;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!data) return <p>No data found</p>;
   const isVenueManager = data.data.venueManager;
   const userDetail = data.data;
 
@@ -158,8 +160,10 @@ const Profile = () => {
     : [];
 
   return (
-    <div className="flex flex-col m-auto bg-background gap-5 mb-16">
-      <div className="h-[300px] bg-primary overflow-hidden">
+    <div
+      className={`flex flex-col m-auto gap-5 mb-16 ${theme === "light" ? "text-black" : " text-background"} `}
+    >
+      <div className="h-[300px] overflow-hidden">
         <img
           className="w-full h-full object-cover"
           src={userDetail.banner.url}
@@ -230,7 +234,7 @@ const Profile = () => {
         )}
         <div ref={formRef} className="w-full flex justify-end px-4">
           {token && isOwnProfile && (
-            <button className="btn my-5 m-auto" onClick={handleBtnClick}>
+            <button className="btn my-5" onClick={handleBtnClick}>
               {showCreateForm || showUpdateForm
                 ? "Close"
                 : isVenueManager
@@ -258,7 +262,7 @@ const Profile = () => {
           <div className="mt-5">
             <h2>My Upcoming Bookings</h2>
             <div>
-              <table className="w-full text-left table-auto">
+              <table className="w-full text-left table">
                 <thead>
                   <tr>
                     <th className="px-3 py-2">Name</th>
@@ -275,13 +279,13 @@ const Profile = () => {
                       >
                         {booking.venue.name.slice(0, 20)}
                       </td>
-                      <td className="px-4 py-2">
+                      <td className="py-2">
                         <div className="flex flex-col sm:flex-row">
                           <span className="block sm:inline">{`From: ${formatDate(booking.dateFrom)}`}</span>
                           <span className="block sm:inline sm:ml-4">{`To: ${formatDate(booking.dateTo)}`}</span>
                         </div>
                       </td>
-                      <td className="px-4 py-2 hover:cursor-pointer">
+                      <td className="py-2 hover:cursor-pointer text-right">
                         <DropdownMenu
                           listItems={bookingMenuItems}
                           onActivate={() => handleDelete(booking.id)}
